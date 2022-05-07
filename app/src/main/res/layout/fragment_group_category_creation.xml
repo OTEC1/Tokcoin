@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.Group_category_creation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.CategoryFlow">
+
+
+        <ProgressBar
+            android:id="@+id/spinnerload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:visibility="invisible" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/QandA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Select your Q&amp;A Category Section"
+                    android:textAlignment="center"
+                    android:textSize="18dp" />
+
+
+                <GridLayout
+                    android:id="@+id/grid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/QandA"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:columnCount="2"
+                    android:rowCount="4">
+
+
+                    <Button
+                        android:id="@+id/sport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Sports"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Music"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/Vehicles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Vehicles"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/politics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Politics"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="History"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/science"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Science"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/religion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:padding="10dp"
+                        android:text="Religion"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/general"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/inputlines"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="General"
+                        android:textAllCaps="false" />
+
+                </GridLayout>
+
+                <Button
+                    android:id="@+id/digit"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/grid"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inputlines"
+                    android:padding="10dp"
+                    android:text="Digit"
+                    android:textAllCaps="false" />
+
+
+                <RelativeLayout
+                    android:id="@+id/cover_bottom"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/digit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/inputlines1">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/golive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_baseline_add"
+                        android:padding="12dp"
+                        android:text="Go Live  "
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</FrameLayout>

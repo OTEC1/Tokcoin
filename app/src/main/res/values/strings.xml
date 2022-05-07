@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Cravetech</string>
+    <string name="REGISTER_USER">Cravetech_REGISTER_USER</string>
+    <string name="SIGNED_IN_USER">SIGNED_IN_USER</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
