@@ -22,6 +22,7 @@ import com.otec.crevatech.UI.MainActivity;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -53,9 +54,16 @@ public class utilJava {
     }
 
 
-    public Map<String, Object> GET_CACHED_USER(Context view, String tag) {
+    public Map<String, Object> GET_CACHED_MAP(Context view, String tag) {
         String arrayListString = init(view).getString(tag, null);
         Type type = new TypeToken<Map<String, Object>>() {}.getType();
+        return new Gson().fromJson(arrayListString, type);
+    }
+
+
+    public List<Map<String, Object>> GET_CACHED_LIST(Context view, String tag) {
+        String arrayListString = init(view).getString(tag, null);
+        Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
         return new Gson().fromJson(arrayListString, type);
     }
 
@@ -96,14 +104,16 @@ public class utilJava {
         return bundle;
     }
 
-    public Map<String, Object> GET_USER(Map<String, Object> obj, String category) {
+    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,String uuid,int id) {
+
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
         user.put("category", category.trim());
-        user.put("sessionID", UUID.randomUUID().toString());
+        user.put("sessionID", uuid);
         user.put("section",1);
+        user.put("Id",id);
         Log.d(TAG, "GET_USER: "+user);
         return user;
     }

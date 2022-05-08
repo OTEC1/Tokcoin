@@ -31,7 +31,7 @@ class utilKotlin {
 
 
     fun verfiy(editText: EditText, editText2: EditText): Boolean {
-        return editText.text.isNotEmpty() && editText.text.isNotEmpty()
+        return editText.text.isNotEmpty() && editText2.text.isNotEmpty()
     }
 
     fun  check(editText: EditText): Boolean{

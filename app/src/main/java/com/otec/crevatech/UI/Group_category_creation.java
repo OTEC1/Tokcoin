@@ -102,7 +102,7 @@ public class Group_category_creation extends Fragment {
 
         golive.setOnClickListener(e -> {
             if (listOfCategory.size() <= 3)
-                new utilKotlin().message2("Pls select a least 3 category  ", getActivity());
+                new utilKotlin().message2("Pls select at least 3 category  ", getActivity());
             else
                 //Check for null in documents call
                 Next();

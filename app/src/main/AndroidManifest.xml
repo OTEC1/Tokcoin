@@ -13,13 +13,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Crevatech">
-        <activity android:name=".UI.CategoryFlow"></activity>
+        <activity android:name=".UI.CategoryFlow"/>
         <activity android:name=".UI.Register" />
         <activity android:name=".UI.Issues_submit" />
-        <activity android:name=".UI.User" />
         <activity android:name=".UI.Token" />
         <activity android:name=".UI.Shop" />
-        <activity android:name=".UI.GroupsLists" />
         <activity android:name=".UI.Login" />
         <activity
             android:name=".UI.MainActivity"

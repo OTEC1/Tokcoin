@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.otec.crevatech.R;
 import com.otec.crevatech.UI.Digits;
 import com.otec.crevatech.UI.GroupsLists;
+import com.otec.crevatech.UI.Home;
 import com.otec.crevatech.UI.Question;
 import com.otec.crevatech.UI.User;
 import com.otec.crevatech.utils.utilJava;
@@ -36,9 +37,10 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
 
     public TopNavTabs(List<String> tabs, Context context) {
         this.tabs = tabs;
-        tabs.add(0, "User");
-        tabs.add(1, "Groups");
-        tabs.add(2, "Digits");
+        tabs.add(0, "Home");
+        tabs.add(1, "User");
+        tabs.add(2, "Groups");
+        tabs.add(3, "Digits");
         this.context = context;
     }
 
@@ -57,6 +59,9 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         holder.tabs.setOnClickListener(e -> {
             i = position;
             notifyDataSetChanged();
+            if (holder.tabs.getText().toString().trim().toLowerCase().equals("home") && FirebaseAuth.getInstance().getCurrentUser() != null)
+                new utilJava().open_Fragment(new Home(), "Home", e, new Bundle(), R.id.frameLayout);
+            else
             if (holder.tabs.getText().toString().trim().toLowerCase().equals("user") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new User(), "User", e, new Bundle(), R.id.frameLayout);
             else
@@ -74,7 +79,7 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         else
             holder.tabs.setBackgroundResource(R.drawable.inputlines);
 
-        if (tabs.get(position).equals("User") || tabs.get(position).equals("Groups"))
+        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups"))
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, tabs.get(position)), null, null, null);
         else
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, ""), null, null, null);
@@ -92,12 +97,20 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
 
     private Drawable Drawables(TextView tabs, String p) {
         Drawable img;
-        if (p.equals("User"))
-            img = tabs.getContext().getResources().getDrawable(R.drawable.user2);
-        else if (p.equals("Groups"))
-            img = tabs.getContext().getResources().getDrawable(R.drawable.group_24);
-        else
-            img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_games_24);
+        switch (p) {
+            case "Home":
+                img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_home_24);
+                break;
+            case "User":
+                img = tabs.getContext().getResources().getDrawable(R.drawable.user2);
+                break;
+            case "Groups":
+                img = tabs.getContext().getResources().getDrawable(R.drawable.group_24);
+                break;
+            default:
+                img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_games_24);
+                break;
+        }
 
         return img;
     }

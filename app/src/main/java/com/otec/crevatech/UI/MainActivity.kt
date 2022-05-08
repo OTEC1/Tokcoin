@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import com.otec.crevatech.R
+import com.otec.crevatech.utils.utilJava
 import com.otec.crevatech.utils.utilKotlin
 
 
@@ -44,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         utilKotlin().Top_status_bar(window,this,homepage)
 
         if(FirebaseAuth.getInstance().currentUser == null)
-            startActivity(Intent(this,Login::class.java))
+              startActivity(Intent(this,Login::class.java))
+        else
+            utilJava().openFragment(Home(),"Home",1,this)
+
 
         appdrawer.setOnClickListener { v: View? ->
             popup = PopupMenu(this, v)
@@ -105,14 +109,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun freeMemory() {
         val fm: FragmentManager = supportFragmentManager
         for (x in 0 until fm.backStackEntryCount) {
             fm.popBackStack()
         }
     }
-
 
     private fun echo() {
         utilKotlin().message2(FirebaseAuth.getInstance().currentUser?.email+" Signed Out", this)

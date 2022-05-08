@@ -18,7 +18,7 @@ class User : Fragment() {
         val view: View = inflate.inflate(R.layout.activity_user, container,false)
 
         val userName: TextView = view.findViewById(R.id.userName);
-        userName.text= utilJava().GET_CACHED_USER(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
+        userName.text= utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
         return  view;
     }
 }

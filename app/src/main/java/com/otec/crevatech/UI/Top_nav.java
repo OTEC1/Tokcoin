@@ -35,7 +35,7 @@ public class Top_nav extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_top_nav, container, false);
          Init(view);
-           if(new utilJava().GET_CACHED_USER(getContext(),getString(R.string.SIGNED_IN_USER))!=null)
+           if(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))!=null)
               CHECK();
         return  view;
     }
@@ -45,7 +45,7 @@ public class Top_nav extends Fragment {
     }
 
     private void CHECK() {
-             listOfCategory = new utilJava().GET_CACHED_USER(getContext(), getString(R.string.SIGNED_IN_USER));
+             listOfCategory = new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER));
              LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
              List<String> l = (List<String>) listOfCategory.get("UserCategory");
              topNavTabs = new TopNavTabs(l,getContext());
