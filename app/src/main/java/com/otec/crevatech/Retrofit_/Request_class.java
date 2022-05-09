@@ -1,6 +1,8 @@
 package com.otec.crevatech.Retrofit_;
 
 import com.otec.crevatech.model.models;
+import com.otec.crevatech.model.modelsMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,11 @@ public interface Request_class {
     Call<List<Map<String,Object>>> getListOfBank();
 
 
-    @POST("Cravetech/AuthUserSession")
+    @POST("Cravetech/AuthUserRequest")
     Call<models> getPostList(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/AuthUserRequestSize")
+    Call<modelsMap> getPostSize(@Body Map<String,Object> data);
 
 }

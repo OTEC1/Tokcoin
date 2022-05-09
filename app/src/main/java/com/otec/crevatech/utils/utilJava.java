@@ -45,14 +45,18 @@ public class utilJava {
         user.put("IMEI", obj.get("IMEI"));
         user.put("user_id", obj.get("user_id"));
         user.put("UserCategory", obj.get("UserCategory"));
-        SharedPreferences.Editor collection = init(view).edit();
-        String area = new Gson().toJson(user);
-        collection.putString(tag, area);
-        collection.apply();
+        SET_DATA_TO_CACHE(view,user,tag);
         view.startActivity(new Intent(view, MainActivity.class));
         return user;
     }
 
+    public  String SET_DATA_TO_CACHE(Context view,Object user,String tag){
+        SharedPreferences.Editor collection = init(view).edit();
+        String area = new Gson().toJson(user);
+        collection.putString(tag, area);
+        collection.apply();
+        return area;
+    }
 
     public Map<String, Object> GET_CACHED_MAP(Context view, String tag) {
         String arrayListString = init(view).getString(tag, null);
