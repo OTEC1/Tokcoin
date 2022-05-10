@@ -109,7 +109,6 @@ public class utilJava {
     }
 
     public Map<String, Object> GET_USER(Map<String, Object> obj, String category,String uuid,int id) {
-
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
@@ -117,7 +116,7 @@ public class utilJava {
         user.put("category", category.trim());
         user.put("sessionID", uuid);
         user.put("section",1);
-        user.put("Id",id);
+        user.put("id",id);
         Log.d(TAG, "GET_USER: "+user);
         return user;
     }

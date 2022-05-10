@@ -74,7 +74,7 @@
                         android:id="@+id/groupNames"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
                         android:hint="Group name"
                         android:inputType="text"
@@ -87,7 +87,7 @@
                         android:id="@+id/threashold"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
                         android:hint="Threshold"
                         android:inputType="number"
@@ -96,34 +96,46 @@
                         android:textColorHint="@color/otherbase" />
 
 
-                </GridLayout>
+                    <EditText
+                        android:id="@+id/Liquidator_stake"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/inputlines"
+                        android:hint="Size "
+                        android:inputType="number"
+                        android:padding="12dp"
+                        android:textColor="@color/otherbase"
+                        android:textColorHint="@color/otherbase" />
 
-                <EditText
-                    android:id="@+id/groupStake"
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/intakeCover"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/inputlines"
-                    android:hint="Group Stake"
-                    android:inputType="number"
-                    android:padding="12dp"
-                    android:textColor="@color/otherbase"
-                    android:textColorHint="@color/otherbase" />
+
+                    <EditText
+                        android:id="@+id/miner_stake"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/inputlines"
+                        android:hint="Miner "
+                        android:inputType="number"
+                        android:padding="12dp"
+                        android:textColor="@color/otherbase"
+                        android:textColorHint="@color/otherbase" />
+
+
+                </GridLayout>
 
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/group_create"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/groupStake"
+                    android:layout_below="@id/intakeCover"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:height="20dp"
                     android:background="@drawable/inputlines"
                     android:padding="10dp"
-                    android:text="Select category"
+                    android:text="Go Live"
                     android:textAllCaps="false"
                     android:textColor="@color/otherbase" />
 

@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.otec.crevatech.R;
 import com.otec.crevatech.utils.utilJava;
+import com.otec.crevatech.utils.utilKotlin;
 
 public class Group_creation extends Fragment {
 
@@ -23,7 +24,8 @@ public class Group_creation extends Fragment {
         group_create = view.findViewById(R.id.group_create);
 
         group_create.setOnClickListener(e->{
-            new utilJava().openFrag(new Group_category_creation(), "Group_category_creation", 1, getActivity());
+            if(true)
+                new utilKotlin().message2("Pending request ", getContext());
         });
         return view;
     }
