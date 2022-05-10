@@ -40,8 +40,7 @@ public class Question extends Fragment {
 
     private List<Integer>  list = new ArrayList<>();;
     private TextView a1,a2,a3,a4,question,questionIndex;
-    private RelativeLayout submit;
-    private Button submit2;
+
 
 
 
@@ -62,22 +61,10 @@ public class Question extends Fragment {
         a2 = v.findViewById(R.id.a2);
         a3 = v.findViewById(R.id.a3);
         a4 = v.findViewById(R.id.a4);
-        submit = v.findViewById(R.id.submit);
         question = v.findViewById(R.id.question);
-        submit2 = v.findViewById(R.id.submit2);
         questionIndex = v.findViewById(R.id.questionIndex);
         Bundle b = getArguments();
         CheckLoad(b);
-
-
-        submit.setOnClickListener(e-> {
-            list.clear();
-            LoadQuestion(getString(R.string.QuestionID), b.get("category").toString().trim(),UUID.randomUUID().toString());
-        });
-        submit2.setOnClickListener(s->{
-            list.clear();
-            LoadQuestion(getString(R.string.QuestionID), b.get("category").toString().trim(),UUID.randomUUID().toString());
-        });
 
         a1.setOnClickListener(e -> {
             SENDANSWER(a1.getText().toString(),b);
@@ -101,15 +88,16 @@ public class Question extends Fragment {
                     new utilKotlin().message2(p + " more to go", getActivity());
                     list.clear();
                     LoadQuestion(getString(R.string.QuestionID), b.get("category").toString().trim(), UUID.randomUUID().toString());
-                }else
-                    if(n >=5 && p == 0) {
+                   }else
+                      if(n >=5 && p == 0) {
                         new utilKotlin().message2("You've won this stage ", getContext());
                         new  utilJava().openFrag(new User(),"User",R.id.frameLayout,getActivity());
                     }
-            }else {
-                new utilKotlin().message2("Sorry the right answer was " + HID + " !", getActivity());
-             new utilJava().openFrag(new Home(),"Home",R.id.frameLayout,getActivity());
-        }
+            }else if(HID != null) {
+                    new utilKotlin().message2("Sorry the right answer was " + HID + " !", getActivity());
+                    new utilJava().openFrag(new Home(), "Home", R.id.frameLayout, getActivity());
+
+                }
     }
 
 
