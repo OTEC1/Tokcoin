@@ -225,7 +225,7 @@ private void LoadQuestion(String tag, String category,String uuid) {
                         List<?> a = getRandomElement(C(x.get("answers")),C(x.get("answers")).size());
                         HID =  C(x.get("answers")).get(0).toString();
                         if(C(x.get("answers")).size() == 2) {
-                            Hide(a1,a2,1);
+                            Hide(a3,a4,1);
                                 for(int v =0; v < a.size(); v++) {
                                     if(v == 0)
                                         a1.setText(a.get(v).toString());
@@ -233,7 +233,7 @@ private void LoadQuestion(String tag, String category,String uuid) {
                                         a2.setText(a.get(v).toString());
                                      }
                            }else{
-                              Hide(a1,a2,2);
+                              Hide(a3,a4,2);
                                  for(int v =0; v < a.size(); v++) {
                                         if(v == 0)
                                             a1.setText(a.get(v).toString());
