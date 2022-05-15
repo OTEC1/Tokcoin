@@ -26,7 +26,8 @@ public class GroupsLists extends Fragment {
 
         createGroup.setOnClickListener(e -> {
             Map<String,Object> o = new HashMap<>();
-            o.put("view_caller",1);
+            o.put("View_caller",1);
+            o.put("category","N/A");
             new utilJava().openFrag(new Group_creation(), "Group_creation", o, getActivity());
         });
         return view;
