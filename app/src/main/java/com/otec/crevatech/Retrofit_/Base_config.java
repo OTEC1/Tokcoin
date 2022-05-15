@@ -1,5 +1,7 @@
 package com.otec.crevatech.Retrofit_;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.otec.crevatech.utils.Constants;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +21,10 @@ public class Base_config {
 //                .readTimeout(20,TimeUnit.MINUTES)
 //                .writeTimeout(20,TimeUnit.MINUTES)
 //                .build();
+
+//        Gson gson = new GsonBuilder()
+//                .setLenient()
+//                .create();
 
         if(retrofit == null){
             retrofit = new Retrofit.Builder()

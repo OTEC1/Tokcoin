@@ -1,6 +1,7 @@
 package com.otec.crevatech.Adapater;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.otec.crevatech.UI.Digits;
 import com.otec.crevatech.UI.GroupsLists;
 import com.otec.crevatech.UI.Home;
 import com.otec.crevatech.UI.Question;
+import com.otec.crevatech.UI.Shop;
 import com.otec.crevatech.UI.User;
 import com.otec.crevatech.utils.utilJava;
 
@@ -41,6 +43,7 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         tabs.add(1, "User");
         tabs.add(2, "Groups");
         tabs.add(3, "Digits");
+        tabs.add(tabs.size(), "Shop");
         this.context = context;
     }
 
@@ -63,7 +66,7 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
                 new utilJava().open_Fragment(new Home(), "Home", e, new Bundle(), R.id.frameLayout);
             else
             if (holder.tabs.getText().toString().trim().toLowerCase().equals("user") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                new utilJava().open_Fragment(new User(), "User", e, new Bundle(), R.id.frameLayout);
+                new utilJava().open_Fragment(new User(), "User", e, null, R.id.frameLayout);
             else
               if (holder.tabs.getText().toString().trim().toLowerCase().equals("groups") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new GroupsLists(), "Groups", e, new Bundle(), R.id.frameLayout);
@@ -71,7 +74,11 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
              if (holder.tabs.getText().toString().trim().toLowerCase().equals("digits") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new Digits(), "Digits", e, new Bundle(), R.id.frameLayout);
             else
-                new utilJava().open_Fragment(new Question(), "Question", e, BUNDLE(holder.tabs.getText().toString()), R.id.frameLayout);
+                if(holder.tabs.getText().toString().trim().toLowerCase().equalsIgnoreCase("shop") && FirebaseAuth.getInstance().getCurrentUser() != null)
+                        holder.tabs.getContext().startActivity(new Intent(holder.tabs.getContext(),Shop.class));
+                else
+                    if(FirebaseAuth.getInstance().getCurrentUser() != null)
+                        new utilJava().open_Fragment(new Question(), "Question", e, BUNDLE(holder.tabs.getText().toString()), R.id.frameLayout);
         });
 
         if (i == position)
@@ -79,7 +86,7 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         else
             holder.tabs.setBackgroundResource(R.drawable.inputlines);
 
-        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups"))
+        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups") || tabs.get(position).equals("Shop"))
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, tabs.get(position)), null, null, null);
         else
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, ""), null, null, null);
@@ -100,6 +107,9 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         switch (p) {
             case "Home":
                 img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_home_24);
+                break;
+            case "Shop":
+                img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_storefront_24);
                 break;
             case "User":
                 img = tabs.getContext().getResources().getDrawable(R.drawable.user2);

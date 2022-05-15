@@ -1,7 +1,7 @@
 package com.otec.crevatech.Retrofit_;
 
 import com.otec.crevatech.model.models;
-import com.otec.crevatech.model.modelsMap;
+import com.otec.crevatech.model.modelsBoolean;
 
 import java.util.List;
 import java.util.Map;
@@ -32,8 +32,14 @@ public interface Request_class {
     @POST("Cravetech/AuthUserRequest")
     Call<models> getPostList(@Body Map<String,Object> data);
 
-
     @POST("Cravetech/AuthUserRequestSize")
-    Call<modelsMap> getPostSize(@Body Map<String,Object> data);
+    Call<Map<String,Object>> getPostSize(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/Userfunds")
+    Call<modelsBoolean> isFunded(@Body Map<String,Object> data);
+
+    @POST("Cravetech/ManageUserAcct")
+    Call<Map<String,Object>> isFunded_Active(@Body Map<String,Object> data);
 
 }

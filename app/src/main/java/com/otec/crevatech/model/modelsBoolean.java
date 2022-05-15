@@ -2,15 +2,14 @@ package com.otec.crevatech.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 import java.util.Map;
 
-public class modelsMap {
+public class modelsBoolean {
 
     @SerializedName(("message"))
-    private Object message;
+    private Boolean message;
 
-    public  Object getMessage() {
+    public Boolean getMessage() {
         return message;
     }
 }

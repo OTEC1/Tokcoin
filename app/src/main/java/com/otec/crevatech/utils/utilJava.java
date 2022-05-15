@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.otec.crevatech.R;
@@ -84,12 +85,12 @@ public class utilJava {
     //Fragment Open from Activity
     public void openFragment(Fragment fragment, String my_fragment, int a, AppCompatActivity context) {
         FragmentTransaction fragmentTransaction = context.getSupportFragmentManager().beginTransaction();
-        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(new Bundle(), a), R.id.frameLayout);
+        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(new Bundle(), null), R.id.frameLayout);
     }
 
 
     //Fragment open from fragment
-    public void openFrag(Fragment fragment, String my_fragment, int i, FragmentActivity activity) {
+    public void openFrag(Fragment fragment, String my_fragment, Map<String,Object> i, FragmentActivity activity) {
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(new Bundle(), i), R.id.frameLayout);
     }
@@ -104,20 +105,36 @@ public class utilJava {
         fragmentTransaction.commit();
     }
 
-    private Bundle BUNDLE(Bundle bundle, int i) {
+    private Bundle BUNDLE(Bundle bundle, Map<String,Object> i) {
+        if(bundle != null && i != null) {
+            bundle.putInt("View_caller", Integer.parseInt(i.get("View_caller").toString()));
+            bundle.putString("category", i.get("category").toString());
+        }
         return bundle;
     }
 
-    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,String uuid,int id) {
+
+
+    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,String uuid,int id,int call,int section) {
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
         user.put("category", category.trim());
         user.put("sessionID", uuid);
-        user.put("section",1);
+        user.put("section",section);
         user.put("id",id);
-        Log.d(TAG, "GET_USER: "+user);
-        return user;
+        return  call == 2 ? Wrap(user) : user;
     }
+
+    private Map<String, Object> Wrap(Map<String, Object> user) {
+        Map<String, Object> pack = new HashMap<>();
+        pack.put("User",user);
+        return pack;
+    }
+
+
+
+
+
 }

@@ -1,6 +1,5 @@
 package com.otec.crevatech.UI
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuInflater
@@ -17,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.otec.crevatech.R
 import com.otec.crevatech.utils.utilJava
 import com.otec.crevatech.utils.utilKotlin
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressed: Long = 0
     private var TimeLapsed: Int = 2000
     private  var decide: Boolean = false;
+    private var sessionDepth = 0
 
 
     override fun onResume() {
@@ -120,6 +121,31 @@ class MainActivity : AppCompatActivity() {
         utilKotlin().message2(FirebaseAuth.getInstance().currentUser?.email+" Signed Out", this)
         FirebaseAuth.getInstance().signOut()
     }
+
+
+
+
+    override fun onStart() {
+        super.onStart()
+        sessionDepth++
+        if (sessionDepth == 1) {
+            val uid: MutableMap<String, Any> = HashMap()
+            uid["app_state"] = true
+            utilJava().SET_DATA_TO_CACHE(applicationContext,uid,getString(R.string.APP_STATE))
+
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (sessionDepth > 0) sessionDepth--
+        if (sessionDepth == 0) {
+            val uid: MutableMap<String, Any> = HashMap()
+            uid["app_state"] = false
+            utilJava().SET_DATA_TO_CACHE(applicationContext,uid,getString(R.string.APP_STATE))
+        }
+    }
+
 }
 
 
