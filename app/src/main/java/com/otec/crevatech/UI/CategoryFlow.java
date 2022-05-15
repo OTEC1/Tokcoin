@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.otec.crevatech.R;
+import com.otec.crevatech.Retrofit_.Base_config;
+import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -21,6 +23,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CategoryFlow extends AppCompatActivity {
 
@@ -32,10 +38,7 @@ public class CategoryFlow extends AppCompatActivity {
     private String TAG = "Category_flowPage";
 
 
-    @Override
-    public void onBackPressed() {
-        new utilKotlin().message2("Pls complete account Registration !", getApplicationContext());
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,27 +117,35 @@ public class CategoryFlow extends AppCompatActivity {
         spinnerload.setVisibility(View.VISIBLE);
         completeReg.setEnabled(false);
         Map<String,Object> user,pack,details;
+        Bundle bun = getIntent().getBundleExtra("user");
         user = new HashMap<>();
         pack = new HashMap<>();
         details = new HashMap<>();
-        details.put("bal", 0);
-        details.put("bankAccount_No", getIntent().getBundleExtra("user").getString("bankAccount_No"));
-        details.put("NameOnAccount", getIntent().getBundleExtra("user").getString("NameOnAccount"));
-        details.put("bank_selected", getIntent().getBundleExtra("user").getString("bank_selected"));
-        user.put("user_id", getIntent().getBundleExtra("user").getString("user_id"));
+        details.put("bankAccountNo", bun.getString("bankAccountNo"));
+        details.put("NameOnAccount", bun.getString("NameOnAccount"));
+        details.put("bankSelected", bun.getString("bankSelected"));
         user.put("email", getIntent().getBundleExtra("user").getString("email"));
+        user.put("password", getIntent().getBundleExtra("user").getString("password"));
         user.put("IMEI", getIntent().getBundleExtra("user").getString("IMEI"));
+        details.put("bal", 0);
+        details.put("gas", 0);
         user.put("UserCategory", listOfCategory);
         pack.put("User",user);
         pack.put("User_details",details);
-        FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().getUid())
-                .set(pack).addOnCompleteListener(evt -> {
-            if (evt.isSuccessful())
-                startActivity(new Intent(getApplicationContext(), Login.class));
-            else
-                new utilKotlin().message2("Error occurred while adding user  " + evt.getException(), getApplicationContext());
-            spinnerload.setVisibility(View.VISIBLE);
+        Request_class base_config = Base_config.getRetrofit().create(Request_class.class);
+        Call<Map<String,Object>> request = base_config.postAuthUser(pack);
+        request.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if(response.body().get("message").toString().equals("Account created"))
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                else
+                    new utilKotlin().message2("Error occurred when creating account "+response.body().get("message"), getApplicationContext());
+            }
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                new utilKotlin().message2("Snap error occurred when creating account "+t.getMessage(), getApplicationContext());
+            }
         });
-
     }
 }

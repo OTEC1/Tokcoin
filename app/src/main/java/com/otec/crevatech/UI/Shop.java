@@ -18,7 +18,6 @@ import com.otec.crevatech.utils.utilKotlin;
 public class Shop extends AppCompatActivity {
 
     private RelativeLayout relativeLayout;
-
     private String TAG = "Shop";
 
     @Override

@@ -135,17 +135,7 @@ public class Register extends AppCompatActivity {
         started_reg_process = true;
         spin.setVisibility(View.VISIBLE);
         if (confirmPass.getText().toString().equals(password.getText().toString()))
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                    .addOnCompleteListener(res -> {
-                        if (res.isSuccessful())
-                            PostToEndPoint(email.getText().toString());
-                        else {
-                            new utilKotlin().message2("Error occurred " + res.getException(), getApplicationContext());
-                            started_reg_process = false;
-                            spin.setVisibility(View.INVISIBLE);
-                        }
-
-                    });
+            PostToEndPoint();
         else {
             new utilKotlin().message2("Password doesn't match ", getApplicationContext());
             started_reg_process = false;
@@ -153,42 +143,21 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    private void PostToEndPoint(String email) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("email", email);
-        user.put("IMEI", GET_IMEI());
-        user.put("user_id", FirebaseAuth.getInstance().getUid());
-        Request_class base_config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>>  request = base_config.postAuthUser(user);
-        request.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if(response.body().get("message").toString().equals("Account created"))
-                        AddToDB(user);
-                    else
-                        new utilKotlin().message2("Error occurred when creating account "+response.errorBody(), getApplicationContext());
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2("Snap error occurred when creating account "+t.getMessage(), getApplicationContext());
-            }
-        });
-
+    private void PostToEndPoint() {
+        AddToDB();
     }
 
-    private void AddToDB(Map<String, Object> user) {
+    private void AddToDB() {
         Bundle bundle = new Bundle();
-        bundle.putString("bankAccount_No", bankAccount_No.getText().toString());
+        bundle.putString("email", email.getText().toString());
+        bundle.putString("password", password.getText().toString());
+        bundle.putString("IMEI", GET_IMEI().toString());
+        bundle.putString("bankAccountNo", bankAccount_No.getText().toString());
         bundle.putString("NameOnAccount", NameOnAccount.getText().toString());
-        bundle.putString("bank_selected", bank_selected);
-        bundle.putString("user_id", user.get("user_id").toString());
-        bundle.putString("email", user.get("email").toString());
-        bundle.putString("IMEI", user.get("IMEI").toString());
+        bundle.putString("bankSelected", bank_selected);
         startActivity(new Intent(getApplicationContext(), CategoryFlow.class).putExtra("user",bundle));
         started_reg_process = false;
         spin.setVisibility(View.INVISIBLE);
-
     }
 
     private Object GET_IMEI() {

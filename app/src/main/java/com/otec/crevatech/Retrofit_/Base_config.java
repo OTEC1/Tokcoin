@@ -21,7 +21,6 @@ public class Base_config {
 //                .readTimeout(20,TimeUnit.MINUTES)
 //                .writeTimeout(20,TimeUnit.MINUTES)
 //                .build();
-
 //        Gson gson = new GsonBuilder()
 //                .setLenient()
 //                .create();
@@ -31,7 +30,7 @@ public class Base_config {
                     .baseUrl(Constants.FIREBASE_CLOUD_FUNCTION_URL)
                     //.client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
-                    . build();
+                    .build();
 
         }
 

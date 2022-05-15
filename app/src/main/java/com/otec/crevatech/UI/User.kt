@@ -28,8 +28,9 @@ class User : Fragment() {
         val view: View = inflate.inflate(R.layout.activity_user, container,false)
         val userName: TextView = view.findViewById(R.id.userName)
         val userBalance: TextView = view.findViewById(R.id.userBalance)
+        val userGas: TextView = view.findViewById(R.id.userGas)
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
-        LoopChanges(userBalance)
+        LoopChanges(userBalance,userGas)
         val b = arguments
            if(b?.getInt("View_caller") == 200)
                     LoadUserBalance(b.getString("category"))
@@ -38,12 +39,13 @@ class User : Fragment() {
 
 
 
-    private fun LoopChanges(userBalance: TextView) {
+    private fun LoopChanges(bal: TextView,gas:TextView) {
         if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance()
             .collection(getString(R.string.REGISTER_USER))
             .document(FirebaseAuth.getInstance().uid!!)
             .addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
-              userBalance.text = value!!["User_details.bal"].toString()
+              bal.text = value!!["User_details.bal"].toString()
+              gas.text = value!!["User_details.gas"].toString()
             }
     }
 
