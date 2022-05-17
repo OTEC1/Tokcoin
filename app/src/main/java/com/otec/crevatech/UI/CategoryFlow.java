@@ -127,6 +127,7 @@ public class CategoryFlow extends AppCompatActivity {
         user.put("email", getIntent().getBundleExtra("user").getString("email"));
         user.put("password", getIntent().getBundleExtra("user").getString("password"));
         user.put("IMEI", getIntent().getBundleExtra("user").getString("IMEI"));
+        user.put("avater",0);
         details.put("bal", 0);
         details.put("gas", 0);
         user.put("UserCategory", listOfCategory);

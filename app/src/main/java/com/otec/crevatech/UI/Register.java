@@ -161,7 +161,7 @@ public class Register extends AppCompatActivity {
     }
 
     private Object GET_IMEI() {
-        return UUID.randomUUID().toString()+"+_"+FirebaseAuth.getInstance().getUid();
+        return UUID.randomUUID().toString()+"+_";
 
     }
 }

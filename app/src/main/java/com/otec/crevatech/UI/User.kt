@@ -32,8 +32,7 @@ class User : Fragment() {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
         LoopChanges(userBalance,userGas)
         val b = arguments
-           if(b?.getInt("View_caller") == 200)
-                    LoadUserBalance(b.getString("category"))
+        Log.d(TAG, "onCreateView: $b")
         return  view;
     }
 
@@ -50,19 +49,6 @@ class User : Fragment() {
     }
 
 
-    private fun LoadUserBalance(string: String?) {
-        val config = Base_config.getRetrofit().create(Request_class::class.java)
-        val isFunded: Call<Map<String, Any>> = config.isFunded_Active(string?.let { utilJava().GET_USER(utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER)), string, utilJava().GET_CACHED_MAP(context, getString(R.string.SESSION_ID))["uuid_stamp"].toString(), 1,2,1)})
-          isFunded.enqueue(object : Callback<Map<String, Any>> {
-            override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
-                Log.d(TAG, "onResponse: "+response.body()?.get("message"))
-            }
-            override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
-                utilKotlin().message2(t.message, context)
-                Log.d(TAG, "onFailure: " + t.message)
-            }
-        })
-    }
 
 
 

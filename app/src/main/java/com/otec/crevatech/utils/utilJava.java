@@ -120,7 +120,7 @@ public class utilJava {
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
-        user.put("category", category.trim());
+        user.put("category",category);
         user.put("sessionID", uuid);
         user.put("section",section);
         user.put("id",id);
@@ -130,6 +130,7 @@ public class utilJava {
     private Map<String, Object> Wrap(Map<String, Object> user) {
         Map<String, Object> pack = new HashMap<>();
         pack.put("User",user);
+        Log.d(TAG, "Wrap: "+pack);
         return pack;
     }
 

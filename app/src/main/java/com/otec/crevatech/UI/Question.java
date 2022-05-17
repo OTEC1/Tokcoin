@@ -17,7 +17,6 @@ import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
 import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.model.models;
-import com.otec.crevatech.model.modelsBoolean;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -67,40 +66,42 @@ public class Question extends Fragment {
         Bundle b = getArguments();
         IsFunded(b);
         a1.setOnClickListener(e -> {
-            SEND_ANSWER(a1.getText().toString(), b);
+            SEND_ANSWER(a1.getText().toString(), TRIM(b));
         });
         a2.setOnClickListener(e -> {
-            SEND_ANSWER(a2.getText().toString(), b);
+            SEND_ANSWER(a2.getText().toString(), TRIM(b));
         });
         a3.setOnClickListener(e -> {
-            SEND_ANSWER(a3.getText().toString(), b);
+            SEND_ANSWER(a3.getText().toString(), TRIM(b));
         });
         a4.setOnClickListener(e -> {
-            SEND_ANSWER(a4.getText().toString(), b);
+            SEND_ANSWER(a4.getText().toString(), TRIM(b));
         });
 
         return v;
     }
 
-
-
+    private String TRIM(Bundle b) {
+        return  b.get("category").toString().trim().replace(" ","");
+    }
 
 
     private void IsFunded(Bundle b) {
         Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-        Call<modelsBoolean> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)),b.get("category").toString(),"",0,2,3));
-        isFunded.enqueue(new Callback<modelsBoolean>() {
+        Call<Map<String,Object>> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)),b.get("category").toString(),"",0,2,3));
+        isFunded.enqueue(new Callback<Map<String,Object>>() {
             @Override
-            public void onResponse(Call<modelsBoolean> call, Response<modelsBoolean> response) {
-                Log.d(TAG, "onResponse: "+response.body().getMessage());
-                if(Boolean.parseBoolean(response.body().getMessage().toString()))
+            public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
+                Log.d(TAG, "onResponse: "+response.body().get("message"));
+                if(Boolean.parseBoolean(response.body().get("message").toString()))
                        CheckLoad(b);
-                else
-                    new utilKotlin().message2("Insufficient funds pls add funds !", getContext());
+                else if(response.body().get("message").toString().equals("Unauthorized Request !"))
+                           new utilKotlin().message2(response.body().get("message").toString(), getContext());
+                    else
+                       new utilKotlin().message2("Insufficient funds pls add funds !", getContext());
             }
-
             @Override
-            public void onFailure(Call<modelsBoolean> call, Throwable t) {
+            public void onFailure(Call<Map<String,Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
                 Log.d(TAG, "onFailure: bool " + t.getMessage());
             }
@@ -110,22 +111,22 @@ public class Question extends Fragment {
 
 
     private void CheckLoad(Bundle b) {
-        if (Check(getString(R.string.QuestionID), b.get("category").toString().trim(), 1))
-            LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
-        else if (Check(getString(R.string.QuestionID), b.get("category").toString().trim(), 2))
-            WaitThenRemove(getString(R.string.QuestionID), b);
+        String cat = TRIM(b);
+        if (Check(getString(R.string.QuestionID), cat, 1))
+            LoadQuestion(getString(R.string.QuestionID), cat, UUID.randomUUID().toString());
+        else if (Check(getString(R.string.QuestionID), cat, 2))
+            WaitThenRemove(getString(R.string.QuestionID), cat);
         else
-            InitQuestion(b, UUID.randomUUID().toString(), getString(R.string.QuestionID));
+            InitQuestion(cat, UUID.randomUUID().toString(), getString(R.string.QuestionID));
     }
 
 
-    private void WaitThenRemove(String tag, Bundle b) {
+    private void WaitThenRemove(String tag, String b) {
         new utilKotlin().message2("Pls wait we setting up the questions", getContext());
-
         // if timer Count down
         List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
         Map<String, Object> o = new HashMap<>();
-        o.put(b.get("category").toString().trim(), new ArrayList<>());
+        o.put(b, new ArrayList<>());
         array.remove(o);
         String c = new utilJava().SET_DATA_TO_CACHE(getContext(), array, tag);
         Log.d(TAG, "WaitThenRemove: " + c);
@@ -137,7 +138,6 @@ public class Question extends Fragment {
     private boolean Check(String tag, String category, int caller) {
         List<String> categories = new ArrayList<>();
         List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
-        Log.d(TAG, "Check: "+array);
         if (array != null) {
             for (int y = 0; y < array.size(); y++)
                 for (Map.Entry<String, Object> obj : array.get(y).entrySet())
@@ -151,11 +151,10 @@ public class Question extends Fragment {
         }
         else
             return false;
-
     }
 
 
-    private void SEND_ANSWER(String toString, Bundle b) {
+    private void SEND_ANSWER(String toString, String b) {
         count = 9;
         UpdateTimer();
         question_layout.setVisibility(View.INVISIBLE);
@@ -168,30 +167,30 @@ public class Question extends Fragment {
                 new utilKotlin().message2("You've won this stage ", getContext());
                 o = new HashMap<>();
                 o.put("View_caller",200);
-                o.put("category",b.get("category").toString());
+                o.put("category",b);
+                LoadUserBalance(b);
                 new utilJava().openFrag(new User(), "User", o, getActivity());
             }
         } else
-            if (HID != null)
-                  LoadReset("Sorry the right answer was " + HID + " !",b.getString("category"));
-
+            if (HID != null) {
+                LoadReset("Sorry the right answer was " + HID + " !", b);
+                LoadUserBalance("");
+            }
     }
 
 
-    private void InitQuestion(Bundle b, String uuid, String tag) {
+    private void InitQuestion(String b, String uuid, String tag) {
         list.clear();
         Map<String,Object> uid = new HashMap<>();
         uid.put("uuid_stamp",uuid);
         new utilJava().SET_DATA_TO_CACHE(getContext(),uid,getString(R.string.SESSION_ID));
-        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b.get("category").toString(), uuid, 0,1,3);
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>> list = request.getPostSize(user);
+        Call<Map<String,Object>> list = request.getPostSize(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b, uuid, 0,2,3));
         list.enqueue(new Callback<Map<String,Object>>() {
             @Override
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                GenerateRandomValue(b, uuid, tag, (int) (Double.parseDouble(response.body().get("message").toString())));
+                    GenerateRandomValue(b, uuid, tag, (int) (Double.parseDouble(response.body().get("message").toString())));
             }
-
             @Override
             public void onFailure(Call<Map<String,Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
@@ -201,9 +200,9 @@ public class Question extends Fragment {
     }
 
 
-    private void GenerateRandomValue(Bundle b, String uuid, String tag, int size) {
+    private void GenerateRandomValue(String b, String uuid, String tag, int size) {
         Map<String, Object> obj = new HashMap<>();
-        obj.put(b.getString("category").trim(), psvm(0, size));
+        obj.put(b, psvm(0, size));
         List<Map<String, Object>> arrayList = new utilJava().GET_CACHED_LIST(getContext(), tag);
         if (arrayList == null)
             arrayList = new ArrayList<>();
@@ -213,16 +212,16 @@ public class Question extends Fragment {
     }
 
 
-    private void LoadQuestion(String tag, Bundle b, String uuid) {
+    private void LoadQuestion(String tag, String b, String uuid) {
         List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
         progressBar.setVisibility(View.VISIBLE);
         reset = true;
         if (array != null)
             for (int y = 0; y < array.size(); y++)
                 for (Map.Entry<String, Object> obj : array.get(y).entrySet())
-                    if (obj.getKey().equals(b.get("category").toString().trim()))
+                    if (obj.getKey().equals(b))
                         if (C(obj.getValue()).size() > 0)
-                            Request_Question(C(obj.getValue()).get(C(obj.getValue()).size() - 1), b.get("category").toString().trim(), uuid, array, tag);
+                            Request_Question(C(obj.getValue()).get(C(obj.getValue()).size() - 1), b, uuid, array, tag);
                         else
                             WaitThenRemove(getString(R.string.QuestionID), b);
     }
@@ -240,7 +239,7 @@ public class Question extends Fragment {
 
 
     private void Request_Question(Object o, String obj2, String uid, List<Map<String, Object>> array, String tag) {
-        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), obj2, uid, (int) Double.parseDouble(o.toString()),1,3);
+        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), obj2, uid, (int) Double.parseDouble(o.toString()),2,3);
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
         Call<models> list = request.getPostList(user);
         list.enqueue(new Callback<models>() {
@@ -306,6 +305,7 @@ public class Question extends Fragment {
                         if (count == 0 && reset) {
                             question_layout.setVisibility(View.INVISIBLE);
                             LoadReset("Sorry time's up !","");
+                            LoadUserBalance("");
                             reset = false;
                         }
                       });
@@ -332,25 +332,20 @@ public class Question extends Fragment {
 
 
     private void LoadReset(String s,String b) {
-        LoadUserBalance(b);
         if(Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.APP_STATE)).get("app_state").toString())) {
             new utilKotlin().message2(s, getActivity());
             new utilJava().openFrag(new Home(), "Home", o, getActivity());
         }
     }
 
-
-
-
+    //Space validator
     private void LoadUserBalance(String string) {
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), string, new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SESSION_ID)).get("uuid_stamp").toString(), 1,2,2));
+        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)),  string  , new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SESSION_ID)).get("uuid_stamp").toString(), 1,2, string.trim().length() > 0 ? 1 : 2));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                Log.d(TAG, "onResponse here: "+response.body().get("message"));
             }
-
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
