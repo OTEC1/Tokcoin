@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.otec.crevatech.R;
 import com.otec.crevatech.UI.MainActivity;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,14 +117,14 @@ public class utilJava {
 
 
 
-    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,String uuid,int id,int call,int section) {
+    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,List<Map<String,Object>> lists,int id,int call) {
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
         user.put("category",category);
-        user.put("sessionID", uuid);
-        user.put("section",section);
+        if(lists != null)
+             user.put("list",lists);
         user.put("id",id);
         return  call == 2 ? Wrap(user) : user;
     }
@@ -135,7 +137,16 @@ public class utilJava {
     }
 
 
-
-
-
+    public Map<String, Object> GET_GROUP(Map<String, Object> obj, EditText groupName, EditText amount, EditText liquidator_stake, EditText miner_stake) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("user_id", obj.get("user_id"));
+        user.put("IMEI", obj.get("IMEI"));
+        user.put("email", obj.get("email"));
+        user.put("groupName", groupName.getText().toString());
+        user.put("amount", Long.parseLong(amount.getText().toString()));
+        user.put("liquidator_size",Long.parseLong(liquidator_stake.getText().toString()));
+        user.put("miner_stake", Long.parseLong(miner_stake.getText().toString()));
+        user.put("active", false);
+        return Wrap(user);
+    }
 }

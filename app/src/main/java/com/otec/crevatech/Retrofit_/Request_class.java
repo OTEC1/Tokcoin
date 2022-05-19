@@ -38,7 +38,14 @@ public interface Request_class {
     @POST("Cravetech/Userfunds")
     Call<Map<String,Object>> isFunded(@Body Map<String,Object> data);
 
-    @POST("Cravetech/Manageuseracct")
+    @POST("Cravetech/Validate")
     Call<Map<String,Object>> isFunded_Active(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/GroupCreation")
+    Call<Map<String,Object>> SendGroupRequest(@Body Map<String,Object> data);
+
+
+
 
 }

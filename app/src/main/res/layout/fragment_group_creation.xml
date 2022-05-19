@@ -84,12 +84,12 @@
 
 
                     <EditText
-                        android:id="@+id/threashold"
+                        android:id="@+id/Amount"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Threshold"
+                        android:hint="Amount"
                         android:inputType="number"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"
@@ -97,12 +97,12 @@
 
 
                     <EditText
-                        android:id="@+id/Liquidator_stake"
+                        android:id="@+id/Liquidator_size"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Size "
+                        android:hint="Group size"
                         android:inputType="number"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"
