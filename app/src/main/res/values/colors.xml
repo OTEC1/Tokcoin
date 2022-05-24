@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="sky">#2AB4F4</color>
     <color name="Top_most_section">#1B1D4D</color>
-    <color name="green">#57FF0E</color>
+    <color name="green">#2D8A04</color>
     <color name="input">#e6e6e6</color>
     <color name="dark_text">#666666</color>
+    <color name="red">#FF1100</color>
 </resources>

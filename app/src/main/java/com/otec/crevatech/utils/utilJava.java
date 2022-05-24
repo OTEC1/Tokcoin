@@ -129,6 +129,27 @@ public class utilJava {
         return  call == 2 ? Wrap(user) : user;
     }
 
+
+    public Map<String, Object> GET_GROUP(Map<String, Object> obj) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("user_id", obj.get("user_id"));
+        user.put("IMEI", obj.get("IMEI"));
+        user.put("email", obj.get("email"));
+      return  Wrap(user);
+    }
+
+
+    public Map<String, Object> GET_GROUP_STATUS(Map<String, Object> obj,String doc_id,String creator_id) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("user_id", obj.get("user_id"));
+        user.put("IMEI", obj.get("IMEI"));
+        user.put("email", obj.get("email"));
+        user.put("doc_id", doc_id);
+        user.put("creator_id", creator_id);
+        return  Wrap(user);
+    }
+
+
     private Map<String, Object> Wrap(Map<String, Object> user) {
         Map<String, Object> pack = new HashMap<>();
         pack.put("User",user);

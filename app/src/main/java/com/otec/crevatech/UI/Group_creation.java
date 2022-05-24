@@ -36,7 +36,7 @@ public class Group_creation extends Fragment {
     private EditText groupName,Amount,Liquidator_size,miner_stake;
     private ProgressBar  spinners;
 
-    private FirebaseFirestore firestore;
+
     private String TAG = "Group_creation";
 
     @Override
@@ -48,14 +48,13 @@ public class Group_creation extends Fragment {
         Liquidator_size = view.findViewById(R.id.Liquidator_size);
         miner_stake = view.findViewById(R.id.miner_stake);
         spinners = view.findViewById(R.id.spinners);
-        firestore = FirebaseFirestore.getInstance();
 
 
         group_create.setOnClickListener(e->{
             if(Val(groupName,Amount,Liquidator_size,miner_stake))
-                   Check();
-            else
-                    new utilKotlin().message2("Pls fill out all fields !", getContext());
+                 Check();
+              else
+                 new utilKotlin().message2("Pls fill out all fields !", getContext());
         });
         return view;
     }
@@ -67,7 +66,6 @@ public class Group_creation extends Fragment {
         return groupName.getText().toString().trim().length() > 0 && threshold.getText().toString().trim().length() > 0 && liquidator_stake.getText().toString().trim().length() > 0 && miner_stake.getText().toString().trim().length() > 0;
     }
 
-
     private void Check() {
         spinners.setVisibility(View.VISIBLE);
         Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
@@ -77,7 +75,12 @@ public class Group_creation extends Fragment {
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
                  new utilKotlin().message2(response.body().get("message").toString(),getContext());
                 spinners.setVisibility(View.INVISIBLE);
-                groupName.setText(""); Amount.setText(""); Liquidator_size.setText(""); miner_stake.setText("");
+                if(response.body().get("message").toString().equals("You have been accepted")) {
+                    groupName.setText("");
+                    Amount.setText("");
+                    Liquidator_size.setText("");
+                    miner_stake.setText("");
+                }
             }
             @Override
             public void onFailure(Call<Map<String,Object>> call, Throwable t) {

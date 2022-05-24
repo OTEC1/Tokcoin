@@ -46,10 +46,24 @@ public class Question extends Fragment {
     private RelativeLayout question_layout;
     private ProgressBar progressBar;
 
-    private boolean reset = true;
+    private boolean reset = true,stated = false, cancel = true;
     private String TAG = "Question";
     private int n = 0, p = 5, count = 9,id;
 
+
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(stated) {
+            cancel = false;
+            LoadUserBalance("", 1, 2);
+            Log.d(TAG, "onStop:");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -168,7 +182,7 @@ public class Question extends Fragment {
                 new utilKotlin().message2(p + " more to go", getActivity());
                 LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
             } else
-                 if (n >= 5 && p == 0)
+                 if (n >= 5 && p == 0 && cancel)
                     LoadUserBalance(b,1,2);
 
     }
@@ -222,7 +236,7 @@ public class Question extends Fragment {
     }
 
 
-    private List<?> C(Object obj) {
+    public List<?> C(Object obj) {
         List<?> list = new ArrayList<>();
         if (obj.getClass().isArray())
             list = Arrays.asList((Object[]) obj);
@@ -242,6 +256,7 @@ public class Question extends Fragment {
             public void onResponse(Call<models> call, Response<models> response) {
                         question_layout.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.INVISIBLE);
+                        stated = true;
                         if (n > 5) {
                             n = 0;
                             p = 5;
@@ -300,7 +315,8 @@ public class Question extends Fragment {
                         if (count == 0 && reset) {
                             question_layout.setVisibility(View.INVISIBLE);
                             LoadReset("Sorry time's up !","");
-                            LoadUserBalance("",1,2);
+                            if(cancel)
+                               LoadUserBalance("",1,2);
                             reset = false;
                         }
                       });
@@ -344,8 +360,9 @@ public class Question extends Fragment {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                  new utilKotlin().message2(response.body().get("message").toString(),getContext());
-                new utilJava().openFrag(new User(), "User", null, getActivity());
+                //new utilJava().openFrag(new User(), "User", null, getActivity());
                 progressBar.setVisibility(View.INVISIBLE);
+                stated = false;
              alist.clear();
             }
             @Override

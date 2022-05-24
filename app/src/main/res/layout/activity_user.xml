@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="35">
+            android:layout_weight="33">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -57,6 +57,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/inputlines5"
                     android:padding="10dp">
 
 
@@ -86,6 +87,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_toEndOf="@id/walletIcon"
+                            android:textColor="@color/green"
                             android:textSize="15dp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -110,6 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_toEndOf="@id/gasIcon"
+                            android:textColor="@color/otherbase"
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
@@ -124,7 +127,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight="65">
+            android:layout_weight="67">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,19 +136,37 @@
                 android:orientation="vertical"
                 android:weightSum="100">
 
-                <androidx.recyclerview.widget.RecyclerView
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="40"
-                    android:background="#884" />
+                    android:layout_weight="100">
 
+                    <TextView
+                        android:id="@+id/info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:padding="10dp"
+                        android:text="Created Group list"
+                        android:textColor="@color/otherbase"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="60"
-                    android:background="#384" />
+                    <ProgressBar
+                        android:id="@+id/down"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="80dp" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/createdGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/info" />
+
+                </RelativeLayout>
 
             </LinearLayout>
         </RelativeLayout>

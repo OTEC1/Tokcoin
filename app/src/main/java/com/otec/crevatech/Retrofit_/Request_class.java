@@ -1,5 +1,7 @@
 package com.otec.crevatech.Retrofit_;
 
+import android.view.ViewGroup;
+
 import com.otec.crevatech.model.models;
 
 import java.util.List;
@@ -44,6 +46,14 @@ public interface Request_class {
 
     @POST("Cravetech/GroupCreation")
     Call<Map<String,Object>> SendGroupRequest(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/GetListOfCreatedGroup")
+    Call<Map<String,Object>> GT_GROUPS (@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/ViewGroup")
+    Call<Map<String,Object>> GROUPS_STATUS (@Body Map<String,Object> data);
 
 
 
