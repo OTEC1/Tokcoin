@@ -46,7 +46,7 @@ class User : Fragment() {
 
     private fun LoopChanges(bal: TextView, gas: TextView, userName: TextView) {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
-        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().uid!!).addSnapshotListener { value: DocumentSnapshot?, error: FirebaseFirestoreException? ->
+        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().uid!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
               bal.text = Currency(value!!["User_details.bal"].toString())
               gas.text = Currency(value["User_details.gas"].toString())
             }

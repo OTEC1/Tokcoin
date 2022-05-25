@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private var popup: PopupMenu? = null
     private   var fr: Fragment? = null
-    private  var frame_layout : FrameLayout? = null
+
 
     private var backPressed: Long = 0
     private var TimeLapsed: Int = 2000

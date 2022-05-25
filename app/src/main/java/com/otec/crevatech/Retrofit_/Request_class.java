@@ -56,6 +56,10 @@ public interface Request_class {
     Call<Map<String,Object>> GROUPS_STATUS (@Body Map<String,Object> data);
 
 
+    @POST("Cravetech/LoadActiveGroup")
+    Call<models> _REQUEST(@Body Map<String,Object> data);
+
+
 
 
 }
