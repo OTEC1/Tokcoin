@@ -67,6 +67,9 @@ dependencies {
 
     //Animation dependency
     implementation("jp.wasabeef:recyclerview-animators:4.0.2")
+
+    //tabLayout
+    implementation 'com.google.android.material:material:1.6.0'
 }
 repositories {
     mavenCentral()

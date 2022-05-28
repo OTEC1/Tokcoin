@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.GroupsLists">
 
     <LinearLayout
@@ -15,26 +16,41 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight="20">
+            android:layout_weight="15">
 
-            <ImageView
-                android:id="@+id/createGroup"
+            <RelativeLayout
+                android:id="@+id/createGroup_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="15dp"
-                android:background="@drawable/inputlines"
-                android:padding="5dp"
-                android:src="@drawable/ic_baseline_add_24"
-                android:textAllCaps="false" />
+                android:layout_margin="15dp">
 
+                <ImageView
+                    android:id="@+id/createGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/inputlines"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_add_24"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/createGroup"
+                    android:text="Create group"
+                    android:textColor="@color/otherbase" />
+
+            </RelativeLayout>
         </RelativeLayout>
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="80">
+            android:layout_weight="85">
 
             <ImageView
                 android:id="@+id/left"
@@ -45,13 +61,25 @@
                 android:src="@mipmap/leftbar" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/joinedGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:tabTextColor="@color/otherbase"
+                android:layout_toStartOf="@id/right"
+                android:layout_toEndOf="@id/left" />
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_below="@id/joinedGroup"
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@id/right"
-                android:layout_marginTop="25dp"
-                android:layout_toEndOf="@id/left" />
+                android:layout_toEndOf="@id/left"
+                tools:layout_editor_absoluteX="8dp" />
+
 
             <ImageView
                 android:id="@+id/right"
@@ -61,11 +89,6 @@
                 android:layout_marginTop="30dp"
                 android:src="@mipmap/rightbar" />
 
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 

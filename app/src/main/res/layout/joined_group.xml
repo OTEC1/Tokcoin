@@ -45,6 +45,7 @@
                     android:id="@+id/close_money"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_loop_24" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -53,6 +54,7 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/close_money"
                     android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
                     android:drawableEnd="@drawable/ic_baseline_trending_up_24" />
 
             </RelativeLayout>

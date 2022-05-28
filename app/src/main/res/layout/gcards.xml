@@ -5,7 +5,6 @@
     android:layout_height="wrap_content">
 
 
-
     <RelativeLayout
         android:layout_width="280dp"
         android:layout_height="wrap_content"
@@ -18,16 +17,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/inputlines6"
-            android:drawableStart="@drawable/ic_baseline_games"
+            android:drawableStart="@drawable/ic_baseline_bubble"
             android:paddingLeft="8dp" />
 
 
         <RelativeLayout
             android:id="@+id/cardsHold"
-            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -57,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cardsHold"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp">
 
 
@@ -65,10 +64,10 @@
                 android:id="@+id/groupName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Two"
+                android:textAlignment="textStart"
                 android:textColor="@color/dark_text"
+                android:drawableStart="@drawable/ic_baseline_games"
                 android:textStyle="bold" />
 
 
@@ -77,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/groupName"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="Last"
+                android:textAlignment="textStart"
+                android:drawableStart="@drawable/ic_baseline_account"
                 android:textColor="@color/purple_700"
                 android:textStyle="bold" />
 
@@ -88,39 +87,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/liquidity"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="2000"
+                android:textAlignment="textStart"
+                android:drawableStart="@drawable/ic_baseline_show"
                 android:textColor="@color/green"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
 
+
+
             <TextView
-                android:id="@+id/loss"
+                android:id="@+id/miner_stake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/profit"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="2000"
+                android:textAlignment="textStart"
                 android:textColor="@color/red"
-                android:textSize="12sp"
+                android:textSize="15sp"
+                android:drawableStart="@drawable/ic_baseline_group_24"
                 android:textStyle="bold" />
 
 
-            <TextView
-                android:id="@+id/members"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loss"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:textColor="@color/dark_text"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+
 
         </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardsHold"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/inputlines6"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_near_me_24" />
 
 
     </RelativeLayout>

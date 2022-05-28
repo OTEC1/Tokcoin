@@ -11,7 +11,6 @@
         android:layout_height="match_parent">
 
 
-
         <RelativeLayout
             android:id="@+id/Indicator"
             android:layout_width="match_parent"
@@ -24,11 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/Indicator"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:src="@mipmap/leftbar" />
-
-
-
 
 
         <androidx.cardview.widget.CardView
@@ -46,14 +42,14 @@
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <RelativeLayout
                 android:id="@+id/question_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="invisible"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/questionIndex"
@@ -133,8 +129,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
-                    android:paddingBottom="5dp"
-                    android:text="6sec" />
+                    android:paddingBottom="5dp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -145,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/Indicator"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:src="@mipmap/rightbar" />
 
     </RelativeLayout>

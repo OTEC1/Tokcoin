@@ -40,25 +40,21 @@ public class Question extends Fragment {
 
 
     private List<Integer> list = new ArrayList<>();
-    private List<Map<String,Object>> alist = new ArrayList<>();
+    private List<Map<String, Object>> alist = new ArrayList<>();
     private TextView a1, a2, a3, a4, question, questionIndex, timer;
     private Timer time;
     private RelativeLayout question_layout;
     private ProgressBar progressBar;
 
-    private boolean reset = true,stated = false, cancel = true;
+    private boolean reset = true, stated = false, cancel = true;
     private String TAG = "Question";
-    private int n = 0, p = 5, count = 9,id;
-
-
-
-
+    private int n = 0, p = 5, count = 9, id;
 
 
     @Override
     public void onStop() {
         super.onStop();
-        if(stated) {
+        if (stated) {
             cancel = false;
             LoadUserBalance("", 1, 2);
             Log.d(TAG, "onStop:");
@@ -96,26 +92,26 @@ public class Question extends Fragment {
     }
 
     private String TRIM(Bundle b) {
-        return  b.get("category").toString().trim().replace(" ","");
+        return b.get("category").toString().trim().replace(" ", "");
     }
 
 
     private void IsFunded(Bundle b) {
         Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)),b.get("category").toString(),null,0,2));
-        isFunded.enqueue(new Callback<Map<String,Object>>() {
+        Call<Map<String, Object>> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b.get("category").toString(), null, 0, 2));
+        isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
-            public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                Log.d(TAG, "onResponse: "+response.body().get("message"));
-                if(Boolean.parseBoolean(response.body().get("message").toString()))
-                       CheckLoad(b);
-                else if(response.body().get("message").toString().equals("Unauthorized Request !"))
-                           new utilKotlin().message2(response.body().get("message").toString(), getContext());
-                    else
-                       new utilKotlin().message2("Insufficient funds pls add funds !", getContext());
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (Boolean.parseBoolean(response.body().get("message").toString()))
+                    CheckLoad(b);
+                else if (response.body().get("message").toString().equals("Unauthorized Request !"))
+                    new utilKotlin().message2(response.body().get("message").toString(), getContext());
+                else
+                    new utilKotlin().message2("Insufficient funds pls add funds !", getContext());
             }
+
             @Override
-            public void onFailure(Call<Map<String,Object>> call, Throwable t) {
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
                 Log.d(TAG, "onFailure: bool " + t.getMessage());
             }
@@ -144,7 +140,7 @@ public class Question extends Fragment {
         array.remove(o);
         String c = new utilJava().SET_DATA_TO_CACHE(getContext(), array, tag);
         Log.d(TAG, "WaitThenRemove: " + c);
-        InitQuestion(b,"",tag);
+        InitQuestion(b, "", tag);
 
     }
 
@@ -162,8 +158,7 @@ public class Question extends Fragment {
                         categories.add(obj.getKey().trim());
 
             return categories.contains(category.trim());
-        }
-        else
+        } else
             return false;
     }
 
@@ -172,36 +167,36 @@ public class Question extends Fragment {
         count = 9;
         UpdateTimer();
         question_layout.setVisibility(View.INVISIBLE);
-         Map<String,Object> user_answers = new HashMap<>();
-         user_answers.put("answer_selected",answer);
-         user_answers.put("category",b);
-         user_answers.put("session_id",new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SESSION_ID)).get("uuid_stamp").toString());
-         user_answers.put("question_id",id);
-         alist.add(user_answers);
-            if (p > 0) {
-                new utilKotlin().message2(p + " more to go", getActivity());
-                LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
-            } else
-                 if (n >= 5 && p == 0 && cancel)
-                    LoadUserBalance(b,1,2);
+        Map<String, Object> user_answers = new HashMap<>();
+        user_answers.put("answer_selected", answer);
+        user_answers.put("category", b);
+        user_answers.put("session_id", new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SESSION_ID)).get("uuid_stamp").toString());
+        user_answers.put("question_id", id);
+        alist.add(user_answers);
+        if (p > 0) {
+            new utilKotlin().message2(p + " more to go", getActivity());
+            LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
+        } else if (n >= 5 && p == 0 && cancel)
+            LoadUserBalance(b, 1, 2);
 
     }
 
 
     private void InitQuestion(String b, String uuid, String tag) {
         list.clear();
-        Map<String,Object> uid = new HashMap<>();
-        uid.put("uuid_stamp",uuid);
-        new utilJava().SET_DATA_TO_CACHE(getContext(),uid,getString(R.string.SESSION_ID));
+        Map<String, Object> uid = new HashMap<>();
+        uid.put("uuid_stamp", uuid);
+        new utilJava().SET_DATA_TO_CACHE(getContext(), uid, getString(R.string.SESSION_ID));
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>> list = request.getPostSize(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b, null, 0,2));
-        list.enqueue(new Callback<Map<String,Object>>() {
+        Call<Map<String, Object>> list = request.getPostSize(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b, null, 0, 2));
+        list.enqueue(new Callback<Map<String, Object>>() {
             @Override
-            public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                    GenerateRandomValue(b, uuid, tag, (int) (Double.parseDouble(response.body().get("message").toString())));
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                GenerateRandomValue(b, uuid, tag, (int) (Double.parseDouble(response.body().get("message").toString())));
             }
+
             @Override
-            public void onFailure(Call<Map<String,Object>> call, Throwable t) {
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
                 Log.d(TAG, "onFailure: here" + t.getMessage());
             }
@@ -240,62 +235,68 @@ public class Question extends Fragment {
         List<?> list = new ArrayList<>();
         if (obj.getClass().isArray())
             list = Arrays.asList((Object[]) obj);
-         else if (obj instanceof Collection)
+        else if (obj instanceof Collection)
             list = new ArrayList<>((Collection<?>) obj);
         return list;
     }
 
 
-
     private void Request_Question(Object o, String obj2, String uid, List<Map<String, Object>> array, String tag) {
-        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), obj2, null, (int) Double.parseDouble(o.toString()),2);
+        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), obj2, null, (int) Double.parseDouble(o.toString()), 2);
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
         Call<models> list = request.getPostList(user);
         list.enqueue(new Callback<models>() {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
-                        question_layout.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-                        stated = true;
-                        if (n > 5) {
-                            n = 0;
-                            p = 5;
+                question_layout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                stated = true;
+
+                if (n > 5) {
+                    n = 0;
+                    p = 5;
+                }
+
+                if (p != 0)
+                    p--;
+                n++;
+                List<Map<String, Object>> map = response.body().getMessage();
+                if (!map.get(0).toString().contains("error")) {
+                    for (Map<String, Object> i : map) {
+                        Map<String, Object> x = (Map<String, Object>) i.get("Q");
+                        List<?> a = getRandomElement(C(x.get("answers")), C(x.get("answers")).size());
+                        id = (int) Double.parseDouble(o.toString());
+                        if (C(x.get("answers")).size() == 2) {
+                            Hide(a3, a4, 1);
+                            for (int v = 0; v < a.size(); v++) {
+                                if (v == 0)
+                                    a1.setText(a.get(v).toString());
+                                if (v == 1)
+                                    a2.setText(a.get(v).toString());
+                            }
+                        } else {
+                            Hide(a3, a4, 2);
+                            for (int v = 0; v < a.size(); v++) {
+                                if (v == 0)
+                                    a1.setText(a.get(v).toString());
+                                if (v == 1)
+                                    a2.setText(a.get(v).toString());
+                                if (v == 2)
+                                    a3.setText(a.get(v).toString());
+                                if (v == 3)
+                                    a4.setText(a.get(v).toString());
+                            }
                         }
-                        if (p != 0)
-                            p--;
-                        n++;
-                                List<Map<String, Object>> map = response.body().getMessage();
-                                for (Map<String, Object> i : map) {
-                                    Map<String, Object> x = (Map<String, Object>) i.get("Q");
-                                    List<?> a = getRandomElement(C(x.get("answers")), C(x.get("answers")).size());
-                                    id = (int) Double.parseDouble(o.toString());
-                                    if (C(x.get("answers")).size() == 2) {
-                                        Hide(a3, a4, 1);
-                                        for (int v = 0; v < a.size(); v++) {
-                                            if (v == 0)
-                                                a1.setText(a.get(v).toString());
-                                            if (v == 1)
-                                                a2.setText(a.get(v).toString());
-                                        }
-                                    } else {
-                                        Hide(a3, a4, 2);
-                                        for (int v = 0; v < a.size(); v++) {
-                                            if (v == 0)
-                                                a1.setText(a.get(v).toString());
-                                            if (v == 1)
-                                                a2.setText(a.get(v).toString());
-                                            if (v == 2)
-                                                a3.setText(a.get(v).toString());
-                                            if (v == 3)
-                                                a4.setText(a.get(v).toString());
-                                           }
-                                      }
-                                    question.setText(x.get("question").toString());
-                                    questionIndex.setText("Question " + n + "/5");
-                                    StartTimer();
-                                    }
-                                    RemoveLast(array, obj2, tag);
-              }
+                        question.setText(x.get("question").toString());
+                        questionIndex.setText("Question " + n + "/5");
+                        StartTimer();
+                    }
+                    RemoveLast(array, obj2, tag);
+                } else
+                    new utilKotlin().message2(map.get(0).get("error").toString(), getContext());
+
+            }
+
             @Override
             public void onFailure(Call<models> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
@@ -305,27 +306,26 @@ public class Question extends Fragment {
     }
 
 
-
     private void StartTimer() {
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    getActivity().runOnUiThread(() -> {
-                        timer.setText(count + " sec");
-                        if (count == 0 && reset) {
-                            question_layout.setVisibility(View.INVISIBLE);
-                            LoadReset("Sorry time's up !","");
-                            if(cancel)
-                               LoadUserBalance("",1,2);
-                            reset = false;
-                        }
-                      });
-                        if (count != 0)
-                            count--;
-                }
-            };
-            time = new Timer();
-            time.schedule(task, 0, 1000);
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(() -> {
+                    timer.setText(count + " sec");
+                    if (count == 0 && reset) {
+                        question_layout.setVisibility(View.INVISIBLE);
+                        LoadReset("Sorry time's up !", "");
+                        if (cancel)
+                            LoadUserBalance("", 1, 2);
+                        reset = false;
+                    }
+                });
+                if (count != 0)
+                    count--;
+            }
+        };
+        time = new Timer();
+        time.schedule(task, 0, 1000);
     }
 
 
@@ -342,33 +342,32 @@ public class Question extends Fragment {
     }
 
 
-    private void LoadReset(String s,String b) {
-        if(Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.APP_STATE)).get("app_state").toString())) {
+    private void LoadReset(String s, String b) {
+        if (Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.APP_STATE)).get("app_state").toString())) {
             new utilKotlin().message2(s, getActivity());
             new utilJava().openFrag(new Home(), "Home", null, getActivity());
         }
     }
 
 
-
-
-    private void LoadUserBalance(String string,int id, int call) {
+    private void LoadUserBalance(String string, int id, int call) {
         progressBar.setVisibility(View.VISIBLE);
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)),string,alist, id,call));
+        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), string, alist, id, call));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                 new utilKotlin().message2(response.body().get("message").toString(),getContext());
+                new utilKotlin().message2(response.body().get("message").toString(), getContext());
                 //new utilJava().openFrag(new User(), "User", null, getActivity());
                 progressBar.setVisibility(View.INVISIBLE);
                 stated = false;
-             alist.clear();
+                alist.clear();
             }
+
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
-                new utilKotlin().message2(t.getMessage(),getContext());
+                new utilKotlin().message2(t.getMessage(), getContext());
             }
         });
     }

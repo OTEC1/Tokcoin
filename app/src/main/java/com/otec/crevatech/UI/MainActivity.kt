@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         if (FirebaseAuth.getInstance().uid == null)
                             startActivity(Intent(this, Login::class.java))
                         else
-                            utilKotlin().message2("Pls Sign Out", this)
+                            utilKotlin().message2("Pls sign out", this)
                         return@OnMenuItemClickListener true
                     }
 
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                         if (FirebaseAuth.getInstance().uid != null)
                             echo()
                         else
-                            utilKotlin().message2("Already Signed Out", this)
+                            utilKotlin().message2("Already signed out", this)
                         return@OnMenuItemClickListener true
                     }
                     R.id.report -> {
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (FirebaseAuth.getInstance().uid == null)
-            utilKotlin().message2("Pls Sign in", this)
+            utilKotlin().message2("Pls sign in", this)
         else {
             if (decide) {
                 utilKotlin().message2("Press twice to exit", applicationContext)
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun echo() {
-        utilKotlin().message2(FirebaseAuth.getInstance().currentUser?.email+" Signed Out", this)
+        utilKotlin().message2(FirebaseAuth.getInstance().currentUser?.email+" signed out", this)
         FirebaseAuth.getInstance().signOut()
     }
 

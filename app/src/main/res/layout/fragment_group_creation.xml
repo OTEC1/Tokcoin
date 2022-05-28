@@ -14,14 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-
             <ProgressBar
                 android:id="@+id/spinners"
-                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -134,11 +132,20 @@
                 </GridLayout>
 
 
+                <Spinner
+                    android:id="@+id/odds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/intakeCover"
+                    android:layout_centerHorizontal="true"
+                    android:backgroundTint="@color/otherbase"
+                    android:layout_marginTop="20dp" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/group_create"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/intakeCover"
+                    android:layout_below="@id/odds"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:height="20dp"

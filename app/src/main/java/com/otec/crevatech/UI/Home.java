@@ -36,7 +36,6 @@ public class Home extends Fragment {
     private JoinGroupCall joinGroupCall;
     private ProgressBar spinners;
 
-
     private String TAG = "Home";
 
 
@@ -70,7 +69,6 @@ public class Home extends Fragment {
 
 
     private void setLayout(List<Map<String, Object>> message) {
-        Log.d(TAG, "setLayout: "+message);
         joinGroupCall = new JoinGroupCall(message,getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);

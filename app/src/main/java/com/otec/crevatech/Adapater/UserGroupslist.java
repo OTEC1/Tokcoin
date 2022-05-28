@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     private List<Map<String,Object>> obj;
     private Context context;
     private AlertDialog alertDialog = null;
+    private TextView groupName,profit,loss,liquidity,members;
+    private ProgressBar progressBar;
 
     private int n;
     private String TAG = "UserGroupslist";
@@ -116,18 +119,19 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     }
 
     private void BuildView(Map<String,Object> raw2,View v) {
-        TextView groupName,profit,loss,liquidity,members;
         groupName = v.findViewById(R.id.groupName);
         profit = v.findViewById(R.id.profit);
         loss = v.findViewById(R.id.loss);
         liquidity = v.findViewById(R.id.liquidity);
         members = v.findViewById(R.id.members);
+        progressBar = v.findViewById(R.id.spinBar);
         Map<String,Object> m = (Map<String, Object>) raw2.get("User");
         groupName.setText(m.get("groupName").toString());
         profit.setText(Currency(m.get("profit").toString()));
         liquidity.setText(Currency(m.get("liquidity").toString()));
         loss.setText(Currency(m.get("loss").toString()));
-        members.setText(String.valueOf(Arrays.asList(Arrays.asList(m.get("members_ids").toString().split(",")).size())));
+        members.setText(Arrays.asList(Arrays.asList(m.get("members_ids").toString().split(",")).size()).toString().replace("[","").replace("]",""));
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 

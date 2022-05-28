@@ -39,7 +39,10 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.CustomAdap
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull JoinGroupCall.CustomAdapater holder, int position) {
-
+        holder.groupName.setText(" "+FORMAT("groupName",objList,position));
+        holder.profit.setText(" "+FORMAT("odd",objList,position));
+        holder.liquidity.setText(" "+FORMAT("liquidity",objList,position));
+        holder.miner_stake.setText(" "+FORMAT("miner_stake",objList,position));
     }
 
 
@@ -49,18 +52,23 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.CustomAdap
     }
 
 
+    private String  FORMAT(String node, List<Map<String, Object>> obj,int p) {
+        Map<String,Object> i = (Map<String, Object>) obj.get(p).get("User");
+        return  i.get(node).toString();
+    }
+
+
     class CustomAdapater extends  RecyclerView.ViewHolder{
 
-        private TextView groupName,profit,loss,liquidity,members;
+        private TextView groupName,profit,liquidity,miner_stake;
         private Button btn;
         public CustomAdapater(@NonNull @NotNull View v) {
             super(v);
              groupName = v.findViewById(R.id.groupName);
              btn = v.findViewById(R.id.requestBtn);
              profit = v.findViewById(R.id.profit);
-             loss = v.findViewById(R.id.loss);
              liquidity = v.findViewById(R.id.liquidity);
-             members = v.findViewById(R.id.members);
+             miner_stake = v.findViewById(R.id.miner_stake);
         }
     }
 }

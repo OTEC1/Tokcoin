@@ -31,6 +31,8 @@ class User : Fragment() {
     val TAG =  "User"
     private lateinit var createdGroup: RecyclerView
     private lateinit var down: ProgressBar
+
+
     override fun onCreateView(inflate: LayoutInflater, container: ViewGroup?, savedInstance: Bundle?): View?{
         val view: View = inflate.inflate(R.layout.activity_user, container,false)
         val userName: TextView = view.findViewById(R.id.userName)
@@ -39,27 +41,29 @@ class User : Fragment() {
         down = view.findViewById(R.id.down)
         createdGroup = view.findViewById(R.id.createdGroup)
         createdGroup.layoutManager = LinearLayoutManager(context)
-        LoopChanges(userBalance,userGas,userName)
-        RequestGroupList();
+        changed(userBalance,userGas,userName)
+        requestGroupList();
         return  view;
     }
 
-    private fun LoopChanges(bal: TextView, gas: TextView, userName: TextView) {
+    private fun changed(bal: TextView, gas: TextView, userName: TextView) {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
         if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().uid!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
-              bal.text = Currency(value!!["User_details.bal"].toString())
-              gas.text = Currency(value["User_details.gas"].toString())
+              bal.text = currency(value!!["User_details.bal"].toString())
+              gas.text = currency(value["User_details.gas"].toString())
             }
     }
 
 
-    private fun Currency(va: String): String? {
+    private fun currency(va: String): String? {
         val Us = NumberFormat.getCurrencyInstance(Locale.US)
         return Us.format(va.toDouble())
     }
 
 
-    private fun RequestGroupList() {
+
+
+    private fun requestGroupList() {
         val request = Base_config.getRetrofit().create(Request_class::class.java)
         val isFunded = request.GT_GROUPS(utilJava().GET_GROUP(utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))))
         isFunded.enqueue(object : Callback<Map<String,Any>> {

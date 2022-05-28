@@ -34,29 +34,21 @@ public class Register extends AppCompatActivity {
     private FloatingActionButton register;
     private Spinner bankName;
     private ProgressBar spin, loadingBanks;
-    private ArrayAdapter arrayAdapter;
+    private ArrayAdapter<?> arrayAdapter;
 
 
     private String bank_selected="";
     private String TAG = "Register";
     private List<Map<String, Object>> banks;
     private List<String> banksArrays;
-    private boolean started_reg_process = false;
 
 
-    @Override
-    public void onBackPressed() {
-        if(!started_reg_process)
-            super.onBackPressed();
-        else
-            new utilKotlin().message2("Pls wait account Registration in progress", getApplicationContext());
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        inits();
+        init();
         LoadListOfBanks();
 
         bankName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -72,23 +64,22 @@ public class Register extends AppCompatActivity {
         });
 
         register.setOnClickListener(e -> {
-            if(!started_reg_process)
-                  if (!new utilKotlin().check(email) && !new utilKotlin().check(password) && !new utilKotlin().check(confirmPass) && !new utilKotlin().check(NameOnAccount) && !new utilKotlin().check(bankAccount_No) && !bank_selected.equals("Select Bank"))
-                    AuthNewUser();
+                  if (new utilKotlin().check(email) | new utilKotlin().check(password) | new utilKotlin().check(confirmPass) | new utilKotlin().check(NameOnAccount) | new utilKotlin().check(bankAccount_No)  | bank_selected.equals("Select Bank"))
+                        new utilKotlin().message2("Pls fill out all fields ! ", getApplicationContext());
                   else
                       if (bank_selected.equals("Select Bank") || bank_selected.trim().length()<=0)
                             new utilKotlin().message2("Pls select your bank", getApplicationContext());
                      else
-                       new utilKotlin().message2("Pls fill out all fields ! ", getApplicationContext());
-            else
-                new utilKotlin().message2("Registration in Progress ! ", getApplicationContext());
+                          AuthNewUser();
+
+
 
         });
 
 
     }
 
-    private void inits() {
+    private void init() {
         register = findViewById(R.id.register);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -124,6 +115,8 @@ public class Register extends AppCompatActivity {
         });
     }
 
+
+
     private void PopulateSpinner(List<String> body) {
         arrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.text_pad, body);
         arrayAdapter.setDropDownViewResource(R.layout.text_pad);
@@ -131,14 +124,14 @@ public class Register extends AppCompatActivity {
         loadingBanks.setVisibility(View.GONE);
     }
 
+
+
     private void AuthNewUser() {
-        started_reg_process = true;
         spin.setVisibility(View.VISIBLE);
         if (confirmPass.getText().toString().equals(password.getText().toString()))
             PostToEndPoint();
         else {
             new utilKotlin().message2("Password doesn't match ", getApplicationContext());
-            started_reg_process = false;
             spin.setVisibility(View.INVISIBLE);
         }
     }
@@ -151,17 +144,12 @@ public class Register extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("email", email.getText().toString());
         bundle.putString("password", password.getText().toString());
-        bundle.putString("IMEI", GET_IMEI().toString());
         bundle.putString("bankAccountNo", bankAccount_No.getText().toString());
         bundle.putString("NameOnAccount", NameOnAccount.getText().toString());
         bundle.putString("bankSelected", bank_selected);
         startActivity(new Intent(getApplicationContext(), CategoryFlow.class).putExtra("user",bundle));
-        started_reg_process = false;
         spin.setVisibility(View.INVISIBLE);
     }
 
-    private Object GET_IMEI() {
-        return UUID.randomUUID().toString()+"+_";
 
-    }
 }

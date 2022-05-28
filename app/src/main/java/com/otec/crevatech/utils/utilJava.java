@@ -109,8 +109,7 @@ public class utilJava {
 
     private Bundle BUNDLE(Bundle bundle, Map<String,Object> i) {
         if(bundle != null && i != null) {
-            bundle.putInt("View_caller", Integer.parseInt(i.get("View_caller").toString()));
-            bundle.putString("category", i.get("category").toString());
+
         }
         return bundle;
     }
@@ -158,7 +157,7 @@ public class utilJava {
     }
 
 
-    public Map<String, Object> GET_GROUP(Map<String, Object> obj, EditText groupName, EditText amount, EditText liquidator_stake, EditText miner_stake) {
+    public Map<String, Object> GET_GROUP(Map<String, Object> obj, EditText groupName, EditText amount, EditText liquidator_stake, EditText miner_stake,Double odd,int avatar) {
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
@@ -168,6 +167,8 @@ public class utilJava {
         user.put("liquidator_size",Long.parseLong(liquidator_stake.getText().toString()));
         user.put("miner_stake", Long.parseLong(miner_stake.getText().toString()));
         user.put("active", false);
+        user.put("odd", odd);
+        user.put("avatar", avatar);
         return Wrap(user);
     }
 }
