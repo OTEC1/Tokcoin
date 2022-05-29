@@ -33,6 +33,22 @@
             android:paddingTop="3dp" />
 
 
+
+        <Button
+            android:id="@+id/requestBtn2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toEndOf="@id/cards"
+            android:layout_marginStart="10dp"
+            android:visibility="invisible"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/inputlines6"
+            android:padding="13.5dp"
+            android:drawableTop="@drawable/ic_baseline_near_me_24" />
+
+
+
+
         <TextView
             android:id="@+id/groupName"
             android:layout_width="wrap_content"
@@ -60,7 +76,6 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/green"
             android:textSize="15sp"
-            android:text="2000"
             android:textStyle="bold" />
 
 
@@ -73,7 +88,6 @@
             android:layout_marginTop="12dp"
             android:textColor="@color/red"
             android:textSize="12sp"
-            android:text="2000"
             android:textStyle="bold" />
 
 

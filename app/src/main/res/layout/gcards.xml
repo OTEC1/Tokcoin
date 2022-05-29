@@ -9,16 +9,16 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
         android:background="@drawable/inputlines5"
-        android:padding="10dp">
+        android:layout_marginTop="20dp"
+        android:padding="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/inputlines6"
             android:drawableStart="@drawable/ic_baseline_bubble"
-            android:paddingLeft="8dp" />
+            android:paddingStart="8dp" />
 
 
         <RelativeLayout
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp">
+            android:layout_marginTop="50dp">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -39,16 +39,6 @@
                 app:civ_border_width="3dp" />
 
 
-            <Button
-                android:id="@+id/requestBtn"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/cards"
-                android:background="@drawable/inputlines4"
-                android:drawableTop="@drawable/ic_baseline_cancel_24"
-                android:paddingTop="3dp" />
         </RelativeLayout>
 
 
@@ -106,7 +96,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/red"
                 android:textSize="15sp"
-                android:drawableStart="@drawable/ic_baseline_group_24"
+                android:drawableStart="@drawable/ic_baseline_flag_24"
                 android:textStyle="bold" />
 
 

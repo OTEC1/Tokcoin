@@ -74,7 +74,9 @@ public class Question extends Fragment {
         question_layout = v.findViewById(R.id.question_layout);
         timer = v.findViewById(R.id.timer);
         Bundle b = getArguments();
+
         IsFunded(b);
+
         a1.setOnClickListener(e -> {
             SEND_ANSWER(a1.getText().toString(), TRIM(b));
         });
@@ -113,7 +115,6 @@ public class Question extends Fragment {
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
-                Log.d(TAG, "onFailure: bool " + t.getMessage());
             }
         });
 
@@ -176,8 +177,10 @@ public class Question extends Fragment {
         if (p > 0) {
             new utilKotlin().message2(p + " more to go", getActivity());
             LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
-        } else if (n >= 5 && p == 0 && cancel)
+        } else if (n >= 5 && p == 0 && cancel) {
             LoadUserBalance(b, 1, 2);
+            cancel = false;
+        }
 
     }
 
@@ -198,7 +201,6 @@ public class Question extends Fragment {
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
-                Log.d(TAG, "onFailure: here" + t.getMessage());
             }
         });
     }
@@ -318,6 +320,7 @@ public class Question extends Fragment {
                         if (cancel)
                             LoadUserBalance("", 1, 2);
                         reset = false;
+                        cancel = false;
                     }
                 });
                 if (count != 0)
@@ -342,6 +345,7 @@ public class Question extends Fragment {
     }
 
 
+
     private void LoadReset(String s, String b) {
         if (Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.APP_STATE)).get("app_state").toString())) {
             new utilKotlin().message2(s, getActivity());
@@ -358,7 +362,6 @@ public class Question extends Fragment {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 new utilKotlin().message2(response.body().get("message").toString(), getContext());
-                //new utilJava().openFrag(new User(), "User", null, getActivity());
                 progressBar.setVisibility(View.INVISIBLE);
                 stated = false;
                 alist.clear();
@@ -366,7 +369,6 @@ public class Question extends Fragment {
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getMessage());
                 new utilKotlin().message2(t.getMessage(), getContext());
             }
         });

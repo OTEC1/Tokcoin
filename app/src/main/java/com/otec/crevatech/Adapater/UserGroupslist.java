@@ -32,18 +32,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.CustomerAdapter>{
+public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.CustomerAdapter> {
 
-    private List<Map<String,Object>> obj;
+    private List<Map<String, Object>> obj;
     private Context context;
     private AlertDialog alertDialog = null;
-    private TextView groupName,profit,loss,liquidity,members;
+    private TextView groupName, profit, loss, liquidity, members;
     private ProgressBar progressBar;
 
     private int n;
     private String TAG = "UserGroupslist";
 
-    public UserGroupslist(List<Map<String, Object>> obj, Context context,int n) {
+    public UserGroupslist(List<Map<String, Object>> obj, Context context, int n) {
         this.obj = obj;
         this.context = context;
         this.n = n;
@@ -53,7 +53,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     @NotNull
     @Override
     public CustomerAdapter onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(n==1 ? R.layout.group_cards : R.layout.joined_group, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(n == 1 ? R.layout.group_cards : R.layout.joined_group, parent, false);
         return new CustomerAdapter(v);
     }
 
@@ -67,8 +67,8 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.liquidity.setText("Funds " + Currency(FORMAT("liquidity", obj, position)));
             holder.loss.setText("loss -" + Currency(FORMAT("loss", obj, position)));
             holder.profit.setText("Roi +" + Currency(FORMAT("profit", obj, position)));
-            holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size());
-        }else {
+            holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+        } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
 
             holder.group_stats.setOnClickListener(e -> {
@@ -77,7 +77,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
                 alBuilder.setView(v);
                 alertDialog = alBuilder.create();
                 alertDialog.show();
-                RequestGroups(holder.group_stats.getContext(),v,FORMAT("doc_id", obj, position),Arrays.asList(FORMAT("members_ids", obj, position).split(",")).get(0).replace("[",""));
+                RequestGroups(holder.group_stats.getContext(), v, FORMAT("doc_id", obj, position), Arrays.asList(FORMAT("members_ids", obj, position).split(",")).get(0).replace("[", ""));
             });
 
 
@@ -90,27 +90,26 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     }
 
 
-
     @Override
     public int getItemCount() {
         return obj.size();
     }
 
 
-
-    private void RequestGroups(Context context,View v,String doc_id,String found) {
-        Log.d(TAG, "RequestGroups: "+found+" | "+doc_id);
+    private void RequestGroups(Context context, View v, String doc_id, String found) {
+        Log.d(TAG, "RequestGroups: " + found + " | " + doc_id);
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>> list = request.GROUPS_STATUS(new utilJava().GET_GROUP_STATUS(new utilJava().GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)),doc_id,found));
-        list.enqueue(new Callback<Map<String,Object>>() {
+        Call<Map<String, Object>> list = request.GROUPS_STATUS(new utilJava().GET_GROUP_STATUS(new utilJava().GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)), doc_id, found));
+        list.enqueue(new Callback<Map<String, Object>>() {
             @Override
-            public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                Map<String,Object> l1 = (Map<String, Object>) response.body().get("message");
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                Map<String, Object> l1 = (Map<String, Object>) response.body().get("message");
                 BuildView(l1, v);
 
             }
+
             @Override
-            public void onFailure(Call<Map<String,Object>> call, Throwable t) {
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), context);
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
@@ -118,40 +117,37 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
     }
 
-    private void BuildView(Map<String,Object> raw2,View v) {
+    private void BuildView(Map<String, Object> raw2, View v) {
         groupName = v.findViewById(R.id.groupName);
         profit = v.findViewById(R.id.profit);
         loss = v.findViewById(R.id.loss);
         liquidity = v.findViewById(R.id.liquidity);
         members = v.findViewById(R.id.members);
         progressBar = v.findViewById(R.id.spinBar);
-        Map<String,Object> m = (Map<String, Object>) raw2.get("User");
+        Map<String, Object> m = (Map<String, Object>) raw2.get("User");
         groupName.setText(m.get("groupName").toString());
         profit.setText(Currency(m.get("profit").toString()));
         liquidity.setText(Currency(m.get("liquidity").toString()));
         loss.setText(Currency(m.get("loss").toString()));
-        members.setText(Arrays.asList(Arrays.asList(m.get("members_ids").toString().split(",")).size()).toString().replace("[","").replace("]",""));
+        members.setText("Users " + Arrays.asList(m.get("members_ids").toString().split(",")).size() + "/" + (int) Double.parseDouble(m.get("liquidator_size").toString()));
         progressBar.setVisibility(View.INVISIBLE);
     }
 
 
-
-
-
-
-    private String  FORMAT(String node, List<Map<String, Object>> obj,int p) {
-          Map<String,Object> i = (Map<String, Object>) obj.get(p).get("User");
-         return  i.get(node).toString();
+    private String FORMAT(String node, List<Map<String, Object>> obj, int p) {
+        Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
+        return i.get(node).toString();
     }
 
-    private String Currency(String va){
+    private String Currency(String va) {
         NumberFormat Us = NumberFormat.getCurrencyInstance(Locale.US);
         return Us.format(Double.parseDouble(va));
     }
 
-    class  CustomerAdapter extends RecyclerView.ViewHolder{
-        private TextView groupName,profit,loss,liquidity,members;
-        private Button button,close_money,group_stats;
+    class CustomerAdapter extends RecyclerView.ViewHolder {
+        private TextView groupName, profit, loss, liquidity, members;
+        private Button button, close_money, group_stats;
+
         public CustomerAdapter(@NonNull @NotNull View view) {
             super(view);
             groupName = view.findViewById(R.id.groupName);

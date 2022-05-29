@@ -149,12 +149,19 @@ public class utilJava {
     }
 
 
-    private Map<String, Object> Wrap(Map<String, Object> user) {
+
+
+
+    public   Map<String,Object> RequestSend(Map<String,Object> obj,String doc_id,Object creator){
         Map<String, Object> pack = new HashMap<>();
-        pack.put("User",user);
-        Log.d(TAG, "Wrap: "+pack);
-        return pack;
+        pack.put("user_id",obj.get("user_id").toString());
+        pack.put("email",obj.get("email").toString());
+        pack.put("IMEI",obj.get("IMEI").toString());
+        pack.put("doc_id",doc_id);
+        pack.put("creator",creator.toString().replace("[","").replace("]",""));
+        return Wrap(pack);
     }
+
 
 
     public Map<String, Object> GET_GROUP(Map<String, Object> obj, EditText groupName, EditText amount, EditText liquidator_stake, EditText miner_stake,Double odd,int avatar) {
@@ -171,4 +178,13 @@ public class utilJava {
         user.put("avatar", avatar);
         return Wrap(user);
     }
+
+
+    private Map<String, Object> Wrap(Map<String, Object> user) {
+        Map<String, Object> pack = new HashMap<>();
+        pack.put("User",user);
+        Log.d(TAG, "Wrap: "+pack);
+        return pack;
+    }
+
 }

@@ -60,6 +60,13 @@ public interface Request_class {
     Call<models> _REQUEST(@Body Map<String,Object> data);
 
 
+    @POST("Cravetech/LoadInactiveGroup")
+    Call<models> I_REQUEST(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/JoinGroupCheck")
+    Call<Map<String,Object>> JOIN_REQUEST(@Body Map<String,Object> data);
+
 
 
 }

@@ -21,9 +21,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var popup: PopupMenu? = null
-    private   var fr: Fragment? = null
 
+    private   var fr: Fragment? = null
 
     private var backPressed: Long = 0
     private var TimeLapsed: Int = 2000
@@ -42,46 +41,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val homepage : RelativeLayout = findViewById(R.id.homePage)
-        val appdrawer :Button = findViewById(R.id.app_drawer);
         utilKotlin().Top_status_bar(window,this,homepage)
 
         if(FirebaseAuth.getInstance().currentUser == null)
               startActivity(Intent(this,Login::class.java))
         else
             utilJava().openFragment(Home(),"Home",1,this)
-
-
-        appdrawer.setOnClickListener { v: View? ->
-            popup = PopupMenu(this, v)
-            val inflater1: MenuInflater = popup!!.menuInflater
-            inflater1.inflate(R.menu.signuser, popup!!.menu)
-            popup!!.show()
-
-            popup!!.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem ->
-                when (item.itemId) {
-                    R.id.homes -> {
-                        if (FirebaseAuth.getInstance().uid == null)
-                            startActivity(Intent(this, Login::class.java))
-                        else
-                            utilKotlin().message2("Pls sign out", this)
-                        return@OnMenuItemClickListener true
-                    }
-
-                    R.id.sign_out -> {
-                        if (FirebaseAuth.getInstance().uid != null)
-                            echo()
-                        else
-                            utilKotlin().message2("Already signed out", this)
-                        return@OnMenuItemClickListener true
-                    }
-                    R.id.report -> {
-                        startActivity(Intent(this, Issues_submit::class.java))
-                        return@OnMenuItemClickListener true
-                    }
-                }
-                false
-            })
-        }
     }
 
 
@@ -117,10 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun echo() {
-        utilKotlin().message2(FirebaseAuth.getInstance().currentUser?.email+" signed out", this)
-        FirebaseAuth.getInstance().signOut()
-    }
 
 
 

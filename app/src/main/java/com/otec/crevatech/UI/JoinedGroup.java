@@ -43,6 +43,7 @@ public class JoinedGroup extends Fragment {
         View view = inflater.inflate(R.layout.fragment_joined_group, container, false);
         recyclerView = view.findViewById(R.id.joinedGroup);
         progress = view.findViewById(R.id.progress);
+        RequestGroups();
         return view;
     }
 

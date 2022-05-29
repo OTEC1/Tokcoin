@@ -69,7 +69,7 @@ public class Home extends Fragment {
 
 
     private void setLayout(List<Map<String, Object>> message) {
-        joinGroupCall = new JoinGroupCall(message,getContext());
+        joinGroupCall = new JoinGroupCall(message,getContext(),1);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(joinGroupCall);

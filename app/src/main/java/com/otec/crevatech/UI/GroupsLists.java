@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.protobuf.Any;
+import com.otec.crevatech.Adapater.Group_cover;
 import com.otec.crevatech.Adapater.UserGroupslist;
 import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
@@ -39,7 +40,7 @@ public class GroupsLists extends Fragment {
     private RelativeLayout createGroup;
     private TabLayout joinedGroup;
     private ViewPager viewPager;
-
+    private Group_cover cover;
 
 
     private String TAG = "GroupsLists";
@@ -53,9 +54,13 @@ public class GroupsLists extends Fragment {
         viewPager= view.findViewById(R.id.viewPager);
         Populate();
         RequestGroups();
+
         createGroup.setOnClickListener(e -> {
             new utilJava().openFrag(new Group_creation(), "Group_creation", null, getActivity());
         });
+
+
+
         return view;
     }
 
@@ -66,6 +71,26 @@ public class GroupsLists extends Fragment {
     }
 
     private void RequestGroups() {
+        cover =  new Group_cover(getChildFragmentManager() ,getContext(),joinedGroup.getTabCount(),1);
+        viewPager.setAdapter(cover);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(joinedGroup));
+
+        joinedGroup.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }
 
