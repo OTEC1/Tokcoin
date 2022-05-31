@@ -7,28 +7,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.otec.crevatech.R;
 import com.otec.crevatech.UI.MainActivity;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class utilJava {
 
@@ -40,6 +34,10 @@ public class utilJava {
     public SharedPreferences init(Context view) {
         return sp = Objects.requireNonNull(view.getSharedPreferences(view.getString(R.string.app_name), Context.MODE_PRIVATE));
     }
+
+
+
+
 
 
     public Object SET_CACHED_USER(Map<String, Object> obj, String tag, Context view) {
@@ -109,11 +107,26 @@ public class utilJava {
 
     private Bundle BUNDLE(Bundle bundle, Map<String,Object> i) {
         if(bundle != null && i != null) {
-
         }
         return bundle;
     }
 
+
+
+    public  Map<String,Object> _DIGIT(Map<String, Object> user, Boolean isGroup, Boolean isUser, Boolean isBot, List<Double> creator, List<Integer> user_selected, String creator_id, String doc_id){
+           Map<String,Object> obj = new HashMap<>();
+               obj.put("user_id",user.get("user_id"));
+               obj.put("email",user.get("email"));
+               obj.put("IMEI",user.get("IMEI"));
+               obj.put("isGroup",isGroup);
+               obj.put("isUser",isUser);
+               obj.put("isBot",isBot);
+               obj.put("creator",creator);
+               obj.put("user_selected",user_selected);
+               obj.put("creator_id",creator_id);
+               obj.put("doc_id",doc_id);
+           return  Wrap(obj);
+    }
 
 
     public Map<String, Object> GET_USER(Map<String, Object> obj, String category,List<Map<String,Object>> lists,int id,int call) {
@@ -136,6 +149,8 @@ public class utilJava {
         user.put("email", obj.get("email"));
       return  Wrap(user);
     }
+
+
 
 
     public Map<String, Object> GET_GROUP_STATUS(Map<String, Object> obj,String doc_id,String creator_id) {

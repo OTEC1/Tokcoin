@@ -314,11 +314,10 @@ public class Question extends Fragment {
             public void run() {
                 getActivity().runOnUiThread(() -> {
                     timer.setText(count + " sec");
-                    if (count == 0 && reset) {
+                    if (count == 0 && reset && cancel) {
                         question_layout.setVisibility(View.INVISIBLE);
                         LoadReset("Sorry time's up !", "");
-                        if (cancel)
-                            LoadUserBalance("", 1, 2);
+                        LoadUserBalance("", 1, 2);
                         reset = false;
                         cancel = false;
                     }

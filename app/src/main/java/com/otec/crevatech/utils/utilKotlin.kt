@@ -37,4 +37,10 @@ class utilKotlin {
     fun  check(editText: EditText): Boolean{
        return  editText.getText().toString().trim().isEmpty()
     }
+
+
+    fun cast(d: Any): Int {
+        val db = d.toString().toDouble()
+        return db.toInt()
+    }
 }

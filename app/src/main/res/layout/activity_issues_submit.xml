@@ -6,5 +6,40 @@
     android:layout_height="match_parent"
     android:id="@+id/issue_submit"
     tools:context=".UI.Issues_submit">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0sp"
+            android:layout_weight="20">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView"
+                android:name="com.otec.crevatech.UI.Top_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight="70">
+
+        </FrameLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView2"
+            android:name="com.otec.crevatech.UI.admob"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight="10" />
+
+
+    </LinearLayout>
 </RelativeLayout>

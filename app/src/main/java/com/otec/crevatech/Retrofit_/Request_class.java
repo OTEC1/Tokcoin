@@ -68,5 +68,9 @@ public interface Request_class {
     Call<Map<String,Object>> JOIN_REQUEST(@Body Map<String,Object> data);
 
 
+    @POST("Cravetech/user_mine")
+    Call<Map<String,Object>> DIGIT_BOT_REQUEST(@Body Map<String,Object> data);
+
+
 
 }
