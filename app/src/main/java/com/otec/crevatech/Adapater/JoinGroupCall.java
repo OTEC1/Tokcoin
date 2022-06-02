@@ -58,7 +58,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
         holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
 
         if (call != 2) {
-            holder.miner_stake.setText(" Gas " + FORMAT("miner_stake", objList, position));
+            holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));;
         }else {
             holder.members.setText(Arrays.asList(FORMAT("members_ids", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));

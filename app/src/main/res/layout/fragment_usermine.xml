@@ -41,6 +41,7 @@
 
 
                 <EditText
+                    android:id="@+id/n1"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -53,6 +54,7 @@
 
 
                 <EditText
+                    android:id="@+id/n2"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -64,6 +66,7 @@
 
 
                 <EditText
+                    android:id="@+id/n3"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -75,6 +78,7 @@
 
 
                 <EditText
+                    android:id="@+id/n4"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -86,6 +90,7 @@
 
 
                 <EditText
+                    android:id="@+id/n5"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -97,6 +102,7 @@
 
 
                 <EditText
+                    android:id="@+id/n6"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"

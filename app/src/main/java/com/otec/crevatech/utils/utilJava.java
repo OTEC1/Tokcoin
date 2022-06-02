@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,13 +17,20 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.otec.crevatech.R;
+import com.otec.crevatech.Retrofit_.Base_config;
+import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.UI.MainActivity;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class utilJava {
 
@@ -202,4 +210,26 @@ public class utilJava {
         return pack;
     }
 
+    public void LoadInstance(TextView rt, Context e,List<Double> numbers, List<Integer> send_number,Boolean isGroup,Boolean isUser, Boolean isBot,String creator_id, String doc_id) {
+        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
+                        .GET_CACHED_MAP(e, e.getString(R.string.SIGNED_IN_USER)),
+                isGroup, isUser, isBot, numbers, send_number, creator_id, doc_id));
+        isFunded.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                Map<String,Object> ms = (Map<String, Object>) response.body().get("message");
+                new utilKotlin().message2(ms.get("m1").toString(),e);
+                rt.setText("Digit mined was "+new utilKotlin().cast(ms.get("m2").toString()));
+                numbers.clear();
+                send_number.clear();
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                new utilKotlin().message2(t.getMessage(), e);
+            }
+        });
+
+    }
 }

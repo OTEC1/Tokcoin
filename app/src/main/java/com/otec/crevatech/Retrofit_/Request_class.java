@@ -72,5 +72,8 @@ public interface Request_class {
     Call<Map<String,Object>> DIGIT_BOT_REQUEST(@Body Map<String,Object> data);
 
 
+    @POST("Cravetech/Voches")
+    Call<Map<String,Object>> VOCHERS(@Body Map<String,Object> data);
+
 
 }

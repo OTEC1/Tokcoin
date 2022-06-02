@@ -26,12 +26,12 @@
         </RelativeLayout>
 
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/LoadVouchers"
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_weight="70">
-        </FrameLayout>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"

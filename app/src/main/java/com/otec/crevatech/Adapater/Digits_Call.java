@@ -46,7 +46,6 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
         this.context = context;
         this.button = button;
         this.rt = rt;
-        Log.d(TAG, "Digits_Call: ");
     }
 
     @NonNull
@@ -54,17 +53,12 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
     @Override
     public Digits_Call.Custom_adapter onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.digits_, parent, false);
-        Log.d(TAG, "onCreateViewHolder: ");
         return new Custom_adapter(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull Digits_Call.Custom_adapter holder, int position) {
         holder.number.setText(String.valueOf(new utilKotlin().cast(numbers.get(position))));
-
-        Log.d(TAG, "onBindViewHolder: ");
-
-
         holder.number.setOnClickListener(e -> {
             if (!send_number.contains(new utilKotlin().cast(holder.number.getText())) && send_number.size() < 3)
                 ANIMATE(1, holder);
@@ -77,25 +71,8 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
 
 
         button.setOnClickListener(e -> {
-            if (send_number.size() >= 3) {
-                Request_class config = Base_config.getRetrofit().create(Request_class.class);
-                Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
-                                .GET_CACHED_MAP(e.getContext(), e.getContext().getString(R.string.SIGNED_IN_USER)),
-                        false, false, true, numbers, send_number, null, null));
-                isFunded.enqueue(new Callback<Map<String, Object>>() {
-                    @Override
-                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                        Map<String,Object> ms = (Map<String, Object>) response.body().get("message");
-                        new utilKotlin().message2(ms.get("m1").toString(),e.getContext());
-                        rt.setText("Digit mined was "+new utilKotlin().cast(ms.get("m2").toString()));
-                    }
-
-                    @Override
-                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                        new utilKotlin().message2(t.getMessage(), e.getContext());
-                    }
-                });
-              }
+            if (send_number.size() >= 3)
+                    new utilJava().LoadInstance(rt,e.getContext(),numbers,send_number,false,false,true,null,null);
                 else
                     new utilKotlin().message2("Pls select at least 3 nodes", e.getContext());
             });
