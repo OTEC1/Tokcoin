@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Botmine">
 
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
         android:layout_margin="10dp"
+        android:background="@drawable/inputlines5"
         android:padding="10dp">
 
 
@@ -19,10 +20,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
+            <TextView
+                android:id="@+id/rt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/green"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/digits_returned"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rt" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/play"
@@ -43,8 +54,8 @@
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_centerInParent="true" />
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

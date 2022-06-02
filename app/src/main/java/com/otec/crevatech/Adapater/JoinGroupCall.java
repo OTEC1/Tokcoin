@@ -55,15 +55,16 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     @Override
     public void onBindViewHolder(@NonNull @NotNull Custom_adapter holder, int position) {
 
-        holder.groupName.setText(" " + FORMAT("groupName", objList, position));
-        holder.liquidity.setText(" Funds " + FORMAT("liquidity", objList, position));
+        holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
+
         if (call != 2) {
             holder.miner_stake.setText(" Gas " + FORMAT("miner_stake", objList, position));
-            holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
+            holder.profit.setText(" Odd " + FORMAT("odd", objList, position));;
         }else {
             holder.members.setText(Arrays.asList(FORMAT("members_ids", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
             holder.loss.setText("loss -" + FORMAT("loss", objList, position));
             holder.profit.setText("Roi +" + FORMAT("profit", objList, position));
+            holder.liquidity.setText(" Funds " + FORMAT("liquidity", objList, position));
         }
 
         if (call == 2) {
@@ -92,6 +93,10 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
     }
 
+    private String Upper(String groupName) {
+        return  groupName.substring(0,1).toUpperCase().concat(groupName.substring(1));
+    }
+
 
     @Override
     public int getItemCount() {
@@ -116,13 +121,13 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             btn = v.findViewById(R.id.requestBtn);
             btn2 = v.findViewById(R.id.requestBtn2);
             profit = v.findViewById(R.id.profit);
-            liquidity = v.findViewById(R.id.liquidity);
             members = v.findViewById(R.id.members);
             loss = v.findViewById(R.id.loss);
 
             if (call == 2) {
                 btn2.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
+                liquidity = v.findViewById(R.id.liquidity);
             } else
                 miner_stake = v.findViewById(R.id.miner_stake);
         }

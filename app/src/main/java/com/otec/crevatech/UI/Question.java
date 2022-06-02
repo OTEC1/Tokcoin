@@ -396,8 +396,6 @@ public class Question extends Fragment {
                     array.add(o);
                     new utilJava().SET_DATA_TO_CACHE(getContext(), array, tag);
                 }
-
-
     }
 
     public List<Integer> psvm(int min, int max) {

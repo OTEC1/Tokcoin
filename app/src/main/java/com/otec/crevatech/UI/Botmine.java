@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.otec.crevatech.Adapater.Digits_Call;
 import com.otec.crevatech.Adapater.JoinGroupCall;
@@ -37,8 +38,9 @@ public class Botmine extends Fragment {
     private Button play;
     private Digits_Call  digits_call;
     private ProgressBar progress;
+    private TextView rt;
 
-
+    private boolean loader = false;
     private String TAG = "Botmine";
 
     @Override
@@ -46,6 +48,7 @@ public class Botmine extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_botmine, container, false);
         digits_returned = v.findViewById(R.id.digits_returned);
         progress = v.findViewById(R.id.progress);
+        rt = v.findViewById(R.id.rt);
         play = v.findViewById(R.id.play);
         Request_Digit();
         return v;
@@ -60,10 +63,8 @@ public class Botmine extends Fragment {
         isFunded.enqueue(new Callback<Map<String,Object>>() {
             @Override
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                List<Double> numbers = (List<Double>) response.body().get("message");
-                if(numbers.size() > 0)
-                    setlayout((List<Double>)response.body().get("message"));
-
+                setlayout((List<Double>)response.body().get("message"));
+                Log.d(TAG, "onResponse: ");
             }
             @Override
             public void onFailure(Call<Map<String,Object>> call, Throwable t) {
@@ -74,10 +75,11 @@ public class Botmine extends Fragment {
     }
 
     private void setlayout(List<Double> message) {
-        digits_call = new Digits_Call(message,getContext(),play);
+        digits_call = new Digits_Call(message,getContext(),play,rt);
         GridLayoutManager manager = new  GridLayoutManager(getContext(),4);
         digits_returned.setLayoutManager(manager);
         digits_returned.setAdapter(digits_call);
         progress.setVisibility(View.INVISIBLE);
+        loader = false;
     }
 }

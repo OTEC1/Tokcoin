@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cardsHold"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
 
 
             <TextView
@@ -56,27 +56,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textStart"
-                android:textColor="@color/dark_text"
+                android:textColor="@color/otherbase"
                 android:drawableStart="@drawable/ic_baseline_games"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
 
-            <TextView
-                android:id="@+id/liquidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/groupName"
-                android:layout_marginTop="10dp"
-                android:textAlignment="textStart"
-                android:drawableStart="@drawable/ic_baseline_account"
-                android:textColor="@color/purple_700"
-                android:textStyle="bold" />
+
 
             <TextView
                 android:id="@+id/profit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/liquidity"
+                android:layout_below="@id/groupName"
                 android:layout_marginTop="12dp"
                 android:textAlignment="textStart"
                 android:drawableStart="@drawable/ic_baseline_show"

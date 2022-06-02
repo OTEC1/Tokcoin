@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="9dp"
                         android:padding="10dp"
-                        android:text="Created Group list"
+                        android:text="Created Groups"
                         android:textColor="@color/otherbase"
                         android:textSize="18sp"
                         android:textStyle="bold" />

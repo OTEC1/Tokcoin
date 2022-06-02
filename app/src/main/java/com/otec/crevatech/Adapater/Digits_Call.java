@@ -36,14 +36,17 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
     private Iterator<Integer> send_num;
     private Context context;
     private Button button;
+    private TextView rt;
 
 
     private String TAG = "Digits_Call";
 
-    public Digits_Call(List<Double> numbers, Context context, Button button) {
+    public Digits_Call(List<Double> numbers, Context context, Button button,TextView rt) {
         this.numbers = numbers;
         this.context = context;
         this.button = button;
+        this.rt = rt;
+        Log.d(TAG, "Digits_Call: ");
     }
 
     @NonNull
@@ -51,12 +54,16 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
     @Override
     public Digits_Call.Custom_adapter onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.digits_, parent, false);
+        Log.d(TAG, "onCreateViewHolder: ");
         return new Custom_adapter(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull Digits_Call.Custom_adapter holder, int position) {
-        holder.number.setText("" + new utilKotlin().cast(numbers.get(position)));
+        holder.number.setText(String.valueOf(new utilKotlin().cast(numbers.get(position))));
+
+        Log.d(TAG, "onBindViewHolder: ");
+
 
         holder.number.setOnClickListener(e -> {
             if (!send_number.contains(new utilKotlin().cast(holder.number.getText())) && send_number.size() < 3)
@@ -78,7 +85,9 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
                 isFunded.enqueue(new Callback<Map<String, Object>>() {
                     @Override
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                        Log.d(TAG, "onResponse: " + response.body().get("message"));
+                        Map<String,Object> ms = (Map<String, Object>) response.body().get("message");
+                        new utilKotlin().message2(ms.get("m1").toString(),e.getContext());
+                        rt.setText("Digit mined was "+new utilKotlin().cast(ms.get("m2").toString()));
                     }
 
                     @Override
@@ -88,7 +97,7 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
                 });
               }
                 else
-                    new utilKotlin().message2("Pls select at least 3 boxes", e.getContext());
+                    new utilKotlin().message2("Pls select at least 3 nodes", e.getContext());
             });
     }
 
@@ -98,7 +107,7 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
         else {
             for (send_num = send_number.iterator(); send_num.hasNext(); ) {
                     if (send_num.next() == Integer.parseInt(holder.number.getText().toString())) {
-                        FONTS(R.drawable.inputlines2, Color.parseColor("#666666"), holder, 2);
+                        FONTS(R.drawable.inputlines, Color.parseColor("#666666"), holder, 2);
                         send_num.remove();
                     }
             }
