@@ -31,8 +31,8 @@ public class Digits extends Fragment {
     }
 
     private void Populate() {
-        joinedGroup.addTab(joinedGroup.newTab().setText("Bot miner"));
         joinedGroup.addTab(joinedGroup.newTab().setText("User miner"));
+        joinedGroup.addTab(joinedGroup.newTab().setText("Bot miner"));
         joinedGroup.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 

@@ -39,12 +39,12 @@ public class Group_cover extends FragmentPagerAdapter {
                 if (call == 1)
                     return new JoinedGroup();
                 else
-                    return new Botmine();
+                    return new Usermine();
             case 1:
                 if (call == 1)
                     return new GroupRequest();
                 else
-                    return new Usermine();
+                    return new Botmine();
 
             default:
                 return null;
