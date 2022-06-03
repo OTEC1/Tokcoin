@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@drawable/inputlines5">
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@drawable/inputlines1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="22dp"
+        android:textColor="@color/otherbase"
+        android:textSize="25sp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@android:color/transparent"
+        android:text="Purchase"
+        android:textAllCaps="false"
+        android:textColor="@color/otherbase" />
+
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="-10dp"
+        android:background="@mipmap/vochesline" />
+
+
+    <TextView
+        android:id="@+id/buy"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/banner"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/inputlines6"
+        android:drawableStart="@drawable/ic_baseline_eco_24"
+        android:padding="9dp" />
+
+</RelativeLayout>

@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
 import com.otec.crevatech.R
+import java.text.NumberFormat
+import java.util.*
 
 class utilKotlin {
 
@@ -42,5 +44,11 @@ class utilKotlin {
     fun cast(d: Any): Int {
         val db = d.toString().toDouble()
         return db.toInt()
+    }
+
+
+     fun Currency(va: String): String? {
+        val Us = NumberFormat.getCurrencyInstance(Locale.US)
+        return Us.format(va.toDouble())
     }
 }

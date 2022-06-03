@@ -1,5 +1,6 @@
 package com.otec.crevatech.Adapater;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
@@ -58,15 +59,16 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull @NotNull CustomerAdapter holder, int position) {
 
         if (n == 1) {
             holder.button.setVisibility(View.VISIBLE);
             holder.groupName.setText(FORMAT("groupName", obj, position));
-            holder.liquidity.setText("Funds " + Currency(FORMAT("liquidity", obj, position)));
-            holder.loss.setText("loss -" + Currency(FORMAT("loss", obj, position)));
-            holder.profit.setText("Roi +" + Currency(FORMAT("profit", obj, position)));
+            holder.liquidity.setText("Funds " +new utilKotlin().Currency(FORMAT("liquidity", obj, position)));
+            holder.loss.setText("loss -" + new utilKotlin().Currency(FORMAT("loss", obj, position)));
+            holder.profit.setText("Roi +" + new utilKotlin().Currency(FORMAT("profit", obj, position)));
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
@@ -126,9 +128,9 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         progressBar = v.findViewById(R.id.spinBar);
         Map<String, Object> m = (Map<String, Object>) raw2.get("User");
         groupName.setText(m.get("groupName").toString());
-        profit.setText(Currency(m.get("profit").toString()));
-        liquidity.setText(Currency(m.get("liquidity").toString()));
-        loss.setText(Currency(m.get("loss").toString()));
+        profit.setText(new utilKotlin().Currency(m.get("profit").toString()));
+        liquidity.setText(new utilKotlin().Currency(m.get("liquidity").toString()));
+        loss.setText(new utilKotlin().Currency(m.get("loss").toString()));
         members.setText("Users " + Arrays.asList(m.get("members_ids").toString().split(",")).size() + "/" + (int) Double.parseDouble(m.get("liquidator_size").toString()));
         progressBar.setVisibility(View.INVISIBLE);
     }
@@ -139,10 +141,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         return i.get(node).toString();
     }
 
-    private String Currency(String va) {
-        NumberFormat Us = NumberFormat.getCurrencyInstance(Locale.US);
-        return Us.format(Double.parseDouble(va));
-    }
+
 
     class CustomerAdapter extends RecyclerView.ViewHolder {
         private TextView groupName, profit, loss, liquidity, members;

@@ -7,6 +7,13 @@
     android:id="@+id/shopPage"
     tools:context=".UI.Shop">
 
+
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerInParent="true"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,6 +39,8 @@
             android:layout_height="0sp"
             android:layout_weight="70">
         </androidx.recyclerview.widget.RecyclerView>
+
+
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
