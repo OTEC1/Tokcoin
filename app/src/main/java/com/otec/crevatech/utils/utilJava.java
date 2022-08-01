@@ -137,7 +137,7 @@ public class utilJava {
     }
 
 
-    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,List<Map<String,Object>> lists,int id,int call) {
+    public Map<String, Object> GET_USER(Map<String, Object> obj, String category,List<Map<String,Object>> lists,int call) {
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
@@ -145,7 +145,6 @@ public class utilJava {
         user.put("category",category);
         if(lists != null)
              user.put("list",lists);
-        user.put("id",id);
         return  call == 2 ? Wrap(user) : user;
     }
 
@@ -181,7 +180,7 @@ public class utilJava {
         pack.put("email",obj.get("email").toString());
         pack.put("IMEI",obj.get("IMEI").toString());
         pack.put("doc_id",doc_id);
-        pack.put("creator",creator.toString().replace("[","").replace("]",""));
+        pack.put("creator_email",creator.toString().replace("[","").replace("]",""));
         return Wrap(pack);
     }
 

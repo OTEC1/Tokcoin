@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cards"
             android:layout_marginTop="10dp"
+            android:text="test"
             android:textColor="@color/dark_text"
             android:textStyle="bold" />
 
@@ -65,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:textColor="@color/purple_700"
+            android:text="test"
             android:textStyle="bold" />
 
         <TextView
@@ -75,6 +77,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="12dp"
             android:textColor="@color/green"
+            android:text="test"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -86,6 +89,7 @@
             android:layout_below="@id/profit"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="12dp"
+            android:text="test"
             android:textColor="@color/red"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -100,6 +104,7 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/dark_text"
             android:textSize="12sp"
+            android:text="test"
             android:textStyle="bold" />
 
 

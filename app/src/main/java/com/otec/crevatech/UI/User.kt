@@ -17,6 +17,7 @@ import com.otec.crevatech.Adapater.UserGroupslist
 import com.otec.crevatech.R
 import com.otec.crevatech.Retrofit_.Base_config
 import com.otec.crevatech.Retrofit_.Request_class
+import com.otec.crevatech.utils.Repo
 import com.otec.crevatech.utils.utilJava
 import com.otec.crevatech.utils.utilKotlin
 import retrofit2.Call
@@ -48,7 +49,7 @@ class User : Fragment() {
 
     private fun changed(bal: TextView, gas: TextView, userName: TextView) {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
-        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().uid!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
+        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().currentUser?.email!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
               bal.text = currency(value!!["User_details.bal"].toString())
               gas.text = currency(value["User_details.gas"].toString())
             }
@@ -80,11 +81,5 @@ class User : Fragment() {
                 down.visibility = View.INVISIBLE
             }
         })
-
     }
-
-
-
-
-
 }

@@ -15,12 +15,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otec.crevatech.Adapater.Digits_Call;
 import com.otec.crevatech.Adapater.JoinGroupCall;
 import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
 import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.model.models;
+import com.otec.crevatech.utils.Repo;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -42,6 +44,7 @@ public class Botmine extends Fragment {
 
     private boolean loader = false;
     private String TAG = "Botmine";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,12 +78,17 @@ public class Botmine extends Fragment {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
 
-                if (!response.body().get("message").toString().contains("error"))
-                    setlayout((List<Double>) response.body().get("message"));
-                else {
-                    List<Map<String,Object>> o = (List<Map<String, Object>>) response.body().get("message");
+                if (response.body().get("message").toString().contains("error")) {
+                    List<Map<String, Object>> o = (List<Map<String, Object>>) response.body().get("message");
                     new utilKotlin().message2(o.get(0).get("error").toString(), getContext());
-                }
+                }else
+                    if(response.body().get("message").toString().contains("m1")){
+                           List<Map<String,Object>>  o = (List<Map<String,Object>>) response.body().get("message");
+
+                        new utilKotlin().message2(o.get(0).get("m1").toString(),getContext());
+                    }else
+                        setlayout((List<Double>) response.body().get("message"));
+
             }
 
             @Override

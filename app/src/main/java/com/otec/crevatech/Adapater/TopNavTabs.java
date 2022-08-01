@@ -62,16 +62,16 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
         holder.tabs.setOnClickListener(e -> {
             i = position;
             notifyDataSetChanged();
-            if (holder.tabs.getText().toString().trim().toLowerCase().equals("home") && FirebaseAuth.getInstance().getCurrentUser() != null)
+            if (holder.tabs.getText().toString().trim().equalsIgnoreCase("home") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new Home(), "Home", e, new Bundle(), R.id.frameLayout);
             else
-            if (holder.tabs.getText().toString().trim().toLowerCase().equals("user") && FirebaseAuth.getInstance().getCurrentUser() != null)
+            if (holder.tabs.getText().toString().trim().equalsIgnoreCase("user") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new User(), "User", e, null, R.id.frameLayout);
             else
-              if (holder.tabs.getText().toString().trim().toLowerCase().equals("groups") && FirebaseAuth.getInstance().getCurrentUser() != null)
+              if (holder.tabs.getText().toString().trim().equalsIgnoreCase("groups") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new GroupsLists(), "Groups", e, new Bundle(), R.id.frameLayout);
            else
-             if (holder.tabs.getText().toString().trim().toLowerCase().equals("digits") && FirebaseAuth.getInstance().getCurrentUser() != null)
+             if (holder.tabs.getText().toString().trim().equalsIgnoreCase("digits") && FirebaseAuth.getInstance().getCurrentUser() != null)
                 new utilJava().open_Fragment(new Digits(), "Digits", e, new Bundle(), R.id.frameLayout);
             else
                 if(holder.tabs.getText().toString().trim().toLowerCase().equalsIgnoreCase("Marketplace") && FirebaseAuth.getInstance().getCurrentUser() != null)

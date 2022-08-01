@@ -18,6 +18,7 @@ import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
 import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.model.models;
+import com.otec.crevatech.utils.Repo;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -56,7 +57,10 @@ public class Home extends Fragment {
         isFunded.enqueue(new Callback<models>() {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
-                setLayout(response.body().getMessage());
+                if(response.body() != null)
+                     setLayout(response.body().getMessage());
+                else
+                    new utilKotlin().message2("Error occurred while retrieving odds", getContext());
             }
             @Override
             public void onFailure(Call<models> call, Throwable t) {

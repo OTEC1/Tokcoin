@@ -46,8 +46,7 @@ public class VochesPage extends Fragment {
         LoadVouchers = v.findViewById(R.id.LoadVouchers);
         spinner = v.findViewById(R.id.spinner);
 
-        //Request_Vouchers();
-        //Temp
+         Request_Vouchers();
          Mapping();
         return v;
     }

@@ -16,6 +16,7 @@ import com.otec.crevatech.Adapater.UserGroupslist;
 import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
 import com.otec.crevatech.Retrofit_.Request_class;
+import com.otec.crevatech.utils.Repo;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -44,6 +45,7 @@ public class JoinedGroup extends Fragment {
         recyclerView = view.findViewById(R.id.joinedGroup);
         progress = view.findViewById(R.id.progress);
         RequestGroups();
+        BuildView(new Repo().list());
         return view;
     }
 

@@ -30,11 +30,9 @@ public interface Request_class {
     Call<List<Map<String,Object>>> getListOfBank();
 
 
-    @POST("Cravetech/AuthUserRequest")
+    @POST("Cravetech/GenerateRandom")
     Call<models> getPostList(@Body Map<String,Object> data);
 
-    @POST("Cravetech/AuthUserRequestSize")
-    Call<Map<String,Object>> getPostSize(@Body Map<String,Object> data);
 
 
     @POST("Cravetech/Userfunds")

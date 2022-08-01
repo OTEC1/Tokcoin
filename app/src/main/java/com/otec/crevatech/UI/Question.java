@@ -56,7 +56,7 @@ public class Question extends Fragment {
         super.onStop();
         if (stated) {
             cancel = false;
-            LoadUserBalance("", 1, 2);
+            LoadUserBalance("",  2);
             Log.d(TAG, "onStop:");
         }
     }
@@ -78,16 +78,16 @@ public class Question extends Fragment {
         IsFunded(b);
 
         a1.setOnClickListener(e -> {
-            SEND_ANSWER(a1.getText().toString(), TRIM(b));
+            SEND_ANSWER(a1.getText().toString(), b);
         });
         a2.setOnClickListener(e -> {
-            SEND_ANSWER(a2.getText().toString(), TRIM(b));
+            SEND_ANSWER(a2.getText().toString(), b);
         });
         a3.setOnClickListener(e -> {
-            SEND_ANSWER(a3.getText().toString(), TRIM(b));
+            SEND_ANSWER(a3.getText().toString(), b);
         });
         a4.setOnClickListener(e -> {
-            SEND_ANSWER(a4.getText().toString(), TRIM(b));
+            SEND_ANSWER(a4.getText().toString(),b);
         });
 
         return v;
@@ -100,12 +100,12 @@ public class Question extends Fragment {
 
     private void IsFunded(Bundle b) {
         Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b.get("category").toString(), null, 0, 2));
+        Call<Map<String, Object>> isFunded = request_class.isFunded(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b.get("category").toString(), null,  2));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (Boolean.parseBoolean(response.body().get("message").toString()))
-                    CheckLoad(b);
+                    Request_Question(TRIM(b));
                 else if (response.body().get("message").toString().equals("Unauthorized Request !"))
                     new utilKotlin().message2(response.body().get("message").toString(), getContext());
                 else
@@ -121,130 +121,38 @@ public class Question extends Fragment {
     }
 
 
-    private void CheckLoad(Bundle b) {
-        String cat = TRIM(b);
-        if (Check(getString(R.string.QuestionID), cat, 1))
-            LoadQuestion(getString(R.string.QuestionID), cat, UUID.randomUUID().toString());
-        else if (Check(getString(R.string.QuestionID), cat, 2))
-            WaitThenRemove(getString(R.string.QuestionID), cat);
-        else
-            InitQuestion(cat, UUID.randomUUID().toString(), getString(R.string.QuestionID));
-    }
 
 
-    private void WaitThenRemove(String tag, String b) {
-        new utilKotlin().message2("Pls wait we setting up the questions", getContext());
-        // if timer Count down
-        List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
-        Map<String, Object> o = new HashMap<>();
-        o.put(b, new ArrayList<>());
-        array.remove(o);
-        String c = new utilJava().SET_DATA_TO_CACHE(getContext(), array, tag);
-        Log.d(TAG, "WaitThenRemove: " + c);
-        InitQuestion(b, "", tag);
-
-    }
 
 
-    private boolean Check(String tag, String category, int caller) {
-        List<String> categories = new ArrayList<>();
-        List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
-        if (array != null) {
-            for (int y = 0; y < array.size(); y++)
-                for (Map.Entry<String, Object> obj : array.get(y).entrySet())
-                    if (caller == 1) {
-                        if (C(obj.getValue()).size() > 0)
-                            categories.add(obj.getKey().trim());
-                    } else
-                        categories.add(obj.getKey().trim());
-
-            return categories.contains(category.trim());
-        } else
-            return false;
-    }
 
 
-    private void SEND_ANSWER(String answer, String b) {
+
+
+    private void SEND_ANSWER(String answer, Bundle b) {
         count = 9;
         UpdateTimer();
         question_layout.setVisibility(View.INVISIBLE);
         Map<String, Object> user_answers = new HashMap<>();
         user_answers.put("answer_selected", answer);
-        user_answers.put("category", b);
-        user_answers.put("session_id", new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SESSION_ID)).get("uuid_stamp").toString());
+        user_answers.put("category", TRIM(b));
         user_answers.put("question_id", id);
         alist.add(user_answers);
         if (p > 0) {
             new utilKotlin().message2(p + " more to go", getActivity());
-            LoadQuestion(getString(R.string.QuestionID), b, UUID.randomUUID().toString());
+            Request_Question(TRIM(b));
         } else if (n >= 5 && p == 0 && cancel) {
-            LoadUserBalance(b, 1, 2);
+            LoadUserBalance(TRIM(b),  2);
             cancel = false;
         }
 
     }
 
 
-    private void InitQuestion(String b, String uuid, String tag) {
-        list.clear();
-        Map<String, Object> uid = new HashMap<>();
-        uid.put("uuid_stamp", uuid);
-        new utilJava().SET_DATA_TO_CACHE(getContext(), uid, getString(R.string.SESSION_ID));
-        Request_class request = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> list = request.getPostSize(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), b, null, 0, 2));
-        list.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                GenerateRandomValue(b, uuid, tag, (int) (Double.parseDouble(response.body().get("message").toString())));
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2(t.getMessage(), getContext());
-            }
-        });
-    }
 
 
-    private void GenerateRandomValue(String b, String uuid, String tag, int size) {
-        Map<String, Object> obj = new HashMap<>();
-        obj.put(b, psvm(0, size));
-        List<Map<String, Object>> arrayList = new utilJava().GET_CACHED_LIST(getContext(), tag);
-        if (arrayList == null)
-            arrayList = new ArrayList<>();
-        arrayList.add(obj);
-        new utilJava().SET_DATA_TO_CACHE(getContext(), arrayList, tag);
-        LoadQuestion(tag, b, uuid);
-    }
-
-
-    private void LoadQuestion(String tag, String b, String uuid) {
-        List<Map<String, Object>> array = new utilJava().GET_CACHED_LIST(getContext(), tag);
-        progressBar.setVisibility(View.VISIBLE);
-        reset = true;
-        if (array != null)
-            for (int y = 0; y < array.size(); y++)
-                for (Map.Entry<String, Object> obj : array.get(y).entrySet())
-                    if (obj.getKey().equals(b))
-                        if (C(obj.getValue()).size() > 0)
-                            Request_Question(C(obj.getValue()).get(C(obj.getValue()).size() - 1), b, uuid, array, tag);
-                        else
-                            WaitThenRemove(getString(R.string.QuestionID), b);
-    }
-
-
-    public List<?> C(Object obj) {
-        List<?> list = new ArrayList<>();
-        if (obj.getClass().isArray())
-            list = Arrays.asList((Object[]) obj);
-        else if (obj instanceof Collection)
-            list = new ArrayList<>((Collection<?>) obj);
-        return list;
-    }
-
-
-    private void Request_Question(Object o, String obj2, String uid, List<Map<String, Object>> array, String tag) {
-        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), obj2, null, (int) Double.parseDouble(o.toString()), 2);
+    private void Request_Question(String category) {
+        Map<String, Object> user = new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)),category, null,2);
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
         Call<models> list = request.getPostList(user);
         list.enqueue(new Callback<models>() {
@@ -267,7 +175,7 @@ public class Question extends Fragment {
                     for (Map<String, Object> i : map) {
                         Map<String, Object> x = (Map<String, Object>) i.get("Q");
                         List<?> a = getRandomElement(C(x.get("answers")), C(x.get("answers")).size());
-                        id = (int) Double.parseDouble(o.toString());
+
                         if (C(x.get("answers")).size() == 2) {
                             Hide(a3, a4, 1);
                             for (int v = 0; v < a.size(); v++) {
@@ -293,7 +201,6 @@ public class Question extends Fragment {
                         questionIndex.setText("Question " + n + "/5");
                         StartTimer();
                     }
-                    RemoveLast(array, obj2, tag);
                 } else
                     new utilKotlin().message2(map.get(0).get("error").toString(), getContext());
 
@@ -317,7 +224,7 @@ public class Question extends Fragment {
                     if (count == 0 && reset && cancel) {
                         question_layout.setVisibility(View.INVISIBLE);
                         LoadReset("Sorry time's up !", "");
-                        LoadUserBalance("", 1, 2);
+                        LoadUserBalance("",  2);
                         reset = false;
                         cancel = false;
                     }
@@ -345,6 +252,16 @@ public class Question extends Fragment {
 
 
 
+    public List<?> C(Object obj) {
+        List<?> list = new ArrayList<>();
+        if (obj.getClass().isArray())
+            list = Arrays.asList((Object[]) obj);
+        else if (obj instanceof Collection)
+            list = new ArrayList<>((Collection<?>) obj);
+        return list;
+    }
+
+
     private void LoadReset(String s, String b) {
         if (Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.APP_STATE)).get("app_state").toString())) {
             new utilKotlin().message2(s, getActivity());
@@ -353,10 +270,10 @@ public class Question extends Fragment {
     }
 
 
-    private void LoadUserBalance(String string, int id, int call) {
+    private void LoadUserBalance(String string,int call) {
         progressBar.setVisibility(View.VISIBLE);
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), string, alist, id, call));
+        Call<Map<String, Object>> isFunded = config.isFunded_Active(new utilJava().GET_USER(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), string, alist, call));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
@@ -383,33 +300,8 @@ public class Question extends Fragment {
         }
     }
 
-    private void RemoveLast(List<Map<String, Object>> array, String cat, String tag) {
-        List<Object> list;
-        Map<String, Object> o = new HashMap<>();
-        for (int y = 0; y < array.size(); y++)
-            for (Map.Entry<String, Object> obj : array.get(y).entrySet())
-                if (obj.getKey().equals(cat)) {
-                    list = (List<Object>) C(obj.getValue());
-                    list.remove(list.size() - 1);
-                    o.put(obj.getKey(), list);
-                    array.remove(y);
-                    array.add(o);
-                    new utilJava().SET_DATA_TO_CACHE(getContext(), array, tag);
-                }
-    }
-
-    public List<Integer> psvm(int min, int max) {
-        int x;
-        while (true) {
-            x = min + (int) (Math.random() * ((max - min) + 1));
-            list.add(x == 0 ? x + 1 : x);
-            List<Integer> deDupStringList = new ArrayList<>(new HashSet<>(list));
-            if (deDupStringList.size() == max)
-                return deDupStringList;
 
 
-        }
-    }
 
     public List<Object> getRandomElement(List list, int totalItems) {
         Random rand = new Random();

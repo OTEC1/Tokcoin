@@ -129,16 +129,14 @@ public class Register extends AppCompatActivity {
     private void AuthNewUser() {
         spin.setVisibility(View.VISIBLE);
         if (confirmPass.getText().toString().equals(password.getText().toString()))
-            PostToEndPoint();
+            AddToDB();
         else {
             new utilKotlin().message2("Password doesn't match ", getApplicationContext());
             spin.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void PostToEndPoint() {
-        AddToDB();
-    }
+
 
     private void AddToDB() {
         Bundle bundle = new Bundle();

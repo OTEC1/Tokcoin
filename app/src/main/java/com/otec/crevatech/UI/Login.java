@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void LoadUserDetails() {
-        FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().getUid()).get()
+        FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
                 .addOnCompleteListener(evt -> {
                         if(evt.isSuccessful())
                             new utilJava().SET_CACHED_USER((Map<String, Object>) evt.getResult().get("User"),getString(R.string.SIGNED_IN_USER),this);
