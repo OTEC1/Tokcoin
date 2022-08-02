@@ -38,7 +38,6 @@ public class Botmine extends Fragment {
 
     private RecyclerView digits_returned;
     private Button play;
-    private Digits_Call digits_call;
     private ProgressBar progress;
     private TextView rt;
 
@@ -60,7 +59,7 @@ public class Botmine extends Fragment {
 
         play.setOnClickListener(e->{
             if(play.getText().toString().equals("Play"))
-                Request_Digit();
+                new utilJava().Request_Digit(getContext(),digits_returned,loader,progress,play,rt);
             else
                 play.setText("Play");
 
@@ -68,43 +67,5 @@ public class Botmine extends Fragment {
         return v;
     }
 
-    private void Request_Digit() {
 
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
-                        .GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), false, false, true,
-                new ArrayList<>(), new ArrayList<>(), null, null));
-        isFunded.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-
-                if (response.body().get("message").toString().contains("error")) {
-                    List<Map<String, Object>> o = (List<Map<String, Object>>) response.body().get("message");
-                    new utilKotlin().message2(o.get(0).get("error").toString(), getContext());
-                }else
-                    if(response.body().get("message").toString().contains("m1")){
-                           List<Map<String,Object>>  o = (List<Map<String,Object>>) response.body().get("message");
-
-                        new utilKotlin().message2(o.get(0).get("m1").toString(),getContext());
-                    }else
-                        setlayout((List<Double>) response.body().get("message"));
-
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2(t.getMessage(), getContext());
-            }
-        });
-
-    }
-
-    private void setlayout(List<Double> message) {
-        digits_call = new Digits_Call(message, getContext(), play, rt);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
-        digits_returned.setLayoutManager(manager);
-        digits_returned.setAdapter(digits_call);
-        progress.setVisibility(View.INVISIBLE);
-        loader = false;
-    }
 }

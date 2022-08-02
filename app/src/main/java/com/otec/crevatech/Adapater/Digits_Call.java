@@ -2,19 +2,17 @@ package com.otec.crevatech.Adapater;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.otec.crevatech.R;
-import com.otec.crevatech.Retrofit_.Base_config;
-import com.otec.crevatech.Retrofit_.Request_class;
 import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.utils.utilKotlin;
 
@@ -23,11 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter> {
 
@@ -37,14 +30,20 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
     private Context context;
     private Button button;
     private TextView rt;
+    private boolean loader;
+    private RecyclerView digits_returned;
+    private ProgressBar progress;
 
 
     private String TAG = "Digits_Call";
 
-    public Digits_Call(List<Double> numbers, Context context, Button button,TextView rt) {
+    public Digits_Call(List<Double> numbers, Context context, Button button, TextView rt, boolean loader, RecyclerView digits_returned, ProgressBar progress) {
+        this.digits_returned = digits_returned;
+        this.progress = progress;
         this.numbers = numbers;
         this.context = context;
         this.button = button;
+        this.loader = loader;
         this.rt = rt;
     }
 
@@ -72,7 +71,8 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
 
         button.setOnClickListener(e -> {
             if (send_number.size() >= 3)
-                    new utilJava().LoadInstance(rt,e.getContext(),numbers,send_number,false,false,true,null,null);
+                    new utilJava().LoadInstance(rt,e.getContext(),numbers,send_number,false,false,true,
+                            null,null,digits_returned,button,progress,1);
                 else
                     new utilKotlin().message2("Pls select at least 3 nodes", e.getContext());
             });

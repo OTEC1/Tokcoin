@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,8 @@ public class Usermine extends Fragment {
                 send_number.add(Integer.parseInt(n6.getText().toString()));
 
             if (send_number.size() > 0)
-                new utilJava().LoadInstance(rt, e.getContext(), new ArrayList<>(), send_number, false, true, false, null, null);
+                new utilJava().LoadInstance(rt, e.getContext(), new ArrayList<>(), send_number, false, true, false, null,
+                        null, null, null, null,2);
             else
                 new utilKotlin().message2("Pls fill out some nodes", getContext());
         });

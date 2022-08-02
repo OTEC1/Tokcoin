@@ -6,16 +6,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.otec.crevatech.Adapater.Digits_Call;
 import com.otec.crevatech.R;
 import com.otec.crevatech.Retrofit_.Base_config;
 import com.otec.crevatech.Retrofit_.Request_class;
@@ -209,10 +214,10 @@ public class utilJava {
         return pack;
     }
 
-    public void LoadInstance(TextView rt, Context e,List<Double> numbers, List<Integer> send_number,Boolean isGroup,Boolean isUser, Boolean isBot,String creator_id, String doc_id) {
+    public void LoadInstance(TextView rt, Context e, List<Double> numbers, List<Integer> send_number, Boolean isGroup, Boolean isUser, Boolean isBot, String creator_id,
+                             String doc_id, RecyclerView digits_returned, Button button, ProgressBar progress,int i) {
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
-                        .GET_CACHED_MAP(e, e.getString(R.string.SIGNED_IN_USER)),
+        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava().GET_CACHED_MAP(e, e.getString(R.string.SIGNED_IN_USER)),
                 isGroup, isUser, isBot, numbers, send_number, creator_id, doc_id));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
@@ -222,6 +227,8 @@ public class utilJava {
                 rt.setText("Digit mined was "+new utilKotlin().cast(ms.get("m2").toString()));
                 numbers.clear();
                 send_number.clear();
+                if(i == 1)
+                   Request_Digit(e,digits_returned,true,progress,button,rt);
             }
 
             @Override
@@ -231,4 +238,47 @@ public class utilJava {
         });
 
     }
+
+
+
+
+    public void Request_Digit(Context cn, RecyclerView digits_returned, boolean loader, ProgressBar progress, Button play, TextView rt) {
+
+        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
+                        .GET_CACHED_MAP(cn, cn.getString(R.string.SIGNED_IN_USER)), false, false, true,
+                new ArrayList<>(), new ArrayList<>(), null, null));
+        isFunded.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+
+                if (response.body().get("message").toString().contains("error")) {
+                    List<Map<String, Object>> o = (List<Map<String, Object>>) response.body().get("message");
+                    new utilKotlin().message2(o.get(0).get("error").toString(), cn);
+                }else
+                if(response.body().get("message").toString().contains("m1")){
+                    List<Map<String,Object>>  o = (List<Map<String,Object>>) response.body().get("message");
+
+                    new utilKotlin().message2(o.get(0).get("m1").toString(),cn);
+                }else
+                    setlayout((List<Double>) response.body().get("message"),digits_returned,loader,cn,progress,play,rt);
+
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                new utilKotlin().message2(t.getMessage(), cn);
+            }
+        });
+
+    }
+
+    private void setlayout(List<Double> message, RecyclerView digits_returned, boolean loader, Context cn, ProgressBar progress, Button play, TextView rt) {
+         Digits_Call  digits_call = new Digits_Call(message,cn, play, rt,loader,digits_returned,progress);
+        GridLayoutManager manager = new GridLayoutManager(cn, 4);
+        digits_returned.setLayoutManager(manager);
+        digits_returned.setAdapter(digits_call);
+        progress.setVisibility(View.INVISIBLE);
+    }
+
 }
