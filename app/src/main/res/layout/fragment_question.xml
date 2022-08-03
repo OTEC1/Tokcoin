@@ -6,9 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".UI.Question">
 
+
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/question_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Start"
+        android:layout_marginTop="75dp"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:background="@drawable/inputlines1"/>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
 
         <RelativeLayout
@@ -46,6 +64,9 @@
                 android:layout_height="match_parent"
                 android:paddingBottom="10dp"
                 android:visibility="invisible">
+
+
+
 
                 <TextView
                     android:id="@+id/questionIndex"

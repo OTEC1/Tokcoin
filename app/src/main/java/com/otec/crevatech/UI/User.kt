@@ -51,7 +51,7 @@ class User : Fragment() {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
         if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().currentUser?.email!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
               bal.text = currency(value!!["User_details.bal"].toString())
-              gas.text = currency(value["User_details.gas"].toString())
+              gas.text = value["User_details.gas"].toString()
             }
     }
 

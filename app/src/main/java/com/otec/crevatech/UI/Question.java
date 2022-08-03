@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,13 +43,14 @@ public class Question extends Fragment {
     private List<Integer> list = new ArrayList<>();
     private List<Map<String, Object>> alist = new ArrayList<>();
     private TextView a1, a2, a3, a4, question, questionIndex, timer;
+    private Button question_reset;
     private Timer time;
     private RelativeLayout question_layout;
     private ProgressBar progressBar;
 
     private boolean reset = true, stated = false, cancel = true;
     private String TAG = "Question";
-    private int n = 0, p = 5, count = 9, id;
+    private int n = 0, p = 5, count = 9,ip;
 
 
     @Override
@@ -68,6 +70,7 @@ public class Question extends Fragment {
         a2 = v.findViewById(R.id.a2);
         a3 = v.findViewById(R.id.a3);
         a4 = v.findViewById(R.id.a4);
+        question_reset = v.findViewById(R.id.question_reset);
         question = v.findViewById(R.id.question);
         questionIndex = v.findViewById(R.id.questionIndex);
         progressBar = v.findViewById(R.id.progressBar);
@@ -90,12 +93,15 @@ public class Question extends Fragment {
             SEND_ANSWER(a4.getText().toString(),b);
         });
 
+        question_reset.setOnClickListener(e->{
+            question_reset.setVisibility(View.INVISIBLE);
+            Request_Question(TRIM(b));
+
+        });
+
         return v;
     }
 
-    private String TRIM(Bundle b) {
-        return b.get("category").toString().trim().replace(" ", "");
-    }
 
 
     private void IsFunded(Bundle b) {
@@ -122,13 +128,6 @@ public class Question extends Fragment {
 
 
 
-
-
-
-
-
-
-
     private void SEND_ANSWER(String answer, Bundle b) {
         count = 9;
         UpdateTimer();
@@ -136,16 +135,18 @@ public class Question extends Fragment {
         Map<String, Object> user_answers = new HashMap<>();
         user_answers.put("answer_selected", answer);
         user_answers.put("category", TRIM(b));
-        user_answers.put("question_id", id);
+        user_answers.put("question_id",ip);
         alist.add(user_answers);
+        Log.d(TAG, "SEND_ANSWER: "+p);
         if (p > 0) {
+            progressBar.setVisibility(View.VISIBLE);
             new utilKotlin().message2(p + " more to go", getActivity());
             Request_Question(TRIM(b));
         } else if (n >= 5 && p == 0 && cancel) {
             LoadUserBalance(TRIM(b),  2);
+            question_reset.setVisibility(View.VISIBLE);
             cancel = false;
         }
-
     }
 
 
@@ -158,7 +159,6 @@ public class Question extends Fragment {
         list.enqueue(new Callback<models>() {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
-                question_layout.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
                 stated = true;
 
@@ -172,10 +172,12 @@ public class Question extends Fragment {
                 n++;
                 List<Map<String, Object>> map = response.body().getMessage();
                 if (!map.get(0).toString().contains("error")) {
+                    question_layout.setVisibility(View.VISIBLE);
                     for (Map<String, Object> i : map) {
                         Map<String, Object> x = (Map<String, Object>) i.get("Q");
                         List<?> a = getRandomElement(C(x.get("answers")), C(x.get("answers")).size());
-
+                        Double mp = Double.parseDouble(x.get("id").toString());
+                        ip = mp.intValue();
                         if (C(x.get("answers")).size() == 2) {
                             Hide(a3, a4, 1);
                             for (int v = 0; v < a.size(); v++) {
@@ -201,9 +203,13 @@ public class Question extends Fragment {
                         questionIndex.setText("Question " + n + "/5");
                         StartTimer();
                     }
-                } else
+                } else if (map.get(0).get("error").toString().equals("All set !") || map.get(0).get("error").toString().equals("All Reset !")) {
+                    question_reset.setVisibility(View.VISIBLE);
                     new utilKotlin().message2(map.get(0).get("error").toString(), getContext());
-
+                } else {
+                    new utilKotlin().message2(map.get(0).get("error").toString(), getContext());
+                stated = false;
+              }
             }
 
             @Override
@@ -313,4 +319,9 @@ public class Question extends Fragment {
         }
         return newList;
     }
+
+    private String TRIM(Bundle b) {
+        return b.get("category").toString().trim().replace(" ", "");
+    }
+
 }

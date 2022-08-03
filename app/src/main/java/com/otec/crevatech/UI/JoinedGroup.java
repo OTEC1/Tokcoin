@@ -45,7 +45,6 @@ public class JoinedGroup extends Fragment {
         recyclerView = view.findViewById(R.id.joinedGroup);
         progress = view.findViewById(R.id.progress);
         RequestGroups();
-        BuildView(new Repo().list());
         return view;
     }
 

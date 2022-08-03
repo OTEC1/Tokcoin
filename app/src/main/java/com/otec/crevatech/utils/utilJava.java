@@ -260,9 +260,10 @@ public class utilJava {
                     List<Map<String,Object>>  o = (List<Map<String,Object>>) response.body().get("message");
 
                     new utilKotlin().message2(o.get(0).get("m1").toString(),cn);
-                }else
-                    setlayout((List<Double>) response.body().get("message"),digits_returned,loader,cn,progress,play,rt);
-
+                }else {
+                    setlayout((List<Double>) response.body().get("message"), digits_returned, loader, cn, progress, play, rt);
+                    rt.setText("");
+                }
             }
 
             @Override
