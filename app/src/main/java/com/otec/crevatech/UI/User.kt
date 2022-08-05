@@ -47,11 +47,15 @@ class User : Fragment() {
         return  view;
     }
 
+
+    //Send to backend route
     private fun changed(bal: TextView, gas: TextView, userName: TextView) {
         userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
-        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().currentUser?.email!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
-              bal.text = currency(value!!["User_details.bal"].toString())
-              gas.text = value["User_details.gas"].toString()
+        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER))
+                 .document(FirebaseAuth.getInstance().currentUser?.email!!)
+                   .addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
+                      bal.text = currency(value!!["User_details.bal"].toString())
+                      gas.text = value["User_details.gas"].toString()
             }
     }
 

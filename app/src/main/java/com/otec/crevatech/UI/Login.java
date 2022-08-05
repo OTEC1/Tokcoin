@@ -24,7 +24,7 @@ public class Login extends AppCompatActivity {
 
     private EditText  emailF,passwordf;
     private FloatingActionButton login_btn;
-    private TextView register;
+    private TextView register, report;
     private ProgressBar spin;
     private Fragment fr;
     
@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
         passwordf =  findViewById(R.id.passwordf);
         login_btn =  findViewById(R.id.login_btn);
         register =  findViewById(R.id.register);
+        report =  findViewById(R.id.report);
         spin =  findViewById(R.id.spin);
 
 
@@ -61,8 +62,7 @@ public class Login extends AppCompatActivity {
         login_btn.setOnClickListener(v->{
           if(new utilKotlin().verfiy(emailF,passwordf)) {
               spin.setVisibility(View.VISIBLE);
-              FirebaseAuth.getInstance()
-                      .signInWithEmailAndPassword(emailF.getText().toString(), passwordf.getText().toString())
+              FirebaseAuth.getInstance().signInWithEmailAndPassword(emailF.getText().toString(), passwordf.getText().toString())
                       .addOnCompleteListener(e -> {
                           if (e.isSuccessful())
                               LoadUserDetails();
@@ -74,6 +74,11 @@ public class Login extends AppCompatActivity {
           }
           else
               new utilKotlin().message2("Pls fill out all fields ! ", getApplicationContext());
+        });
+
+
+        report.setOnClickListener( e-> {
+                startActivity(new Intent(getApplicationContext(),Report_issues.class));
         });
 
     }

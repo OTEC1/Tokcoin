@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
+
         if (FirebaseAuth.getInstance().uid == null)
             utilKotlin().message2("Pls sign in", this)
         else {

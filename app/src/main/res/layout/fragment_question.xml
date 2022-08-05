@@ -7,9 +7,6 @@
     tools:context=".UI.Question">
 
 
-
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/question_reset"
         android:layout_width="wrap_content"

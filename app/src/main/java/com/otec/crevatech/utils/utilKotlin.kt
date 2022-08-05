@@ -1,13 +1,17 @@
 package com.otec.crevatech.utils
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import com.google.firebase.auth.FirebaseAuth
 import com.otec.crevatech.R
 import java.text.NumberFormat
 import java.util.*
@@ -36,8 +40,8 @@ class utilKotlin {
         return editText.text.isNotEmpty() && editText2.text.isNotEmpty()
     }
 
-    fun  check(editText: EditText): Boolean{
-       return  editText.getText().toString().trim().isEmpty()
+    fun check(editText: EditText): Boolean {
+        return editText.getText().toString().trim().isEmpty()
     }
 
 
@@ -47,8 +51,9 @@ class utilKotlin {
     }
 
 
-     fun Currency(va: String): String? {
+    fun Currency(va: String): String? {
         val Us = NumberFormat.getCurrencyInstance(Locale.US)
         return Us.format(va.toDouble())
     }
+
 }

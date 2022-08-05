@@ -1,5 +1,6 @@
 package com.otec.crevatech.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -131,7 +132,7 @@ public class Question extends Fragment {
     private void SEND_ANSWER(String answer, Bundle b) {
         count = 9;
         UpdateTimer();
-        question_layout.setVisibility(View.INVISIBLE);
+        UpdateQuestionUi(1);
         Map<String, Object> user_answers = new HashMap<>();
         user_answers.put("answer_selected", answer);
         user_answers.put("category", TRIM(b));
@@ -149,7 +150,9 @@ public class Question extends Fragment {
         }
     }
 
-
+    private void UpdateQuestionUi(int c) {
+        question_layout.setVisibility(c == 0 ? View.VISIBLE : View.INVISIBLE);
+    }
 
 
     private void Request_Question(String category) {
@@ -172,7 +175,7 @@ public class Question extends Fragment {
                 n++;
                 List<Map<String, Object>> map = response.body().getMessage();
                 if (!map.get(0).toString().contains("error")) {
-                    question_layout.setVisibility(View.VISIBLE);
+                    UpdateQuestionUi(0);
                     for (Map<String, Object> i : map) {
                         Map<String, Object> x = (Map<String, Object>) i.get("Q");
                         List<?> a = getRandomElement(C(x.get("answers")), C(x.get("answers")).size());
@@ -228,7 +231,7 @@ public class Question extends Fragment {
                 getActivity().runOnUiThread(() -> {
                     timer.setText(count + " sec");
                     if (count == 0 && reset && cancel) {
-                        question_layout.setVisibility(View.INVISIBLE);
+                       UpdateQuestionUi(1);
                         LoadReset("Sorry time's up !", "");
                         LoadUserBalance("",  2);
                         reset = false;
@@ -269,10 +272,8 @@ public class Question extends Fragment {
 
 
     private void LoadReset(String s, String b) {
-        if (Boolean.parseBoolean(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.APP_STATE)).get("app_state").toString())) {
-            new utilKotlin().message2(s, getActivity());
-            new utilJava().openFrag(new Home(), "Home", null, getActivity());
-        }
+        new utilKotlin().message2(s, getActivity());
+        startActivity(new Intent(getContext(),MainActivity.class));
     }
 
 

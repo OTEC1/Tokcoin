@@ -74,7 +74,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
             holder.btn2.setOnClickListener(e -> {
                 Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-                Call<Map<String, Object>> obj = request_class.JOIN_REQUEST(new utilJava().RequestSend(new utilJava().GET_CACHED_MAP(e.getContext(), e.getContext().getString(R.string.SIGNED_IN_USER)), FORMAT("doc_id", objList, position), Arrays.asList(FORMAT("members_ids", objList, position).split(",")).get(0)));
+                Call<Map<String, Object>> obj = request_class.JOIN_REQUEST(new utilJava().RequestSend(new utilJava().GET_CACHED_MAP(e.getContext(), e.getContext().getString(R.string.SIGNED_IN_USER)), FORMAT("doc_id", objList, position), FORMAT("email", objList, position)));
                 obj.enqueue(new Callback<Map<String, Object>>() {
                     @Override
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
@@ -83,7 +83,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
+                                new utilKotlin().message2(t.getLocalizedMessage(),holder.btn.getContext());
                     }
                 });
 
@@ -133,3 +133,6 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
         }
     }
 }
+
+//Get first node in list
+//Arrays.asList(FORMAT("members_ids", objList, position).split(",")).get(0))

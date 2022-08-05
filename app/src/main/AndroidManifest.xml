@@ -18,7 +18,7 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".UI.Register"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Issues_submit"
+        <activity android:name=".UI.Report_issues"
                   android:screenOrientation="portrait"/>
         <activity android:name=".UI.Shop"
                   android:screenOrientation="portrait"/>

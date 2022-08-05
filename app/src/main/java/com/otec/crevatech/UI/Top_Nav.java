@@ -1,5 +1,6 @@
 package com.otec.crevatech.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,12 +23,11 @@ import com.otec.crevatech.utils.utilJava;
 import com.otec.crevatech.R;
 import com.otec.crevatech.utils.utilKotlin;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
-public class Top_nav extends Fragment {
+public class Top_Nav extends Fragment {
 
     private RecyclerView recyclerView;
     private TopNavTabs topNavTabs;
@@ -65,15 +65,12 @@ public class Top_nav extends Fragment {
                         if (FirebaseAuth.getInstance().getUid() == null)
                             startActivity(new Intent(getContext(), Login.class));
                         else
-                            echo(FirebaseAuth.getInstance().getCurrentUser().getEmail() + " already signed out");
+                            echo(FirebaseAuth.getInstance().getCurrentUser().getEmail() + " already signed out",view.getContext());
                         return true;
 
 
                     case R.id.report:
-                        if (FirebaseAuth.getInstance().getUid() != null)
-                            startActivity(new Intent(getActivity(), Issues_submit.class));
-                        else
-                            new utilKotlin().message2("Pls sign in", requireActivity());
+                            startActivity(new Intent(getActivity(), Report_issues.class));
                         return true;
 
                 }
@@ -84,9 +81,10 @@ public class Top_nav extends Fragment {
     }
 
 
-    private void echo(String url) {
+    private void echo(String url, Context c) {
         new utilKotlin().message2(url, getContext());
         FirebaseAuth.getInstance().signOut();
+        new utilJava().SET_DATA_TO_CACHE( c,null, c.getString(R.string.SIGNED_IN_USER));
         startActivity(new Intent(getActivity(), Login.class));
     }
 
@@ -104,7 +102,6 @@ public class Top_nav extends Fragment {
              topNavTabs = new TopNavTabs(l,getContext());
              recyclerView.setLayoutManager(manager);
              recyclerView.setAdapter(topNavTabs);
-        Log.d(TAG, "CHECK: ");
     }
 
 

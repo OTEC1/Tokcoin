@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.otec.crevatech.Adapater.Digits_Call;
@@ -186,6 +187,7 @@ public class utilJava {
         pack.put("IMEI",obj.get("IMEI").toString());
         pack.put("doc_id",doc_id);
         pack.put("creator_email",creator.toString().replace("[","").replace("]",""));
+        Log.d(TAG, "RequestSend: "+pack);
         return Wrap(pack);
     }
 
@@ -203,6 +205,9 @@ public class utilJava {
         user.put("active", false);
         user.put("odd", odd);
         user.put("avatar", avatar);
+        user.put("profit", 0);
+        user.put("loss", 0);
+        user.put("liquidity", 0);
         return Wrap(user);
     }
 
@@ -282,4 +287,22 @@ public class utilJava {
         progress.setVisibility(View.INVISIBLE);
     }
 
+    public void routine(String email, String issue, Context c) {
+        FirebaseFirestore.getInstance().collection(c.getString(R.string.ISSUE_REPORT)).document(email)
+                .collection("ISSUES").document()
+                .set(MAP(issue,email))
+                .addOnCompleteListener(res->{
+                    if(res.isSuccessful())
+                        new utilKotlin().message2("We have received your complain" , c);
+                    else
+                        new utilKotlin().message2(res.getException().getLocalizedMessage(),c);
+                });
+    }
+
+    private Object MAP(String  issues, String email) {
+        Map<String,Object> m = new HashMap<>();
+        m.put("email",email);
+        m.put("issue",issues);
+        return  m;
+    }
 }

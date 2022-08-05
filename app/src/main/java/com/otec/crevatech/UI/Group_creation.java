@@ -85,7 +85,7 @@ public class Group_creation extends Fragment {
                     if (!odd.trim().isEmpty() && !odd.equals("Select Odd"))
                         Check();
                     else
-                        new utilKotlin().message2("Pls fill select a valid point !", getContext());
+                        new utilKotlin().message2("Pls fill select a valid odd !", getContext());
             } else
                  new utilKotlin().message2("Pls fill out all fields !", getContext());
         });

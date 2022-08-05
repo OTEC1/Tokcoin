@@ -15,9 +15,9 @@
             android:id="@+id/spin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="170dp" />
+            android:layout_marginTop="170dp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -35,9 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="60dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24" />
@@ -57,9 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/app_logo"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Welcome Back"
                 android:textAllCaps="false"
@@ -73,12 +69,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/banner"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="110dp"
-                android:inputType="textEmailAddress"
                 android:background="@drawable/inputlines"
                 android:cursorVisible="true"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
@@ -91,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/emailf"
                 android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/inputlines"
                 android:cursorVisible="true"
@@ -110,10 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passwordf"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:backgroundTint="@color/black"
                 android:src="@drawable/ic_baseline_arrow_forward_24" />
 
@@ -124,9 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/login_btn"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginStart="1dp"
-                android:layout_marginLeft="1dp"
                 android:layout_marginTop="15dp"
                 android:background="@android:color/transparent"
                 android:text="Sign up"
@@ -135,21 +125,34 @@
 
 
             <Button
+                android:id="@+id/forgot_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/login_btn"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
                 android:background="@android:color/transparent"
                 android:text="forgot Password"
                 android:textAllCaps="false"
                 android:textColor="@color/black" />
 
+
+
+            <TextView
+                android:id="@+id/report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/forgot_pass"
+                android:layout_centerHorizontal="true"
+                android:padding="20sp"
+                android:text="Having issues login in ?" />
+
+
         </RelativeLayout>
     </ScrollView>
+
+
 
 
 </FrameLayout>
