@@ -73,11 +73,17 @@ class User : Fragment() {
         val isFunded = request.GT_GROUPS(utilJava().GET_GROUP(utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))))
         isFunded.enqueue(object : Callback<Map<String,Any>> {
             override fun onResponse(call: Call<Map<String,Any>>, response: Response<Map<String,Any>>) {
-                val l1: Map<*, *>? = response.body()!!["message"] as Map<*, *>?
-                val l1a: Map<*, *>? = l1?.get("listA") as Map<*, *>?
-                val  groups = UserGroupslist(l1a?.get("raw1") as MutableList<MutableMap<String, Any>>?,context,1)
-                createdGroup.adapter = groups
-                down.visibility = View.INVISIBLE
+                if(!response.body()!!["message"].toString().contains("error")) {
+                    val l1: Map<*, *>? = response.body()!!["message"] as Map<*, *>?
+                    val l1a: Map<*, *>? = l1?.get("listA") as Map<*, *>?
+                    val groups = UserGroupslist(
+                        l1a?.get("raw1") as MutableList<MutableMap<String, Any>>?,
+                        context,
+                        1
+                    )
+                    createdGroup.adapter = groups
+                    down.visibility = View.INVISIBLE
+                }
             }
 
             override fun onFailure(call: Call<Map<String,Any>>, t: Throwable) {

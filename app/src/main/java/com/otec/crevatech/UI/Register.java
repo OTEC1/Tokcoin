@@ -142,9 +142,9 @@ public class Register extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("email", email.getText().toString());
         bundle.putString("password", password.getText().toString());
-        bundle.putString("bankAccountNo", bankAccount_No.getText().toString());
-        bundle.putString("NameOnAccount", NameOnAccount.getText().toString());
-        bundle.putString("bankSelected", bank_selected);
+        bundle.putString("bn", bankAccount_No.getText().toString());
+        bundle.putString("ba", NameOnAccount.getText().toString());
+        bundle.putString("bs", bank_selected);
         startActivity(new Intent(getApplicationContext(), CategoryFlow.class).putExtra("user",bundle));
         spin.setVisibility(View.INVISIBLE);
     }

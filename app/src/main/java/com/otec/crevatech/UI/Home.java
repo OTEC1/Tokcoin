@@ -58,7 +58,10 @@ public class Home extends Fragment {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
                 if(response.body() != null)
-                     setLayout(response.body().getMessage());
+                    if(!response.body().getMessage().toString().contains("error"))
+                         setLayout(response.body().getMessage());
+                    else
+                        new utilKotlin().message2("Unauthorized Request !", getContext());
                 else
                     new utilKotlin().message2("Error occurred while retrieving odds", getContext());
             }
@@ -73,15 +76,20 @@ public class Home extends Fragment {
 
 
     private void setLayout(List<Map<String, Object>> message) {
-        joinGroupCall = new JoinGroupCall(message,getContext(),1);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(joinGroupCall);
-        ScaleInAnimationAdapter adapter = new ScaleInAnimationAdapter(joinGroupCall);
-        adapter.setDuration(3000);
-        adapter.setInterpolator(new AccelerateDecelerateInterpolator());
-        adapter.setFirstOnly(false);
-        spinners.setVisibility(View.INVISIBLE);
+        Log.d(TAG, "setLayout: "+message);
+//        if(message!=null) {
+//            joinGroupCall = new JoinGroupCall(message, getContext(), 1);
+//            LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//            recyclerView.setLayoutManager(manager);
+//            recyclerView.setAdapter(joinGroupCall);
+//            ScaleInAnimationAdapter adapter = new ScaleInAnimationAdapter(joinGroupCall);
+//            adapter.setDuration(3000);
+//            adapter.setInterpolator(new AccelerateDecelerateInterpolator());
+//            adapter.setFirstOnly(false);
+//            spinners.setVisibility(View.INVISIBLE);
+//        }
+//        else
+//                new utilKotlin().message2("Error occurred "+message.size(),getContext());
 
     }
 }

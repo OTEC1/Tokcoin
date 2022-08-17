@@ -198,7 +198,7 @@ public class utilJava {
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
-        user.put("groupName", groupName.getText().toString());
+        user.put("groupName", groupName.getText().toString().trim());
         user.put("amount", Long.parseLong(amount.getText().toString()));
         user.put("liquidator_size",Long.parseLong(liquidator_stake.getText().toString()));
         user.put("miner_stake", Long.parseLong(miner_stake.getText().toString()));

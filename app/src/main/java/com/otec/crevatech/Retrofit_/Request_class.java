@@ -23,7 +23,7 @@ public interface Request_class {
 
 
     @POST("Cravetech/RegisterNewUser")
-    Call<Map<String,Object>> postAuthUser(@Body Object data);
+    Call<Map<String,Object>> postAuthUser(@Body Map<String,Object> data);
 
 
     @GET("https://us-central1-webflystore.cloudfunctions.net/appCat/Banklist")

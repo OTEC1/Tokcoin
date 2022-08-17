@@ -128,9 +128,9 @@ public class CategoryFlow extends AppCompatActivity {
         user = new HashMap<>();
         pack = new HashMap<>();
         details = new HashMap<>();
-        details.put("bankAccountNo", bun.getString("bankAccountNo"));
-        details.put("NameOnAccount", bun.getString("NameOnAccount"));
-        details.put("bankSelected", bun.getString("bankSelected"));
+        details.put("bankAccountNo", bun.getString("bn"));
+        details.put("NameOnAccount", bun.getString("ba"));
+        details.put("bankSelected", bun.getString("bs"));
         user.put("email", getIntent().getBundleExtra("user").getString("email"));
         user.put("password", getIntent().getBundleExtra("user").getString("password"));
         user.put("avatar", 0);
@@ -139,21 +139,31 @@ public class CategoryFlow extends AppCompatActivity {
         user.put("UserCategory", listOfCategory);
         pack.put("User", user);
         pack.put("User_details", details);
+        pack.put("User_locations", null);
+        Log.d(TAG, "Next: "+pack);
         Request_class base_config = Base_config.getRetrofit().create(Request_class.class);
         Call<Map<String, Object>> request = base_config.postAuthUser(pack);
         request.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                Log.d(TAG, "onResponse: "+response.body().get("message"));
                 if (response.body().get("message").toString().equals("Account created"))
                     startActivity(new Intent(getApplicationContext(), Login.class));
                 else
-                    new utilKotlin().message2("Error occurred when creating account " + response.body().get("message"), getApplicationContext());
+                    Clear("Error occurred when creating account " + response.body().get("message"));
+
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2("Snap error occurred when creating account " + t.getMessage(), getApplicationContext());
+                Clear("Snap error occurred when creating account " + t.getMessage());
             }
         });
+    }
+
+    private void Clear(String s) {
+        new utilKotlin().message2(s, getApplicationContext());
+        spinnerload.setVisibility(View.INVISIBLE);
+        completeReg.setEnabled(true);
     }
 }
