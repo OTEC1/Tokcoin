@@ -18,7 +18,7 @@
 
               <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.otec.crevatech.UI.Top_Nav"
+                android:name="com.otec.Tokcoin.UI.Top_Nav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -35,7 +35,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
-            android:name="com.otec.crevatech.UI.admob"
+            android:name="com.otec.Tokcoin.UI.admob"
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_weight="10" />

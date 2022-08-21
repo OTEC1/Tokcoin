@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.otec.crevatech">
+    package="com.otec.Tokcoin">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,18 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crevatech">
 
-        <activity android:name=".UI.CategoryFlow"
+        <activity android:name="com.otec.Tokcoin.UI.Register"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Register"
+        <activity android:name="com.otec.Tokcoin.UI.Report_issues"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Report_issues"
+        <activity android:name="com.otec.Tokcoin.UI.Shop"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Shop"
-                  android:screenOrientation="portrait"/>
-        <activity android:name=".UI.Login"
+        <activity android:name="com.otec.Tokcoin.UI.Login"
                   android:screenOrientation="portrait"/>
         <activity
-            android:name=".UI.MainActivity"
+            android:name="com.otec.Tokcoin.UI.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
