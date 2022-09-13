@@ -36,8 +36,7 @@ public interface Request_class {
     Call<Map<String,Object>> isFunded(@Body Map<String,Object> data);
 
 
-
-    @POST("Cravetec/GroupCreation")
+    @POST("Cravetech/GroupCreation")
     Call<Map<String,Object>> SendGroupRequest(@Body Map<String,Object> data);
 
 

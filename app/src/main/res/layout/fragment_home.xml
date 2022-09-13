@@ -45,7 +45,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="50sp"
                     android:drawableStart="@drawable/ic_baseline_bubble"
-                    android:text=" Live stakes"
+                    android:text=" Stakes"
                     android:padding="5dp"
                     android:textColor="@color/otherbase"
                     android:textStyle="bold" />
@@ -74,14 +74,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:drawableStart="@drawable/ic_baseline_compare_arrows_24"
-                    android:text=" Spot and gas"
+                    android:text=" Spot"
                     android:textColor="@color/otherbase"
                     android:padding="5dp"
                     android:textStyle="bold" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/Spot_and_gas"
+                    android:id="@+id/spot"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/indicate2" />

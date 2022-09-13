@@ -19,8 +19,8 @@ import com.otec.Tokcoin.UI.Auto;
 import com.otec.Tokcoin.UI.Digits;
 import com.otec.Tokcoin.UI.GroupsLists;
 import com.otec.Tokcoin.UI.Home;
-import com.otec.Tokcoin.UI.Shop;
 import com.otec.Tokcoin.UI.User;
+import com.otec.Tokcoin.UI.vouche_page;
 import com.otec.Tokcoin.utils.utilJava;
 
 import org.jetbrains.annotations.NotNull;
@@ -76,7 +76,7 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
                 new utilJava().open_Fragment(new Digits(), "Digits", e, new Bundle(), R.id.frameLayout);
             else
                 if(holder.tabs.getText().toString().trim().toLowerCase().equalsIgnoreCase("Exchange") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                        holder.tabs.getContext().startActivity(new Intent(holder.tabs.getContext(),Shop.class));
+                    new utilJava().open_Fragment(new vouche_page(),"vouche_page",e,new Bundle(),R.id.frameLayout);
                 else
                    if (holder.tabs.getText().toString().trim().equalsIgnoreCase("auto") && FirebaseAuth.getInstance().getCurrentUser() != null)
                     new utilJava().open_Fragment(new Auto(), "Auto", e, new Bundle(), R.id.frameLayout);

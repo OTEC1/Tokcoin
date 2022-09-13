@@ -142,9 +142,9 @@ public class Register extends AppCompatActivity {
     user = new HashMap<>();
     pack = new HashMap<>();
     details = new HashMap<>();
-        details.put("bankAccountNo", bankAccount_No.getText().toString());
-        details.put("NameOnAccount", NameOnAccount.getText().toString());
-        details.put("bankSelected", bank_selected);
+        details.put("bankaccountno", bankAccount_No.getText().toString());
+        details.put("Nameonaccount", NameOnAccount.getText().toString());
+        details.put("bankselected", bank_selected);
         user.put("email", email.getText().toString());
         user.put("password", password.getText().toString());
         user.put("avatar", 0);

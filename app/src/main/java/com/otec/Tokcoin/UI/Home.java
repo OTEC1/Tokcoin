@@ -6,13 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.otec.Tokcoin.Adapater.JoinGroupCall;
+import com.otec.Tokcoin.Adapater.SportCalls;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request_class;
@@ -20,6 +23,8 @@ import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,34 +36,43 @@ import retrofit2.Response;
 public class Home extends Fragment {
 
 
-    private RecyclerView recyclerView;
+    private RecyclerView stake,spot;
     private JoinGroupCall joinGroupCall;
+    private SportCalls sportCalls;
     private ProgressBar spinners;
 
     private String TAG = "Home";
+;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = v.findViewById(R.id.Stakes);
+        stake = v.findViewById(R.id.Stakes);
+        spot = v.findViewById(R.id.spot);
         spinners = v.findViewById(R.id.spinners);
-        Request();
+
+        for(int y = 0; y< 2; y++)
+           Request(y);
+
         return v;
     }
 
 
 
-    private  void Request(){
+
+    private  void Request(int n){
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<models> isFunded = config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
+        Call<models> isFunded = n == 1 ? config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)))) :  config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
         isFunded.enqueue(new Callback<models>() {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
                 if(response.body() != null)
-                    if(!response.body().getMessage().toString().contains("error"))
-                         setLayout(response.body().getMessage());
-                    else
+                    if(!response.body().getMessage().toString().contains("error")) {
+                        setLayout(response.body().getMessage(),stake,0);
+                        setLayout(response.body().getMessage(),spot,1);
+                    }else
                         new utilKotlin().message2("Unauthorized Request !", getContext());
                 else
                     new utilKotlin().message2("Error occurred while retrieving odds", getContext());
@@ -73,18 +87,19 @@ public class Home extends Fragment {
 
 
 
-    private void setLayout(List<Map<String, Object>> message) {
+    private void setLayout(List<Map<String, Object>> message, RecyclerView o,int b) {
 
         if(message!=null) {
-            joinGroupCall = new JoinGroupCall(message, getContext(), 1);
+            if(b == 0)
+               joinGroupCall = new JoinGroupCall(message, getContext(), 1);
+            else
+                sportCalls = new SportCalls(message, getContext());
+
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-            recyclerView.setLayoutManager(manager);
-            recyclerView.setAdapter(joinGroupCall);
-            ScaleInAnimationAdapter adapter = new ScaleInAnimationAdapter(joinGroupCall);
-            adapter.setDuration(3000);
-            adapter.setInterpolator(new AccelerateDecelerateInterpolator());
-            adapter.setFirstOnly(false);
+            o.setLayoutManager(manager);
+            o.setAdapter(b == 0 ? joinGroupCall : sportCalls);
             spinners.setVisibility(View.INVISIBLE);
+
         }
         else
                 new utilKotlin().message2("Error occurred "+message.size(),getContext());

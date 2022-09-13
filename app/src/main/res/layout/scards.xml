@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/inputlines5"
+        android:padding="30dp">
+
+
+
+        <RelativeLayout
+            android:id="@+id/cardsHold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cards"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/user"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="3dp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp">
+
+
+            <RelativeLayout
+                android:id="@+id/d1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/l1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/inputlines6"
+                    android:drawableStart="@drawable/ic_baseline_games"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/groupName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/l1"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/otherbase"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/d2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/d1"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/l2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/inputlines6"
+                    android:drawableStart="@drawable/ic_baseline_show"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/stake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/l2"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/green"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
