@@ -69,22 +69,14 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
+            holder.liquidity.setText("Funds "+new utilKotlin().Currency(FORMAT("liquidity", obj, position)));
+            holder.profit.setText("Roi "+new utilKotlin().Currency(FORMAT("profit", obj, position)));
+            holder.loss.setText("loss "+new utilKotlin().Currency(FORMAT("loss", obj, position)));
+            holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
 
-            holder.group_stats.setOnClickListener(e -> {
-                View v = LayoutInflater.from(e.getContext()).inflate(R.layout.dialog_promt, null);
-                AlertDialog.Builder alBuilder = new AlertDialog.Builder(context);
-                alBuilder.setView(v);
-                alertDialog = alBuilder.create();
-                alertDialog.show();
-                RequestGroups(holder.group_stats.getContext(), v, FORMAT("doc_id", obj, position), Arrays.asList(FORMAT("members_ids", obj, position).split(",")).get(0).replace("[", ""));
+            holder.button.setOnClickListener(e->{
+                new utilKotlin().message2("Left", e.getContext());
             });
-
-
-            holder.close_money.setOnClickListener(e -> {
-
-
-            });
-
         }
     }
 
@@ -94,44 +86,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         return obj.size();
     }
 
-
-    private void RequestGroups(Context context, View v, String doc_id, String found) {
-        Log.d(TAG, "RequestGroups: " + found + " | " + doc_id);
-        Request_class request = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> list = request.GROUPS_STATUS(new utilJava().GET_GROUP_STATUS(new utilJava().GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)), doc_id, found));
-        list.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                Map<String, Object> l1 = (Map<String, Object>) response.body().get("message");
-                BuildView(l1, v);
-
-            }
-
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2(t.getMessage(), context);
-                Log.d(TAG, "onFailure: " + t.getMessage());
-            }
-        });
-
-    }
-
-    private void BuildView(Map<String, Object> raw2, View v) {
-        groupName = v.findViewById(R.id.groupName);
-        profit = v.findViewById(R.id.profit);
-        loss = v.findViewById(R.id.loss);
-        liquidity = v.findViewById(R.id.liquidity);
-        members = v.findViewById(R.id.members);
-        progressBar = v.findViewById(R.id.spinBar);
-        Map<String, Object> m = (Map<String, Object>) raw2.get("User");
-        groupName.setText(m.get("groupName").toString());
-        profit.setText(new utilKotlin().Currency(m.get("profit").toString()));
-        liquidity.setText(new utilKotlin().Currency(m.get("liquidity").toString()));
-        loss.setText(new utilKotlin().Currency(m.get("loss").toString()));
-        members.setText("Users " + Arrays.asList(m.get("members_ids").toString().split(",")).size() + "/" + (int) Double.parseDouble(m.get("liquidator_size").toString()));
-        progressBar.setVisibility(View.INVISIBLE);
-    }
-
+    
 
     private String FORMAT(String node, List<Map<String, Object>> obj, int p) {
         Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
@@ -142,7 +97,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
     class CustomerAdapter extends RecyclerView.ViewHolder {
         private TextView groupName, profit, loss, liquidity, members;
-        private Button button, close_money, group_stats;
+        private Button button;
 
         public CustomerAdapter(@NonNull @NotNull View view) {
             super(view);
@@ -152,8 +107,6 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             liquidity = view.findViewById(R.id.liquidity);
             members = view.findViewById(R.id.members);
             button = view.findViewById(R.id.requestBtn);
-            close_money = view.findViewById(R.id.close_money);
-            group_stats = view.findViewById(R.id.group_stats);
         }
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -43,21 +44,20 @@ public class JoinedGroup extends Fragment {
         View view = inflater.inflate(R.layout.fragment_joined_group, container, false);
         recyclerView = view.findViewById(R.id.joinedGroup);
         progress = view.findViewById(R.id.progress);
-        RequestGroups();
+        requestgroups();
         return view;
     }
 
 
 
-    private void RequestGroups() {
+    private void requestgroups() {
         Request_class request = Base_config.getRetrofit().create(Request_class.class);
         Call<Map<String,Object>> list = request.GT_GROUPS(new utilJava().GET_GROUP( new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
         list.enqueue(new Callback<Map<String,Object>>() {
             @Override
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
                 Map<String,Object> l1 = (Map<String, Object>) response.body().get("message");
-                Log.d(TAG, "onResponse: "+l1.get("listB"));
-                //BuildView((List<?>) l1.get("listB"));
+                BuildView((List<?>) l1.get("listB"));
 
             }
             @Override
@@ -70,7 +70,7 @@ public class JoinedGroup extends Fragment {
 
     private void BuildView(List<?> raw2) {
         user = new UserGroupslist((List<Map<String, Object>>) raw2,getContext(),2);
-        GridLayoutManager manager = new  GridLayoutManager(getContext(),2);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(user);
         progress.setVisibility(View.GONE);
