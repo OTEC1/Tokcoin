@@ -18,7 +18,7 @@
 
               <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
-                android:name="com.otec.Tokcoin.UI.Top_Nav"
+                android:name="com.otec.Tokcoin.UI.Nav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

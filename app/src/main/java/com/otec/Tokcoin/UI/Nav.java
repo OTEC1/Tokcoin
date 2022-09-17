@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.otec.Tokcoin.Adapater.TopNavTabs;
+import com.otec.Tokcoin.Adapater.nav;
 import com.otec.Tokcoin.utils.utilJava;
 
 import com.otec.Tokcoin.R;
@@ -25,10 +25,10 @@ import com.otec.Tokcoin.utils.utilKotlin;
 import java.util.ArrayList;
 
 
-public class Top_Nav extends Fragment {
+public class Nav extends Fragment {
 
     private RecyclerView recyclerView;
-    private TopNavTabs topNavTabs;
+    private nav topNavTabs;
     private PopupMenu popup;
     private Button appdrawer;
 
@@ -37,7 +37,7 @@ public class Top_Nav extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_top_nav, container, false);
+        View view = inflater.inflate(R.layout.fragment_nav, container, false);
         Init(view);
         CHECK();
 
@@ -93,7 +93,7 @@ public class Top_Nav extends Fragment {
 
     private void CHECK() {
              LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-             topNavTabs = new TopNavTabs(new ArrayList<>(),getContext());
+             topNavTabs = new nav(new ArrayList<>(),getContext());
              recyclerView.setLayoutManager(manager);
              recyclerView.setAdapter(topNavTabs);
     }

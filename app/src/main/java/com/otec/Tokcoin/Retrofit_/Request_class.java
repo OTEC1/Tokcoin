@@ -67,4 +67,10 @@ public interface Request_class {
     Call<Map<String,Object>> VOCHERS(@Body Map<String,Object> data);
 
 
+
+    @POST("Cravetech/LeaveGroup")
+    Call<Map<String,Object>> LEAVE(@Body Map<String,Object> data);
+
+
+
 }

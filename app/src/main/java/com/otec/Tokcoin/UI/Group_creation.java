@@ -118,7 +118,6 @@ public class Group_creation extends Fragment {
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
                  new utilKotlin().message2(response.body().get("message").toString(),getContext());
                    spinners.setVisibility(View.INVISIBLE);
-                Log.d(TAG, "onResponse: "+response.code());
                     if(response.code() == 200) {
                         groupName.setText("");
                         Amount.setText("");

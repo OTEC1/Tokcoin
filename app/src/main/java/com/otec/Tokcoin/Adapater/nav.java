@@ -1,7 +1,6 @@
 package com.otec.Tokcoin.Adapater;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> {
+public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
 
     private List<String> tabs;
     private Context context;
@@ -37,13 +36,12 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
     private String TAG = "TopNavTabs";
     private int i = -1;
 
-    public TopNavTabs(List<String> tabs, Context context) {
+    public nav(List<String> tabs, Context context) {
         this.tabs = tabs;
         tabs.add(0, "Home");
         tabs.add(1, "Exchange");
         tabs.add(2, "Groups");
-        tabs.add(3, "Auto");
-        tabs.add(4, "Digits");
+        tabs.add(3, "Digits");
         tabs.add(tabs.size(), "User");
         this.context = context;
     }
@@ -77,9 +75,8 @@ public class TopNavTabs extends RecyclerView.Adapter<TopNavTabs.CustomAdapater> 
             else
                 if(holder.tabs.getText().toString().trim().toLowerCase().equalsIgnoreCase("Exchange") && FirebaseAuth.getInstance().getCurrentUser() != null)
                     new utilJava().open_Fragment(new vouche_page(),"vouche_page",e,new Bundle(),R.id.frameLayout);
-                else
-                   if (holder.tabs.getText().toString().trim().equalsIgnoreCase("auto") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                    new utilJava().open_Fragment(new Auto(), "Auto", e, new Bundle(), R.id.frameLayout);
+
+
         });
 
         if (i == position)

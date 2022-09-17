@@ -64,7 +64,7 @@ public class utilJava {
 
 
     public Object SET_CACHED_USER(Map<String, Object> obj, String tag, Context view) {
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> user =  Maps();
         user.put("email", obj.get("email"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("user_id", obj.get("user_id"));
@@ -108,14 +108,14 @@ public class utilJava {
     //Fragment Open from Activity
     public void openFragment(Fragment fragment, String my_fragment, int a, AppCompatActivity context) {
         FragmentTransaction fragmentTransaction = context.getSupportFragmentManager().beginTransaction();
-        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(new Bundle(), null), R.id.frameLayout);
+        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(0), R.id.frameLayout);
     }
 
 
     //Fragment open from fragment
     public void openFrag(Fragment fragment, String my_fragment, Map<String,Object> i, FragmentActivity activity) {
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(new Bundle(), i), R.id.frameLayout);
+        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(0), R.id.frameLayout);
     }
 
 
@@ -128,16 +128,16 @@ public class utilJava {
         fragmentTransaction.commit();
     }
 
-    private Bundle BUNDLE(Bundle bundle, Map<String,Object> i) {
-        if(bundle != null && i != null) {
-        }
-        return bundle;
+    public Bundle BUNDLE(int bundle) {
+        Bundle bund = new Bundle();
+        bund.putInt("node",bundle);
+        return bund;
     }
 
 
 
     public  Map<String,Object> _DIGIT(Map<String, Object> user, Boolean isGroup, Boolean isUser, Boolean isBot, List<Double> creator, List<Integer> user_selected, String creator_id, String doc_id){
-           Map<String,Object> obj = new HashMap<>();
+           Map<String,Object> obj = Maps();
                obj.put("user_id",user.get("user_id"));
                obj.put("email",user.get("email"));
                obj.put("IMEI",user.get("IMEI"));
@@ -153,7 +153,7 @@ public class utilJava {
 
 
     public Map<String, Object> GET_USER(Map<String, Object> obj, String category,List<Map<String,Object>> lists,int call) {
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> user = Maps();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
@@ -165,7 +165,7 @@ public class utilJava {
 
 
     public Map<String, Object> GET_GROUP(Map<String, Object> obj) {
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> user =  Maps();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
@@ -175,22 +175,9 @@ public class utilJava {
 
 
 
-    public Map<String, Object> GET_GROUP_STATUS(Map<String, Object> obj,String doc_id,String creator_id) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("user_id", obj.get("user_id"));
-        user.put("IMEI", obj.get("IMEI"));
-        user.put("email", obj.get("email"));
-        user.put("doc_id", doc_id);
-        user.put("creator_id", creator_id);
-        return  Wrap(user);
-    }
 
-
-
-
-
-    public   Map<String,Object> RequestSend(Map<String,Object> obj,String doc_id,Object creator){
-        Map<String, Object> pack = new HashMap<>();
+    public   Map<String,Object> sendrequest(Map<String,Object> obj,String doc_id,Object creator){
+        Map<String, Object> pack =  Maps();
         pack.put("user_id",obj.get("user_id").toString());
         pack.put("email",obj.get("email").toString());
         pack.put("IMEI",obj.get("IMEI").toString());
@@ -203,12 +190,12 @@ public class utilJava {
 
 
     public Map<String, Object> GET_GROUP(Map<String, Object> obj, EditText groupName, EditText amount, EditText liquidator_stake, EditText miner_stake,Double odd,int avatar) {
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> user =  Maps();
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
         user.put("groupName", groupName.getText().toString().trim());
-        user.put("amount", Long.parseLong(amount.getText().toString()));
+        user.put("amount", Integer.parseInt(amount.getText().toString()));
         user.put("liquidator_size",Long.parseLong(liquidator_stake.getText().toString()));
         user.put("miner_stake", Long.parseLong(miner_stake.getText().toString()));
         user.put("active", false);
@@ -221,12 +208,7 @@ public class utilJava {
     }
 
 
-    private Map<String, Object> Wrap(Map<String, Object> user) {
-        Map<String, Object> pack = new HashMap<>();
-        pack.put("User",user);
-        Log.d(TAG, "Wrap: "+pack);
-        return pack;
-    }
+
 
     public void LoadInstance(TextView rt, Context e, List<Double> numbers, List<Integer> send_number, Boolean isGroup, Boolean isUser, Boolean isBot, String creator_id,
                              String doc_id, RecyclerView digits_returned, Button button, ProgressBar progress,int i) {
@@ -259,9 +241,7 @@ public class utilJava {
     public void Request_Digit(Context cn, RecyclerView digits_returned, boolean loader, ProgressBar progress, Button play, TextView rt) {
 
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava()
-                        .GET_CACHED_MAP(cn, cn.getString(R.string.SIGNED_IN_USER)), false, false, true,
-                new ArrayList<>(), new ArrayList<>(), null, null));
+        Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava().GET_CACHED_MAP(cn, cn.getString(R.string.SIGNED_IN_USER)), false, false, true, new ArrayList<>(), new ArrayList<>(), null, null));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
@@ -288,6 +268,8 @@ public class utilJava {
 
     }
 
+
+
     private void setlayout(List<Double> message, RecyclerView digits_returned, boolean loader, Context cn, ProgressBar progress, Button play, TextView rt) {
          Digits_Call  digits_call = new Digits_Call(message,cn, play, rt,loader,digits_returned,progress);
         GridLayoutManager manager = new GridLayoutManager(cn, 4);
@@ -295,6 +277,8 @@ public class utilJava {
         digits_returned.setAdapter(digits_call);
         progress.setVisibility(View.INVISIBLE);
     }
+
+
 
     public void routine(String email, String issue, Context c) {
         FirebaseFirestore.getInstance().collection(c.getString(R.string.ISSUE_REPORT)).document(email)
@@ -309,9 +293,34 @@ public class utilJava {
     }
 
     private Object MAP(String  issues, String email) {
-        Map<String,Object> m = new HashMap<>();
+        Map<String,Object> m = Maps();
         m.put("email",email);
         m.put("issue",issues);
         return  m;
+    }
+
+    public Map<String, Object> LEFT_GROUP(Map<String, Object> map, String ref_id) {
+        Map<String,Object> maps = Maps();
+        maps.put("email", map.get("email"));
+        maps.put("IMEI", map.get("IMEI"));
+        maps.put("user_id", map.get("user_id"));
+        maps.put("doc_id", ref_id);
+        return  Wrap(maps);
+    }
+
+
+
+    private Map<String,Object> Maps(){
+        Map<String,Object> m = new HashMap<>();
+        return m;
+    }
+
+
+
+    private Map<String, Object> Wrap(Map<String, Object> user) {
+        Map<String, Object> pack =  Maps();
+        pack.put("User",user);
+        Log.d(TAG, "Wrap: "+pack);
+        return pack;
     }
 }

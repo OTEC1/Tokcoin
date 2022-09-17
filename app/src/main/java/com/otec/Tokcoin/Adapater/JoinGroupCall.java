@@ -1,10 +1,12 @@
 package com.otec.Tokcoin.Adapater;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.UI.Auto;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
@@ -58,22 +61,25 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
         if (call != 2) {
             holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
-            holder.profit.setText(" Odd " + FORMAT("odd", objList, position));;
+            holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
+
+            holder.auto_ai.setOnClickListener(e->{
+                new utilJava().open_Fragment(new Auto(), "Auto", e, new utilJava().BUNDLE(1), R.id.frameLayout);
+            });
+
         }else {
             holder.members.setText(Arrays.asList(FORMAT("members_ids", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
             holder.loss.setText("loss -" + FORMAT("loss", objList, position));
             holder.profit.setText("Roi +" + FORMAT("profit", objList, position));
             holder.liquidity.setText(" Funds " + FORMAT("liquidity", objList, position));
-        }
 
-        if (call == 2) {
             holder.btn.setOnClickListener(e -> {
 
             });
 
             holder.btn2.setOnClickListener(e -> {
                 Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-                Call<Map<String, Object>> obj = request_class.JOIN_REQUEST(new utilJava().RequestSend(new utilJava().GET_CACHED_MAP(e.getContext(), e.getContext().getString(R.string.SIGNED_IN_USER)), FORMAT("doc_id", objList, position), FORMAT("email", objList, position)));
+                Call<Map<String, Object>> obj = request_class.JOIN_REQUEST(new utilJava().sendrequest(new utilJava().GET_CACHED_MAP(e.getContext(), e.getContext().getString(R.string.SIGNED_IN_USER)), FORMAT("doc_id", objList, position), FORMAT("email", objList, position)));
                 obj.enqueue(new Callback<Map<String, Object>>() {
                     @Override
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
@@ -113,6 +119,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
         private TextView groupName, profit, liquidity, miner_stake, members,loss;
         private Button btn, btn2;
+        private ImageView auto_ai;
 
         public Custom_adapter(@NonNull @NotNull View v) {
             super(v);
@@ -122,6 +129,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             profit = v.findViewById(R.id.profit);
             members = v.findViewById(R.id.members);
             loss = v.findViewById(R.id.loss);
+            auto_ai = v.findViewById(R.id.auto_ai);
 
             if (call == 2) {
                 btn2.setVisibility(View.VISIBLE);

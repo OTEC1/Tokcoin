@@ -6,16 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.otec.Tokcoin.Adapater.JoinGroupCall;
-import com.otec.Tokcoin.Adapater.SportCalls;
+import com.otec.Tokcoin.Adapater.Spotcalls;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request_class;
@@ -23,12 +20,9 @@ import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +32,7 @@ public class Home extends Fragment {
 
     private RecyclerView stake,spot;
     private JoinGroupCall joinGroupCall;
-    private SportCalls sportCalls;
+    private Spotcalls sportCalls;
     private ProgressBar spinners;
 
     private String TAG = "Home";
@@ -93,7 +87,7 @@ public class Home extends Fragment {
             if(b == 0)
                joinGroupCall = new JoinGroupCall(message, getContext(), 1);
             else
-                sportCalls = new SportCalls(message, getContext());
+                sportCalls = new Spotcalls(message, getContext());
 
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             o.setLayoutManager(manager);
