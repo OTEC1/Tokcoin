@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,23 +34,26 @@ public class vouche_page extends Fragment {
     private Vouches vouches_;
 
 
+    private  String TAG = "vouche_page";
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_vouche_page, container, false);
         LoadVouchers = view.findViewById(R.id.LoadVouchers);
          spinner = view.findViewById(R.id.spinner);
-           Request_Vouchers();
+           Request_Vouchers(getArguments().getInt("e"));
         return view;
     }
 
-    private void Request_Vouchers() {
+    private void Request_Vouchers(int e) {
         Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded = config.VOCHERS(new utilJava()
-                .GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))));
+        Call<Map<String, Object>> isFunded =  e == 0 ? config.VOCHERS(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))))  :
+                config._VN_(new utilJava().Wrap(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                setLayout((List<Map<String, Object>>)response.body().get("message"));
+                setLayout((List<Map<String, Object>>)response.body().get("message"),e);
             }
 
             @Override
@@ -59,10 +63,9 @@ public class vouche_page extends Fragment {
         });
     }
 
-    private void setLayout(List<Map<String, Object>> vouches) {
-
+    private void setLayout(List<Map<String, Object>> vouches,int e) {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        vouches_ = new Vouches((vouches),getContext());
+        vouches_ = new Vouches((vouches),getContext(),e);
         LoadVouchers.setAdapter(vouches_);
         LoadVouchers.setLayoutManager(manager);
         spinner.setVisibility(View.INVISIBLE);

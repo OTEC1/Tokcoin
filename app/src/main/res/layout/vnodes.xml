@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@drawable/inputlines5">
+
+
+    <RelativeLayout
+        android:id="@+id/pro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/profit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle7"
+            android:drawableStart="@drawable/ic_baseline_scatter_plot_24"
+            android:padding="8dp"
+            android:textAllCaps="false"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/profit_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/profit"
+            android:textColor="@color/green" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/los"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pro">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loss"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle7"
+            android:drawableStart="@drawable/ic_baseline_trending_down_24"
+            android:padding="8dp"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/loss_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/loss"
+            android:textColor="@color/red" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/los">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/type"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle7"
+            android:drawableStart="@drawable/ic_baseline_flash_on_24"
+            android:padding="8dp"
+            android:textAllCaps="false"
+            android:textColor="@color/otherbase" />
+
+
+        <TextView
+            android:id="@+id/nodes_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/type"
+            android:textColor="#2D7042" />
+
+    </RelativeLayout>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/circle7"
+        android:padding="10dp"
+        android:src="@drawable/user" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel_"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/icons"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/circle7"
+        android:drawableStart="@drawable/ic_baseline_cancel_24"
+        android:padding="9dp" />
+
+
+</RelativeLayout>

@@ -39,9 +39,10 @@ public class Botmine extends Fragment {
             play.setText("Start");
 
         play.setOnClickListener(e->{
-            if(play.getText().toString().equals("Play"))
-                new utilJava().Request_Digit(getContext(),digits_returned,loader,progress,play,rt);
-            else
+            if(play.getText().toString().equals("Play")) {
+                progress.setVisibility(View.VISIBLE);
+                new utilJava().Request_Digit(getContext(), digits_returned, loader, play, progress, rt);
+            }else
                 play.setText("Play");
 
         });

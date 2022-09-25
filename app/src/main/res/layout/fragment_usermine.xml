@@ -127,6 +127,15 @@
                 android:textAllCaps="false"
                 android:textColor="@color/otherbase" />
 
+
+            <ProgressBar
+                android:id="@+id/progressCount"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/digits_returned"/>
+
         </RelativeLayout>
 
 

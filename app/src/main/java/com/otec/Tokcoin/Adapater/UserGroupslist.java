@@ -64,9 +64,9 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         if (n == 1) {
             holder.button.setVisibility(View.VISIBLE);
             holder.groupName.setText(FORMAT("groupName", obj, position));
-            holder.liquidity.setText("Funds " +new utilKotlin().Currency(FORMAT("liquidity", obj, position)));
-            holder.loss.setText("loss -" + new utilKotlin().Currency(FORMAT("loss", obj, position)));
-            holder.profit.setText("Roi +" + new utilKotlin().Currency(FORMAT("profit", obj, position)));
+            holder.liquidity.setText("Funds " +FORMAT("liquidity", obj, position));
+            holder.loss.setText("loss -" + FORMAT("loss", obj, position));
+            holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));

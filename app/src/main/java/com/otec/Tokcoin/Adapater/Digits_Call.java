@@ -32,14 +32,13 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
     private TextView rt;
     private boolean loader;
     private RecyclerView digits_returned;
-    private ProgressBar progress;
+
 
 
     private String TAG = "Digits_Call";
 
-    public Digits_Call(List<Double> numbers, Context context, Button button, TextView rt, boolean loader, RecyclerView digits_returned, ProgressBar progress) {
+    public Digits_Call(List<Double> numbers, Context context, Button button, TextView rt, boolean loader, RecyclerView digits_returned) {
         this.digits_returned = digits_returned;
-        this.progress = progress;
         this.numbers = numbers;
         this.context = context;
         this.button = button;
@@ -69,10 +68,10 @@ public class Digits_Call extends RecyclerView.Adapter<Digits_Call.Custom_adapter
         });
 
 
+
         button.setOnClickListener(e -> {
             if (send_number.size() >= 3)
-                    new utilJava().LoadInstance(rt,e.getContext(),numbers,send_number,false,false,true,
-                            null,null,digits_returned,button,progress,1);
+                    new utilJava().LoadInstance(rt,null,null,e.getContext(),numbers,send_number,false,false,true, null,null,digits_returned,button,null,1);
                 else
                     new utilKotlin().message2("Pls select at least 3 nodes", e.getContext());
             });

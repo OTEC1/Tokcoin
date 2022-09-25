@@ -42,6 +42,7 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
         tabs.add(1, "Exchange");
         tabs.add(2, "Groups");
         tabs.add(3, "Digits");
+        tabs.add(4, "VNODES");
         tabs.add(tabs.size(), "User");
         this.context = context;
     }
@@ -59,23 +60,29 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
 
 
         holder.tabs.setOnClickListener(e -> {
+            Bundle bundle = new Bundle();
             i = position;
             notifyDataSetChanged();
-            if (holder.tabs.getText().toString().trim().equalsIgnoreCase("home") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                new utilJava().open_Fragment(new Home(), "Home", e, new Bundle(), R.id.frameLayout);
+            if (Val(holder,"home"))
+                new utilJava().open_Fragment(new Home(), "Home", e, bundle, R.id.frameLayout);
             else
-            if (holder.tabs.getText().toString().trim().equalsIgnoreCase("user") && FirebaseAuth.getInstance().getCurrentUser() != null)
+            if ( Val(holder,"user"))
                 new utilJava().open_Fragment(new User(), "User", e, null, R.id.frameLayout);
             else
-              if (holder.tabs.getText().toString().trim().equalsIgnoreCase("groups") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                new utilJava().open_Fragment(new GroupsLists(), "Groups", e, new Bundle(), R.id.frameLayout);
+              if (Val(holder,"groups"))
+                new utilJava().open_Fragment(new GroupsLists(), "Groups", e, null, R.id.frameLayout);
            else
-             if (holder.tabs.getText().toString().trim().equalsIgnoreCase("digits") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                new utilJava().open_Fragment(new Digits(), "Digits", e, new Bundle(), R.id.frameLayout);
+             if (Val(holder,"digits"))
+                new utilJava().open_Fragment(new Digits(), "Digits", e, null, R.id.frameLayout);
             else
-                if(holder.tabs.getText().toString().trim().toLowerCase().equalsIgnoreCase("Exchange") && FirebaseAuth.getInstance().getCurrentUser() != null)
-                    new utilJava().open_Fragment(new vouche_page(),"vouche_page",e,new Bundle(),R.id.frameLayout);
-
+                if(Val(holder,"Exchange")) {
+                    bundle.putInt("e",0);
+                    new utilJava().open_Fragment(new vouche_page(), "vouche_page", e, bundle, R.id.frameLayout);
+                }else
+                 if(Val(holder,"VNODES")) {
+                     bundle.putInt("e",1);
+                     new utilJava().open_Fragment(new vouche_page(), "VNODES", e, bundle, R.id.frameLayout);
+                 }
 
         });
 
@@ -84,7 +91,7 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
         else
             holder.tabs.setBackgroundResource(R.drawable.inputlines);
 
-        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups"))
+        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups") || tabs.get(position).equals("VNODES"))
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, tabs.get(position)), null, null, null);
         else
             holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, ""), null, null, null);
@@ -94,11 +101,10 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
 
     }
 
-    private Bundle BUNDLE(String s) {
-        Bundle b = new Bundle();
-        b.putString("category", s);
-        return b;
+    private boolean Val(CustomAdapater holder, String home) {
+      return holder.tabs.getText().toString().trim().equalsIgnoreCase(home) && FirebaseAuth.getInstance().getCurrentUser() != null;
     }
+
 
     private Drawable Drawables(TextView tabs, String p) {
         Drawable img;
@@ -117,6 +123,9 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
                 break;
             case "Exchange":
                 img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_storefront_24);
+                break;
+            case "VNODES":
+                img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_flash);
                 break;
             default:
                 img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_games_24);

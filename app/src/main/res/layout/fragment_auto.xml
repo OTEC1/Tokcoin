@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Auto">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="85">
+        android:layout_height="match_parent">
+
 
         <ImageView
             android:id="@+id/left"
@@ -21,24 +20,132 @@
             android:src="@mipmap/leftbar" />
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/digit_mine"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_toStartOf="@id/right"
-            android:layout_toEndOf="@id/left"
-            app:tabTextColor="@color/otherbase"/>
+            android:layout_height="match_parent">
 
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/digit_mine"
-            android:layout_toStartOf="@id/right"
-            android:layout_toEndOf="@id/left"
-            tools:layout_editor_absoluteX="8dp" />
+            <RelativeLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="40dp"
+                android:background="@drawable/inputlines5"
+                android:padding="10dp">
+
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/inputlines4"
+                    android:padding="7dp"
+                    android:text="MINING ROI"
+                    android:textColor="@color/otherbase" />
+
+
+                <TextView
+                    android:id="@+id/SVN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/inputlines4"
+                    android:padding="7dp"
+                    android:text="SN +"
+                    android:textColor="@color/otherbase" />
+
+
+                <RelativeLayout
+                    android:id="@+id/jobs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:drawableStart="@drawable/ic_baseline_credit_card_24"
+                        android:textColor="@color/otherbase" />
+
+                    <Spinner
+                        android:id="@+id/hours"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/last"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/jobs"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:drawableStart="@drawable/ic_baseline_scatter_plot_24"
+                        android:textColor="@color/otherbase" />
+
+                    <Spinner
+                        android:id="@+id/bots"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/white" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/output"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/last"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:textColor="@color/green" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/place_virtual_stake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/output"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/inputlines1"
+                    android:padding="5dp"
+                    android:text="START VNODES"
+                    android:textColor="@color/otherbase" />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/output"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
 
 
         <ImageView

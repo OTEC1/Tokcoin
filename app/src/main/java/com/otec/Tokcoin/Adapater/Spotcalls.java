@@ -51,7 +51,7 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
           holder.stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
 
         holder.spot_buy.setOnClickListener(e->{
-            new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(2), R.id.frameLayout);
+            new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(2,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
         });
     }
 

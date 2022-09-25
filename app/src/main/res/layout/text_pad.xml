@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:textColor="@color/black"
+    android:textColor="@color/white"
     android:paddingLeft="10dp"
     android:paddingTop="12dp"
     android:paddingRight="10dp"

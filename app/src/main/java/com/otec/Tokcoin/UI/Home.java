@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,8 +38,10 @@ public class Home extends Fragment {
     private Spotcalls sportCalls;
     private ProgressBar spinners;
 
+    private List<Map<String,RecyclerView>> l;
+    private Map<String,RecyclerView> m,p;
     private String TAG = "Home";
-;
+
 
 
 
@@ -47,6 +52,9 @@ public class Home extends Fragment {
         spot = v.findViewById(R.id.spot);
         spinners = v.findViewById(R.id.spinners);
 
+        AddToList();
+
+
         for(int y = 0; y< 2; y++)
            Request(y);
 
@@ -54,28 +62,42 @@ public class Home extends Fragment {
     }
 
 
+    private void AddToList() {
+        l = new ArrayList<>();
+        m = new HashMap<>();
+        m.put("n1",stake);
+
+        p = new HashMap<>();
+        p.put("n1",spot);
+
+        l.add(m);
+        l.add(p);
+    }
+
 
 
     private  void Request(int n){
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<models> isFunded = n == 1 ? config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)))) :  config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
-        isFunded.enqueue(new Callback<models>() {
-            @Override
-            public void onResponse(Call<models> call, Response<models> response) {
-                if(response.body() != null)
-                    if(!response.body().getMessage().toString().contains("error")) {
-                        setLayout(response.body().getMessage(),stake,0);
-                        setLayout(response.body().getMessage(),spot,1);
-                    }else
-                        new utilKotlin().message2("Unauthorized Request !", getContext());
-                else
-                    new utilKotlin().message2("Error occurred while retrieving odds", getContext());
-            }
-            @Override
-            public void onFailure(Call<models> call, Throwable t) {
-                new utilKotlin().message2(t.getMessage(),getContext());
-            }
-        });
+            Request_class config = Base_config.getRetrofit().create(Request_class.class);
+            Call<models> isFunded = n == 1 ? config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)))) : config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
+            isFunded.enqueue(new Callback<models>() {
+                @Override
+                public void onResponse(Call<models> call, Response<models> response) {
+                    if (response.body() != null)
+                        if (!response.body().getMessage().toString().contains("error")) {
+
+                            setLayout(response.body().getMessage(), l.get(n).get("n1"), n);
+
+                        } else
+                            new utilKotlin().message2("Unauthorized Request !", getContext());
+                    else
+                        new utilKotlin().message2("Error occurred while retrieving odds", getContext());
+                }
+
+                @Override
+                public void onFailure(Call<models> call, Throwable t) {
+                    new utilKotlin().message2(t.getMessage(), getContext());
+                }
+            });
     }
 
 

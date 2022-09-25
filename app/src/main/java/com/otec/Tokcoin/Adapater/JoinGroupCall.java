@@ -28,6 +28,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import static com.otec.Tokcoin.utils.utilJava.FORMAT;
 
 public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_adapter> {
 
@@ -64,7 +65,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
 
             holder.auto_ai.setOnClickListener(e->{
-                new utilJava().open_Fragment(new Auto(), "Auto", e, new utilJava().BUNDLE(1), R.id.frameLayout);
+                new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(1,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
             });
 
         }else {
@@ -109,10 +110,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     }
 
 
-    private String FORMAT(String node, List<Map<String, Object>> obj, int p) {
-        Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
-        return i.get(node).toString();
-    }
+
 
 
     class Custom_adapter extends RecyclerView.ViewHolder {

@@ -79,11 +79,11 @@
 
                     <EditText
                         android:id="@+id/groupNames"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Group name"
+                        android:hint="Group name ID"
                         android:inputType="text"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"
@@ -92,11 +92,11 @@
 
                     <EditText
                         android:id="@+id/Amount"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Amount"
+                        android:hint="Stake amount"
                         android:inputType="number"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"
@@ -105,11 +105,11 @@
 
                     <EditText
                         android:id="@+id/Liquidator_size"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Group size"
+                        android:hint="Members count"
                         android:inputType="number"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"
@@ -118,11 +118,11 @@
 
                     <EditText
                         android:id="@+id/miner_stake"
-                        android:layout_width="150dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/inputlines"
-                        android:hint="Miner "
+                        android:hint="Node amount "
                         android:inputType="number"
                         android:padding="12dp"
                         android:textColor="@color/otherbase"

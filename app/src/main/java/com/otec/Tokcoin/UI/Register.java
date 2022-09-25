@@ -117,8 +117,8 @@ public class Register extends AppCompatActivity {
 
 
     private void PopulateSpinner(List<String> body) {
-        arrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.text_pad, body);
-        arrayAdapter.setDropDownViewResource(R.layout.text_pad);
+        arrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.text_pad2, body);
+        arrayAdapter.setDropDownViewResource(R.layout.text_pad2);
         bankName.setAdapter(arrayAdapter);
         loadingBanks.setVisibility(View.GONE);
     }

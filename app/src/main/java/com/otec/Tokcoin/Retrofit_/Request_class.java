@@ -15,6 +15,9 @@ public interface Request_class {
     @GET("https://us-central1-grelots-ad690.cloudfunctions.net/Noman/getTimeStamp") //Temp url
     Call<Map<String,Object>> getDate();
 
+    @GET("https://us-central1-webflystore.cloudfunctions.net/appCat/Banklist")
+    Call<List<Map<String,Object>>> getListOfBank();
+
 
     @POST("Cravetech/SendPasswordRestLink")
     Call<Object> sendRestLink(@Body Map<String,Object> data);
@@ -23,9 +26,6 @@ public interface Request_class {
     @POST("Cravetech/RegisterNewUser")
     Call<Map<String,Object>> postAuthUser(@Body Map<String,Object> data);
 
-
-    @GET("https://us-central1-webflystore.cloudfunctions.net/appCat/Banklist")
-    Call<List<Map<String,Object>>> getListOfBank();
 
 
     @POST("Cravetech/GenerateRandom")
@@ -44,9 +44,6 @@ public interface Request_class {
     Call<Map<String,Object>> GT_GROUPS (@Body Map<String,Object> data);
 
 
-    @POST("Cravetech/ViewGroup")
-    Call<Map<String,Object>> GROUPS_STATUS (@Body Map<String,Object> data);
-
 
     @POST("Cravetech/LoadActiveGroup")    Call<models> _REQUEST(@Body Map<String,Object> data);
 
@@ -60,7 +57,16 @@ public interface Request_class {
 
 
     @POST("Cravetech/user_mine")
-    Call<Map<String,Object>> DIGIT_BOT_REQUEST(@Body Map<String,Object> data);
+    Call<models>  DIGIT_BOT_REQUEST(@Body Map<String,Object> data);
+
+
+
+    @POST("Cravetech/user_mine")
+    Call<Map<String,Object>>  DIGIT_BOT_REQUEST2(@Body Map<String,Object> data);
+
+    @POST("Cravetech/VnodeDeal")
+    Call<models> LIST_OF_VNODES(@Body Map<String,Object> obj);
+
 
 
     @POST("Cravetech/Voches")
@@ -70,6 +76,21 @@ public interface Request_class {
 
     @POST("Cravetech/LeaveGroup")
     Call<Map<String,Object>> LEAVE(@Body Map<String,Object> data);
+
+
+
+    @POST("Cravetech/AddHandler")
+    Call<models> START_VN(@Body Map<String,Object> data);
+
+
+
+    @POST("Cravetech/CA")
+    Call<Map<String,Object>> _CA(@Body Map<String,Object> data);
+
+
+    @POST("Cravetech/VN")
+    Call<Map<String,Object>> _VN_(@Body Map<String,Object> data);
+
 
 
 
