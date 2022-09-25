@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
-                        android:drawableStart="@drawable/ic_baseline_scatter_plot_24"
+                        android:drawableStart="@drawable/bubble_scatter_plot_24"
                         android:textColor="@color/otherbase" />
 
                     <Spinner

@@ -60,7 +60,6 @@ public class Auto extends Fragment {
         Selects(hours);
         Selects(bots);
         button.setOnClickListener(e -> {
-
             if (load && selected && u.size() > 1)
                 if (!u.get(0).equals("Please select") && !u.get(1).equals("Please select")) {
                     progress.setVisibility(View.VISIBLE);
@@ -82,7 +81,6 @@ public class Auto extends Fragment {
         output = v.findViewById(R.id.output);
         button = v.findViewById(R.id.place_virtual_stake);
         progress = v.findViewById(R.id.progress);
-        button.setEnabled(false);
         hour = new ArrayList<>();
         size = new ArrayList<>();
         u = new ArrayList<>();
