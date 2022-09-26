@@ -2,6 +2,8 @@ package com.otec.Tokcoin.UI
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     private  var decide: Boolean = false;
     private var sessionDepth = 0
 
+    private var TAG: String = "MainAc"
+
 
     override fun onResume() {
         super.onResume()
@@ -32,10 +36,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        if(utilJava().checkUi(window.decorView.rootView as ViewGroup?) == 1)
+            setContentView(R.layout.activity_main)
+        else{
+            setContentView(R.layout.sm_activity_main)
+            Log.d(TAG, "onCreate: Small")
+        }
 
         val homepage : RelativeLayout = findViewById(R.id.homePage)
         utilKotlin().Top_status_bar(window,this,homepage)
+
 
         if(FirebaseAuth.getInstance().currentUser == null)
               startActivity(Intent(this,Login::class.java))

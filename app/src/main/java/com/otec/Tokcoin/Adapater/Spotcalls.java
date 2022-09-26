@@ -1,6 +1,7 @@
 package com.otec.Tokcoin.Adapater;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     @NotNull
     @Override
     public Custom_adapter onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+
+
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.scards, parent, false);
         return new Custom_adapter(v);
     }

@@ -3,9 +3,11 @@ package com.otec.Tokcoin.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -369,6 +371,15 @@ public class utilJava {
     public static String FORMAT(String node, List<Map<String, Object>> obj, int p) {
         Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
         return i.get(node).toString();
+    }
+
+
+    public  int checkUi(ViewGroup parent){
+        Configuration config = parent.getResources().getConfiguration();
+        if(config.smallestScreenWidthDp <= 320 )
+            return  0;
+        else
+            return  1;
     }
 
 }
