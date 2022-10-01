@@ -1,5 +1,6 @@
 package com.otec.Tokcoin.UI
 
+import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import com.otec.Tokcoin.R
+import com.otec.Tokcoin.Running_service.RegisterUser
 import com.otec.Tokcoin.utils.utilJava
 import com.otec.Tokcoin.utils.utilKotlin
+import me.pushy.sdk.Pushy
 import java.util.*
 
 
@@ -24,8 +27,9 @@ class MainActivity : AppCompatActivity() {
     private var TimeLapsed: Int = 2000
     private  var decide: Boolean = false;
     private var sessionDepth = 0
-
     private var TAG: String = "MainAc"
+
+
 
 
     override fun onResume() {
@@ -52,6 +56,8 @@ class MainActivity : AppCompatActivity() {
               startActivity(Intent(this,Login::class.java))
         else
             utilJava().openFragment(Home(),"Home",1,this)
+
+        _LISTNER()
     }
 
 
@@ -105,13 +111,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        if (sessionDepth > 0) sessionDepth--
+        if (sessionDepth > 0)
+            sessionDepth--
         if (sessionDepth == 0) {
             val uid: MutableMap<String, Any> = HashMap()
             uid["app_state"] = false
             utilJava().SET_DATA_TO_CACHE(applicationContext,uid,getString(R.string.APP_STATE))
         }
     }
+
+
+    private fun _LISTNER() {
+        if (!Pushy.isRegistered(this))
+            RegisterUser(this).execute()
+        else
+             Pushy.listen(this);
+    }
+
 
 }
 

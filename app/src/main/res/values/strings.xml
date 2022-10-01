@@ -8,5 +8,6 @@
     <string name="ISSUE_REPORT">ISSUE_REPORT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="DEVICE_TOKEN">DEVICE_TOKEN</string>
 
 </resources>

@@ -54,6 +54,9 @@ dependencies {
     //Circle Img
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //pushy
+    implementation 'me.pushy:sdk:1.0.87'
+
     // glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -73,6 +76,15 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
+
+
+    implementation ('com.google.http-client:google-http-client-gson:1.19.0') {
+        //Exclude conflicting modules
+        exclude module: 'httpclient'
+        exclude module: 'commons-logging'
+    }
+    //Add HttpClient classes from a different package
+    implementation 'cz.msebera.android:httpclient:4.5.8'
 
 }
 repositories {

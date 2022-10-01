@@ -376,6 +376,7 @@ public class utilJava {
 
     public  int checkUi(ViewGroup parent){
         Configuration config = parent.getResources().getConfiguration();
+        Log.d(TAG, "checkUi: "+config.smallestScreenWidthDp);
         if(config.smallestScreenWidthDp <= 320 )
             return  0;
         else

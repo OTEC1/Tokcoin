@@ -142,17 +142,23 @@ public class Register extends AppCompatActivity {
     user = new HashMap<>();
     pack = new HashMap<>();
     details = new HashMap<>();
-        details.put("bankaccountno", bankAccount_No.getText().toString());
-        details.put("Nameonaccount", NameOnAccount.getText().toString());
-        details.put("bankselected", bank_selected);
+
         user.put("email", email.getText().toString());
         user.put("password", password.getText().toString());
         user.put("avatar", 0);
+        user.put("device_token", "n/a");
+
+        details.put("bankaccountno", bankAccount_No.getText().toString());
+        details.put("Nameonaccount", NameOnAccount.getText().toString());
+        details.put("bankselected", bank_selected);
         details.put("bal", 0);
         details.put("gas", 0);
+
         pack.put("User", user);
         pack.put("User_details", details);
+
         pack.put("User_locations", null);
+
         Request_class base_config = Base_config.getRetrofit().create(Request_class.class);
         Call<Map<String, Object>> request = base_config.postAuthUser(pack);
             request.enqueue(new Callback<Map<String, Object>>() {

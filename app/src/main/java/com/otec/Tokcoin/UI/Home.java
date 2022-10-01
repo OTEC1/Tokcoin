@@ -47,24 +47,13 @@ public class Home extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View v = null;
-        if (new utilJava().checkUi(container) == 1)
-            v = inflater.inflate(R.layout.fragment_home, container, false);
-        else
-            Log.d(TAG, "onCreateView: Small ");
-           // v = inflater.inflate(R.layout.fragment_purchases, container, false)
-                    
-  
-//        stake = v.findViewById(R.id.Stakes);
-//        spot = v.findViewById(R.id.spot);
-//        spinners = v.findViewById(R.id.spinners);
-//
-//        AddToList();
-//
-//
-//        for(int y = 0; y< 2; y++)
-//           Request(y);
+        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        stake = v.findViewById(R.id.Stakes);
+        spot = v.findViewById(R.id.spot);
+        spinners = v.findViewById(R.id.spinners);
+        AddToList();
+        for(int y = 0; y< 2; y++)
+           Request(y);
 
         return v;
     }

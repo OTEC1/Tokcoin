@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.utils.utilJava;
@@ -82,11 +83,12 @@ public class Login extends AppCompatActivity {
     }
 
     private void LoadUserDetails() {
-        FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
-                .addOnCompleteListener(evt -> {
-                        if(evt.isSuccessful())
-                            new utilJava().SET_CACHED_USER((Map<String, Object>) evt.getResult().get("User"),getString(R.string.SIGNED_IN_USER),this);
-                        else
+        DocumentReference ref = FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            ref.get().addOnCompleteListener(evt -> {
+                        if(evt.isSuccessful()) {
+                                ref.update("User.device_token",new utilJava().init(getApplicationContext()).getString(getString(R.string.DEVICE_TOKEN),""));
+                            new utilJava().SET_CACHED_USER((Map<String, Object>) evt.getResult().get("User"), getString(R.string.SIGNED_IN_USER), this);
+                        }else
                             new utilKotlin().message2("Sign in failed !", getApplicationContext());
                 });
         }
