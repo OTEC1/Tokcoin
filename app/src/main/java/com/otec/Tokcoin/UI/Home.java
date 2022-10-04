@@ -101,7 +101,6 @@ public class Home extends Fragment {
 
 
     private void setLayout(List<Map<String, Object>> message, RecyclerView o,int b) {
-
         if(message!=null) {
             if(b == 0)
                joinGroupCall = new JoinGroupCall(message, getContext(), 1);
@@ -112,10 +111,8 @@ public class Home extends Fragment {
             o.setLayoutManager(manager);
             o.setAdapter(b == 0 ? joinGroupCall : sportCalls);
             spinners.setVisibility(View.INVISIBLE);
-
         }
         else
                 new utilKotlin().message2("Error occurred "+message.size(),getContext());
-
     }
 }

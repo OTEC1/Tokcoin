@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.otec.Tokcoin.R;
-import com.otec.Tokcoin.UI.Auto;
 import com.otec.Tokcoin.UI.Digits;
 import com.otec.Tokcoin.UI.GroupsLists;
 import com.otec.Tokcoin.UI.Home;
@@ -27,22 +26,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
+public class usernav extends RecyclerView.Adapter<usernav.CustomAdapater> {
 
     private List<String> tabs;
     private Context context;
-
-
     private String TAG = "TopNavTabs";
     private int i = -1;
+    private boolean clicks = false;
 
-    public nav(List<String> tabs, Context context) {
+    public usernav(List<String> tabs, Context context) {
         this.tabs = tabs;
         tabs.add(0, "Home");
         tabs.add(1, "Exchange");
         tabs.add(2, "Groups");
         tabs.add(3, "Digits");
-        tabs.add(4, "VNODES");
+        tabs.add(4, "Vnode");
         tabs.add(tabs.size(), "User");
         this.context = context;
     }
@@ -58,10 +56,10 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull CustomAdapater holder, int position) {
 
-
         holder.tabs.setOnClickListener(e -> {
             Bundle bundle = new Bundle();
             i = position;
+            clicks = true;
             notifyDataSetChanged();
             if (Val(holder,"home"))
                 new utilJava().open_Fragment(new Home(), "Home", e, bundle, R.id.frameLayout);
@@ -79,24 +77,29 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
                     bundle.putInt("e",0);
                     new utilJava().open_Fragment(new vouche_page(), "vouche_page", e, bundle, R.id.frameLayout);
                 }else
-                 if(Val(holder,"VNODES")) {
-                     bundle.putInt("e",1);
-                     new utilJava().open_Fragment(new vouche_page(), "VNODES", e, bundle, R.id.frameLayout);
-                 }
-
+                     if(Val(holder,"Vnode")) {
+                         bundle.putInt("e",1);
+                         new utilJava().open_Fragment(new vouche_page(), "Vnode", e, bundle, R.id.frameLayout);
+                     }
         });
 
-        if (i == position)
-            holder.tabs.setBackgroundResource(R.drawable.inputlines1);
-        else
-            holder.tabs.setBackgroundResource(R.drawable.inputlines);
 
-        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups") || tabs.get(position).equals("VNODES"))
-            holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, tabs.get(position)), null, null, null);
+
+        if (i == position)
+            holder.tabs.setBackgroundResource(R.drawable.gradient);
         else
-            holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, ""), null, null, null);
+            holder.tabs.setBackgroundResource(R.drawable.inputlines7);
+
+        if (tabs.get(position).equals("Home") || tabs.get(position).equals("User") || tabs.get(position).equals("Groups") || tabs.get(position).equals("Vnode"))
+              holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, tabs.get(position)), null, null, null);
+        else
+              holder.tabs.setCompoundDrawablesWithIntrinsicBounds(Drawables(holder.tabs, ""), null, null, null);
+
 
         holder.tabs.setText(" " + tabs.get(position));
+
+        if(tabs.get(position).equals("Home") && !clicks)
+            holder.tabs.setBackgroundResource(R.drawable.gradient);
 
 
     }
@@ -124,7 +127,7 @@ public class nav extends RecyclerView.Adapter<nav.CustomAdapater> {
             case "Exchange":
                 img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_storefront_24);
                 break;
-            case "VNODES":
+            case "Vnode":
                 img = tabs.getContext().getResources().getDrawable(R.drawable.ic_baseline_flash);
                 break;
             default:

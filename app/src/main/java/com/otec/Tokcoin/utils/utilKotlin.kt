@@ -26,8 +26,8 @@ class utilKotlin {
             windows.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             windows.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             //dark by default
-            windows.statusBarColor = activity.resources.getColor(R.color.Top_most_section)
-            home_background.setBackgroundResource(R.mipmap.dimetradedarktheme)
+            windows.statusBarColor = activity.resources.getColor(R.color.purple_700)
+            home_background.setBackgroundResource(R.mipmap.dimetradebackground)
         }
     }
 

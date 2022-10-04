@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -63,13 +64,12 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
         if (call != 2) {
             holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
-
             holder.auto_ai.setOnClickListener(e->{
                 new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(1,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
             });
 
         }else {
-            holder.members.setText(Arrays.asList(FORMAT("members_ids", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
+            holder.members.setText(Arrays.asList(FORMAT("members_emails", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
             holder.loss.setText("loss -" + FORMAT("loss", objList, position));
             holder.profit.setText("Roi +" + FORMAT("profit", objList, position));
             holder.liquidity.setText(" Funds " + FORMAT("liquidity", objList, position));
@@ -111,13 +111,11 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
 
 
-
-
     class Custom_adapter extends RecyclerView.ViewHolder {
 
         private TextView groupName, profit, liquidity, miner_stake, members,loss;
         private Button btn, btn2;
-        private ImageView auto_ai;
+        private RelativeLayout auto_ai;
 
         public Custom_adapter(@NonNull @NotNull View v) {
             super(v);
@@ -140,4 +138,4 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 }
 
 //Get first node in list
-//Arrays.asList(FORMAT("members_ids", objList, position).split(",")).get(0))
+//Arrays.asList(FORMAT("members_emails", objList, position).split(",")).get(0))

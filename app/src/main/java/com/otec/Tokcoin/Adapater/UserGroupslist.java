@@ -67,13 +67,13 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.liquidity.setText("Funds " +FORMAT("liquidity", obj, position));
             holder.loss.setText("loss -" + FORMAT("loss", obj, position));
             holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
-            holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+            holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
             holder.liquidity.setText("Funds "+FORMAT("liquidity", obj, position));
             holder.profit.setText("Roi "+FORMAT("profit", obj, position));
             holder.loss.setText("loss "+FORMAT("loss", obj, position));
-            holder.members.setText("Users " + Arrays.asList(FORMAT("members_ids", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+            holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
 
             holder.button.setOnClickListener(e->{
                request(e.getContext(),FORMAT("ref_id", obj, position));

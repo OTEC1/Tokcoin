@@ -146,7 +146,6 @@ public class Register extends AppCompatActivity {
         user.put("email", email.getText().toString());
         user.put("password", password.getText().toString());
         user.put("avatar", 0);
-        user.put("device_token", "n/a");
 
         details.put("bankaccountno", bankAccount_No.getText().toString());
         details.put("Nameonaccount", NameOnAccount.getText().toString());

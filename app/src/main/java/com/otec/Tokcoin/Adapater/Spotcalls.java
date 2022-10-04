@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,8 +41,6 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     @NotNull
     @Override
     public Custom_adapter onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.scards, parent, false);
         return new Custom_adapter(v);
     }
@@ -50,17 +49,15 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull Custom_adapter holder, int position) {
 
-        holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
-          holder.stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
 
-        holder.spot_buy.setOnClickListener(e->{
-            new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(2,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
-        });
+          holder.spot_buy.setText(String.valueOf(new utilKotlin().cast(FORMAT("miner_stake", objList, position))));
+
+            holder.spot_buy.setOnClickListener(e->{
+                new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(2,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
+            });
     }
 
-    private String Upper(String groupName) {
-        return  groupName.substring(0,1).toUpperCase().concat(groupName.substring(1));
-    }
+
 
 
     @Override
@@ -77,14 +74,13 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
 
     class Custom_adapter extends RecyclerView.ViewHolder {
 
-        private TextView groupName,stake;
-        private CircleImageView spot_buy;
+        private TextView spot_buy;
+        private CircleImageView avater;
 
 
         public Custom_adapter(@NonNull @NotNull View v) {
             super(v);
-            groupName = v.findViewById(R.id.groupName);
-            stake = v.findViewById(R.id.stake);
+            avater = v.findViewById(R.id.avater);
             spot_buy = v.findViewById(R.id.spot_buy);
 
 
@@ -92,5 +88,3 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     }
 }
 
-//Get first node in list
-//Arrays.asList(FORMAT("members_ids", objList, position).split(",")).get(0))

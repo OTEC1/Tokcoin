@@ -6,6 +6,7 @@
     tools:context=".UI.Home">
 
     <RelativeLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,91 +16,26 @@
             android:layout_height="35dp"
             android:layout_centerInParent="true" />
 
-        <ImageView
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/leftbara" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="100">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Stakes"
+                android:layout_width="match_parent"
                 android:layout_height="0sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="60">
+                android:layout_weight="80" />
 
 
-                <TextView
-                    android:id="@+id/indicate1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="50sp"
-                    android:drawableStart="@drawable/ic_baseline_bubble"
-                    android:text=" Stakes"
-                    android:padding="5dp"
-                    android:textColor="@color/otherbase"
-                    android:textStyle="bold" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/Stakes"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/indicate1" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/spot"
+                android:layout_width="match_parent"
                 android:layout_height="0sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="40">
-
-
-                <TextView
-                    android:id="@+id/indicate2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:drawableStart="@drawable/ic_baseline_compare_arrows_24"
-                    android:text=" Spot"
-                    android:textColor="@color/otherbase"
-                    android:padding="5dp"
-                    android:textStyle="bold" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/spot"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/indicate2" />
-
-            </RelativeLayout>
-
+                android:layout_weight="20" />
 
         </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/rightbarb" />
-
     </RelativeLayout>
-
 </FrameLayout>
