@@ -13,12 +13,15 @@
         android:layout_marginStart="10dp"
         android:background="@mipmap/curve">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:padding="4dp"
             android:text="Live"
+            android:paddingTop="3dp"
+            android:textAlignment="center"
+            android:background="@mipmap/reb_btn"
             android:textColor="@color/white" />
 
 
@@ -84,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="+20"
+                    android:textSize="25sp"
                     android:textColor="@color/navy"
                     android:textStyle="bold" />
 
@@ -102,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="-20"
+                    android:textSize="25sp"
                     android:textColor="@color/navy"
                     android:textStyle="bold" />
 

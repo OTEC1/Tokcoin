@@ -50,7 +50,7 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     public void onBindViewHolder(@NonNull @NotNull Custom_adapter holder, int position) {
 
 
-          holder.spot_buy.setText(String.valueOf(new utilKotlin().cast(FORMAT("miner_stake", objList, position))));
+          holder.spot_buy.setText(FORMAT("miner_stake", objList, position));
 
             holder.spot_buy.setOnClickListener(e->{
                 new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(2,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
@@ -75,12 +75,9 @@ public class Spotcalls extends RecyclerView.Adapter<Spotcalls.Custom_adapter> {
     class Custom_adapter extends RecyclerView.ViewHolder {
 
         private TextView spot_buy;
-        private CircleImageView avater;
-
 
         public Custom_adapter(@NonNull @NotNull View v) {
             super(v);
-            avater = v.findViewById(R.id.avater);
             spot_buy = v.findViewById(R.id.spot_buy);
 
 

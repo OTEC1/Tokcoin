@@ -29,6 +29,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import static com.otec.Tokcoin.utils.utilJava.FORMAT;
 
 public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_adapter> {
@@ -37,7 +38,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     private Context context;
 
 
-    private int call;
+    private int call, p = 0;
     private String TAG = "JoinGroupCall";
 
 
@@ -59,16 +60,21 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     @Override
     public void onBindViewHolder(@NonNull @NotNull Custom_adapter holder, int position) {
 
+        p++;
+        int s = new utilJava().Change(p, holder.status);
+        if (s == 3)
+            p = 0;
+
         holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
 
         if (call != 2) {
             holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
-            holder.auto_ai.setOnClickListener(e->{
-                new utilJava().open_Fragment(new Auto(), "Auto", e,new utilJava().BUNDLE(1,FORMAT("doc_id", objList, position),FORMAT("email", objList, position)), R.id.frameLayout);
+            holder.auto_ai.setOnClickListener(e -> {
+                new utilJava().open_Fragment(new Auto(), "Auto", e, new utilJava().BUNDLE(1, FORMAT("doc_id", objList, position), FORMAT("email", objList, position)), R.id.frameLayout);
             });
 
-        }else {
+        } else {
             holder.members.setText(Arrays.asList(FORMAT("members_emails", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
             holder.loss.setText("loss -" + FORMAT("loss", objList, position));
             holder.profit.setText("Roi +" + FORMAT("profit", objList, position));
@@ -89,7 +95,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                new utilKotlin().message2(t.getLocalizedMessage(),holder.btn.getContext());
+                        new utilKotlin().message2(t.getLocalizedMessage(), holder.btn.getContext());
                     }
                 });
 
@@ -100,7 +106,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     }
 
     private String Upper(String groupName) {
-        return  groupName.substring(0,1).toUpperCase().concat(groupName.substring(1));
+        return groupName.substring(0, 1).toUpperCase().concat(groupName.substring(1));
     }
 
 
@@ -110,11 +116,10 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     }
 
 
-
     class Custom_adapter extends RecyclerView.ViewHolder {
 
-        private TextView groupName, profit, liquidity, miner_stake, members,loss;
-        private Button btn, btn2;
+        private TextView groupName, profit, liquidity, miner_stake, members, loss;
+        private Button btn, btn2, status;
         private RelativeLayout auto_ai;
 
         public Custom_adapter(@NonNull @NotNull View v) {
@@ -126,6 +131,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             members = v.findViewById(R.id.members);
             loss = v.findViewById(R.id.loss);
             auto_ai = v.findViewById(R.id.auto_ai);
+            status = v.findViewById(R.id.status);
 
             if (call == 2) {
                 btn2.setVisibility(View.VISIBLE);

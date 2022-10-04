@@ -33,7 +33,6 @@ public class JoinedGroup extends Fragment {
 
     private RecyclerView recyclerView;
     private ProgressBar progress;
-
     private String TAG = "JoinedGroup";
     private UserGroupslist user;
 

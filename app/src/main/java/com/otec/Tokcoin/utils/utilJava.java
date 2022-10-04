@@ -269,7 +269,7 @@ public class utilJava {
     }
 
 
-    public void debit_stake(Context cn, TextView rt, Integer value,Button btn, ProgressBar progressBar) {
+    public void debit_stake(Context cn, TextView rt, Integer value, Button btn, ProgressBar progressBar) {
         Map<String, Object> v = new HashMap<>();
         v.put("id", 1);
         v.put("amount", value);
@@ -367,20 +367,29 @@ public class utilJava {
     }
 
 
-
     public static String FORMAT(String node, List<Map<String, Object>> obj, int p) {
         Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
         return i.get(node).toString();
     }
 
 
-    public  int checkUi(ViewGroup parent){
+    public int checkUi(ViewGroup parent) {
         Configuration config = parent.getResources().getConfiguration();
-        Log.d(TAG, "checkUi: "+config.smallestScreenWidthDp);
-        if(config.smallestScreenWidthDp <= 320 )
-            return  0;
+        Log.d(TAG, "checkUi: " + config.smallestScreenWidthDp);
+        if (config.smallestScreenWidthDp <= 320)
+            return 0;
         else
-            return  1;
+            return 1;
     }
 
+
+    public int Change(int p, TextView v) {
+        if (p == 1)
+            v.setBackgroundResource(R.mipmap.reb_btn);
+        else if (p == 2)
+            v.setBackgroundResource(R.mipmap.blue_btn);
+        else if (p == 3)
+            v.setBackgroundResource(R.mipmap.green_btn);
+    return  p;
+    }
 }

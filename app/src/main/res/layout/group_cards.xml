@@ -4,105 +4,223 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@mipmap/groups"
+        android:padding="10dp">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/reb_btn"
+            android:text="LOST"
+            android:textColor="@color/white" />
+
+
+        <RelativeLayout
+            android:id="@+id/left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/groupName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/inputlines5"
-                android:padding="10dp">
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:text="GroupName"
+                android:textColor="@color/purple_700"
+                android:textSize="12sp" />
 
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/cards"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:src="@drawable/user"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="3dp" />
-
-
-                <Button
-                    android:id="@+id/requestBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_toEndOf="@id/cards"
-                    android:background="@drawable/inputlines4"
-                    android:drawableTop="@drawable/ic_baseline_cancel_24"
-                    android:paddingTop="3dp" />
-
-
-
-                <Button
-                    android:id="@+id/requestBtn2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_toEndOf="@id/cards"
-                    android:layout_marginStart="10dp"
-                    android:visibility="invisible"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/inputlines6"
-                    android:padding="13.5dp"
-                    android:drawableTop="@drawable/ic_baseline_near_me_24" />
-
-
-
-
-                <TextView
-                    android:id="@+id/groupName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cards"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/dark_text"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/liquidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="@color/purple_700"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/profit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/liquidity"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="12dp"
-                    android:textColor="@color/green"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/loss"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profit"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="12dp"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/members"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/loss"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/member_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/groupName"
+                android:layout_marginStart="10dp"
+                android:text="GroupName"
+                android:textColor="@color/navy"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/requestBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/inputlines4"
+                android:drawableTop="@drawable/ic_baseline_cancel_24"
+                android:paddingTop="3dp" />
+
+            <Button
+                android:id="@+id/requestBtn2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/inputlines6"
+                android:drawableTop="@drawable/ic_baseline_near_me_24"
+                android:padding="5dp"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/avaters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/left_top"
+            android:layout_marginTop="10dp">
+
+
+            <GridLayout
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/group_avater"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/user"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="3dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/group_avater"
+                        android:text="2500"
+                        android:textColor="@color/navy"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/group"
+                android:columnCount="2"
+                android:rowCount="2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/user_avater"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/user"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="3dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/user_avater"
+                        android:text="2500"
+                        android:textColor="@color/dark_text"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </GridLayout>
+
+        </RelativeLayout>
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avaters"
+            android:layout_marginTop="20dp"
+            android:columnCount="2"
+            android:rowCount="2">
+
+
+            <TextView
+                android:id="@+id/liquidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="2.51"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/profit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="2.51"
+                android:textColor="@color/green"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </GridLayout>
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avaters"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:columnCount="2"
+            android:rowCount="2">
+
+            <TextView
+                android:id="@+id/loss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="45.6"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/members"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:text="45.6"
+                android:textColor="@color/dark_text"
+                android:textStyle="bold" />
+
+        </GridLayout>
+
+
     </RelativeLayout>
+
+</RelativeLayout>

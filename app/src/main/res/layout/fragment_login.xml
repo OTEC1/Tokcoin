@@ -46,7 +46,7 @@
                 android:layout_height="70dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="90dp"
-                android:src="@mipmap/vone" />
+                android:src="@drawable/ic_baseline_all_inclusive_24" />
 
 
             <TextView

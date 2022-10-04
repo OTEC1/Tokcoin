@@ -6,7 +6,6 @@
     tools:context=".UI.Nav">
 
 
-
     <TextView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
@@ -16,6 +15,14 @@
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textStyle="bold" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_baseline_all_inclusive_24" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/app_drawer"
@@ -31,6 +38,6 @@
         android:id="@+id/tabsRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/app_drawer"/>
+        android:layout_below="@id/app_drawer" />
 
 </RelativeLayout>
