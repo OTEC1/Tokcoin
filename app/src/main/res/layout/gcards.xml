@@ -18,145 +18,150 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Live"
+            android:background="@mipmap/blue_btn"
             android:paddingTop="3dp"
+            android:text="Live"
             android:textAlignment="center"
-            android:background="@mipmap/reb_btn"
             android:textColor="@color/white" />
 
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sell_spot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/inputlines7"
-            android:drawableStart="@drawable/ic_baseline_360_24" />
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/close"
-            android:layout_width="50sp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/inputlines7"
-            android:drawableStart="@drawable/ic_baseline_cancel_24" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/close"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:text="Two test is ok for ue  wuhwe weq "
-            android:textAlignment="center"
-            android:textColor="@color/navy"
-            android:textStyle="bold" />
-
         <RelativeLayout
-            android:id="@+id/cardsHold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="15dp">
+            android:layout_centerInParent="true">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userAvatar"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/user"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="3dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sell_spot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/inputlines7"
+                android:drawableStart="@drawable/ic_baseline_360_24" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/close"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/inputlines7"
+                android:drawableStart="@drawable/ic_baseline_cancel_24" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/close"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="Two test is ok for ue  wuhwe weq "
+                android:textAlignment="center"
+                android:textColor="@color/navy"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/cardsHold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="15dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userAvatar"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/user"
+                    app:civ_border_color="@color/otherbase"
+                    app:civ_border_width="3dp" />
+
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:columnCount="3"
+                    android:rowCount="3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="+20"
+                        android:textColor="@color/navy"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text=":"
+                        android:textColor="@color/navy"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="-20"
+                        android:textColor="@color/navy"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                </GridLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cards"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/user"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="3dp" />
+            </RelativeLayout>
 
 
             <GridLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/cardsHold"
+                android:layout_centerHorizontal="true"
                 android:columnCount="3"
-                android:rowCount="3">
+                android:paddingBottom="10sp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/groupName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="+20"
-                    android:textSize="25sp"
-                    android:textColor="@color/navy"
-                    android:textStyle="bold" />
+                    android:background="@mipmap/lef"
+                    android:textColor="@color/navy" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/profit"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/mid"
+                    android:textColor="@color/navy" />
 
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/miner_stake"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text=":"
-                    android:textColor="@color/navy"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="-20"
-                    android:textSize="25sp"
-                    android:textColor="@color/navy"
-                    android:textStyle="bold" />
-
+                    android:background="@mipmap/rig"
+                    android:textColor="@color/navy" />
             </GridLayout>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/cards"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/user"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="3dp" />
         </RelativeLayout>
-
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/cardsHold"
-            android:layout_centerHorizontal="true"
-            android:columnCount="3"
-            android:paddingBottom="10sp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/groupName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@mipmap/lef"
-                android:textColor="@color/navy" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/profit"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@mipmap/mid"
-                android:textColor="@color/navy" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/miner_stake"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@mipmap/rig"
-                android:textColor="@color/navy" />
-        </GridLayout>
-
 
     </RelativeLayout>
 

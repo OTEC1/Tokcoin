@@ -6,7 +6,7 @@
     tools:context=".UI.Home">
 
     <RelativeLayout
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,7 +26,6 @@
                 android:id="@+id/Stakes"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
-                android:layout_marginTop="20sp"
                 android:layout_weight="80" />
 
 
@@ -34,7 +33,6 @@
                 android:id="@+id/spot"
                 android:layout_width="match_parent"
                 android:layout_height="0sp"
-                android:layout_marginTop="50dp"
                 android:requiresFadingEdge="horizontal|vertical"
                 android:layout_weight="20" />
 

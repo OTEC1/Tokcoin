@@ -60,10 +60,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
     @Override
     public void onBindViewHolder(@NonNull @NotNull Custom_adapter holder, int position) {
 
-        p++;
-        int s = new utilJava().Change(p, holder.status);
-        if (s == 3)
-            p = 0;
+
 
         holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
 
