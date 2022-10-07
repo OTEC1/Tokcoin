@@ -92,6 +92,12 @@ public interface Request_class {
     Call<Map<String,Object>> _VN_(@Body Map<String,Object> data);
 
 
+    @POST("Cravetech/Updatepics")
+    Call<Map<String,Object>> UPDATE_USER(@Body Map<String,Object> data);
+
+
+
+
 
 
 }

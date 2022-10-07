@@ -61,9 +61,13 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     @Override
     public void onBindViewHolder(@NonNull @NotNull CustomerAdapter holder, int position) {
         p++;
-        int s = new utilJava().Change(p, holder.status);
-        if (s == 3)
+        if (new utilJava().Change(p, holder.status) == 3)
             p = 0;
+        holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+        if(Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() == (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)))
+            holder.status.setText("Live");
+        else
+            holder.status.setText("Pending");
 
         if (n == 1) {
             holder.button.setVisibility(View.VISIBLE);
@@ -75,14 +79,14 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
             holder.liquidity.setText("Funds " + FORMAT("liquidity", obj, position));
-            holder.profit.setText("Roi " + FORMAT("profit", obj, position));
-            holder.loss.setText("loss " + FORMAT("loss", obj, position));
-            holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+            holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
+            holder.loss.setText("loss -" + FORMAT("loss", obj, position));
 
             holder.button.setOnClickListener(e -> {
                 request(e.getContext(), FORMAT("ref_id", obj, position));
             });
         }
+
     }
 
 

@@ -7,11 +7,12 @@
 
 
     <RelativeLayout
+        android:gravity="center"
+        android:background="@mipmap/curve"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
-        android:background="@drawable/inputlines5"
         android:padding="10dp">
 
 
@@ -25,8 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textAlignment="center"
                 android:textColor="@color/green"
-                android:textSize="15sp"
+                android:textSize="25sp"
+                android:padding="10dp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -37,13 +40,12 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/play"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/digits_returned"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:background="@drawable/inputlines1"
-                android:text=""
                 android:textAllCaps="false"
                 android:textColor="@color/otherbase" />
 

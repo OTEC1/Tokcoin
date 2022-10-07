@@ -8,10 +8,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="@drawable/inputlines5"
+        android:background="@mipmap/curve"
+        android:gravity="center"
         android:padding="10dp">
 
 
@@ -25,8 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:textAlignment="center"
                 android:textColor="@color/green"
-                android:textSize="15sp"
+                android:textSize="25sp"
+                android:padding="10dp"
                 android:textStyle="bold" />
 
 
@@ -46,10 +49,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
                     android:maxLength="3"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -59,9 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -71,9 +74,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -83,9 +86,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -95,9 +98,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -107,9 +110,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:background="@drawable/inputlines"
-                    android:padding="15dp"
                     android:inputType="number"
-                    android:textColor="@color/otherbase"
+                    android:padding="15dp"
+                    android:textColor="@color/dark_text"
                     android:textSize="20sp" />
 
 
@@ -117,7 +120,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/play"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/digits_returned"
                 android:layout_centerHorizontal="true"
@@ -130,11 +133,11 @@
 
             <ProgressBar
                 android:id="@+id/progressCount"
-                android:visibility="invisible"
-                android:layout_centerHorizontal="true"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_below="@id/digits_returned"/>
+                android:layout_below="@id/digits_returned"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible" />
 
         </RelativeLayout>
 

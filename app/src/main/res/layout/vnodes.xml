@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    android:background="@drawable/inputlines5">
+    android:background="@drawable/inputlines2">
 
 
     <RelativeLayout
@@ -15,8 +15,6 @@
             android:id="@+id/profit"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle7"
             android:drawableStart="@drawable/ic_baseline_scatter_plot_24"
             android:padding="8dp"
             android:textAllCaps="false"
@@ -39,12 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pro">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/loss"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle7"
             android:drawableStart="@drawable/ic_baseline_trending_down_24"
             android:padding="8dp"
             android:textAllCaps="false" />
@@ -64,12 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/los">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/type"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/circle7"
             android:drawableStart="@drawable/ic_baseline_flash_on_24"
             android:padding="8dp"
             android:textAllCaps="false"
@@ -87,23 +81,12 @@
     </RelativeLayout>
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/icons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/circle7"
-        android:padding="10dp"
-        android:src="@drawable/user" />
 
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancel_"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@id/icons"
         android:layout_alignParentEnd="true"
         android:layout_margin="15dp"
         android:background="@drawable/circle7"

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -27,8 +28,11 @@ import com.otec.Tokcoin.Adapater.Digits_Call;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.UI.Avater;
 import com.otec.Tokcoin.UI.MainActivity;
 import com.otec.Tokcoin.model.models;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -75,7 +79,7 @@ public class utilJava {
         user.put("email", obj.get("email"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("user_id", obj.get("user_id"));
-        user.put("UserCategory", obj.get("UserCategory"));
+        user.put("avatar", obj.get("avatar"));
         SET_DATA_TO_CACHE(view, user, tag);
         view.startActivity(new Intent(view, MainActivity.class));
         return user;
@@ -99,8 +103,7 @@ public class utilJava {
 
     public List<Map<String, Object>> GET_CACHED_LIST(Context view, String tag) {
         String arrayListString = init(view).getString(tag, null);
-        Type type = new TypeToken<List<Map<String, Object>>>() {
-        }.getType();
+        Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
         return new Gson().fromJson(arrayListString, type);
     }
 
@@ -117,7 +120,7 @@ public class utilJava {
     //Fragment Open from Activity
     public void openFragment(Fragment fragment, String my_fragment, int a, AppCompatActivity context) {
         FragmentTransaction fragmentTransaction = context.getSupportFragmentManager().beginTransaction();
-        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(0, null, null), R.id.frameLayout);
+        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(a, null, null), R.id.frameLayout);
     }
 
 
@@ -209,6 +212,7 @@ public class utilJava {
         user.put("profit", 0);
         user.put("loss", 0);
         user.put("liquidity", 0);
+        user.put("guest_avatar", 0);
         return Wrap(user);
     }
 
@@ -385,11 +389,24 @@ public class utilJava {
 
     public int Change(int p, TextView v) {
         if (p == 1)
-            v.setBackgroundResource(R.mipmap.reb_btn);
-        else if (p == 2)
             v.setBackgroundResource(R.mipmap.blue_btn);
-        else if (p == 3)
+        else if (p == 2)
             v.setBackgroundResource(R.mipmap.green_btn);
-    return  p;
+        else if (p == 3)
+            v.setBackgroundResource(R.mipmap.reb_btn);
+        return p;
+    }
+
+
+
+
+
+    public Map<String, Object> UPDATES(Map<String, Object> user,int u) {
+        Map<String,Object> obj = Maps();
+        obj.put("email", user.get("email"));
+        obj.put("user_id", user.get("user_id"));
+        obj.put("IMEI", user.get("IMEI"));
+        obj.put("avatar", u);
+        return  Wrap(obj);
     }
 }

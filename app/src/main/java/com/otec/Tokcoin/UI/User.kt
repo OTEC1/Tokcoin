@@ -1,12 +1,13 @@
 package com.otec.Tokcoin.UI
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,46 +33,48 @@ class User : Fragment() {
     val TAG = "User"
     private lateinit var createdGroup: RecyclerView
     private lateinit var down: ProgressBar
+    private lateinit var load: ProgressBar
     private var createGroup_btn: TextView? = null
+    private var avater_img: ImageView? = null;
 
 
-    override fun onCreateView(
-        inflate: LayoutInflater,
-        container: ViewGroup?,
-        savedInstance: Bundle?
-    ): View? {
+    override fun onCreateView(inflate: LayoutInflater, container: ViewGroup?, savedInstance: Bundle?): View? {
         val view: View = inflate.inflate(R.layout.activity_user, container, false)
         val userName: TextView = view.findViewById(R.id.userName)
         val userBalance: TextView = view.findViewById(R.id.userBalance)
         val userGas: TextView = view.findViewById(R.id.userGas)
         createGroup_btn = view.findViewById(R.id.create)
+        avater_img = view.findViewById(R.id.userAvatar)
         createdGroup = view.findViewById(R.id.createdGroup)
         down = view.findViewById(R.id.down)
+        load = view.findViewById(R.id.load)
         createdGroup.layoutManager = LinearLayoutManager(context)
         changed(userBalance, userGas, userName)
         requestGroupList();
 
 
         createGroup_btn?.setOnClickListener {
-            Log.d(TAG, "onCreateView: ")
             utilJava().openFrag(Group_creation(), "Group_creation", null, activity)
         }
+
+
+        avater_img?.setOnClickListener {
+            load.visibility = View.VISIBLE
+            utilJava().openFragment(Avater(), "Avatar", 0, context as AppCompatActivity?)
+        }
+
         return view;
     }
 
 
     //Send to backend route
     private fun changed(bal: TextView, gas: TextView, userName: TextView) {
-        userName.text = utilJava().GET_CACHED_MAP(
-            context,
-            getString(R.string.SIGNED_IN_USER)
-        )["email"].toString()
-        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance()
-            .collection(getString(R.string.REGISTER_USER))
-            .document(FirebaseAuth.getInstance().currentUser?.email!!)
-            .addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
+        userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
+        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().currentUser?.email!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
                 bal.text = currency(value!!["User_details.bal"].toString())
                 gas.text = value["User_details.gas"].toString()
+                avater_img?.setBackgroundResource((value["User.avatar"] as Long).toInt())
+
             }
     }
 

@@ -3,6 +3,7 @@ package com.otec.Tokcoin.UI;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,7 +28,9 @@ import com.otec.Tokcoin.utils.utilKotlin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,8 +39,10 @@ public class Group_creation extends Fragment {
 
 
     private Button group_create;
-    private EditText groupName,Amount,Liquidator_size,miner_stake;
-    private ProgressBar  spinners;
+    private ImageView choose;
+    private CircleImageView groups_icons;
+    private EditText groupName, Amount, Liquidator_size, miner_stake;
+    private ProgressBar spinners;
     private Spinner spinner;
 
 
@@ -48,7 +54,7 @@ public class Group_creation extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_group_creation, container, false);
+        View view = inflater.inflate(R.layout.fragment_group_creation, container, false);
         group_create = view.findViewById(R.id.group_create);
         groupName = view.findViewById(R.id.groupNames);
         Amount = view.findViewById(R.id.Amount);
@@ -56,15 +62,25 @@ public class Group_creation extends Fragment {
         miner_stake = view.findViewById(R.id.miner_stake);
         spinners = view.findViewById(R.id.spinners);
         spinner = view.findViewById(R.id.odds);
+        choose = view.findViewById(R.id.choose);
+        groups_icons = view.findViewById(R.id.groups_icons);
         AddToSpinner(populateOdds());
 
+        Log.d(TAG, "onCreateView: "+new utilJava().init(requireContext()).getInt("icons", 0));
+
+        if(getArguments().getInt("node") != 0)
+            groups_icons.setImageResource(getArguments().getInt("node"));
+
+        choose.setOnClickListener(e -> {
+            new utilJava().openFragment(new Avater(), "Avatar", 1, (AppCompatActivity) getContext());
+        });
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#D6D6D6"));
-                odd  = (parent.getItemAtPosition(position).toString());
+                odd = (parent.getItemAtPosition(position).toString());
                 selected = true;
             }
 
@@ -74,15 +90,18 @@ public class Group_creation extends Fragment {
             }
         });
 
-        group_create.setOnClickListener(e->{
-            if(Val(groupName,Amount,Liquidator_size,miner_stake) && selected) {
+        group_create.setOnClickListener(e -> {
+            if (Val(groupName, Amount, Liquidator_size, miner_stake) && selected) {
                 if (odd != null)
                     if (!odd.trim().isEmpty() && !odd.equals("Select Odd"))
-                        Check();
+                         if(new utilJava().init(requireContext()).getInt("icons", 0) != 0)
+                             Check();
+                         else
+                             new utilKotlin().message2("Pls select an avatar !", getContext());
                     else
                         new utilKotlin().message2("Pls fill select a valid odd !", getContext());
             } else
-                 new utilKotlin().message2("Pls fill out all fields !", getContext());
+                new utilKotlin().message2("Pls fill out all fields !", getContext());
         });
         return view;
     }
@@ -94,6 +113,7 @@ public class Group_creation extends Fragment {
     }
 
     private List<Object> populateOdds() {
+
         odds = new ArrayList<>();
         odds.add("Select Odd");
         odds.add(2.5);
@@ -102,7 +122,8 @@ public class Group_creation extends Fragment {
         odds.add(7.5);
         odds.add(9.5);
         odds.add(12.5);
-        return  odds;
+
+        return odds;
     }
 
     private boolean Val(EditText groupName, EditText threshold, EditText liquidator_stake, EditText miner_stake) {
@@ -112,21 +133,22 @@ public class Group_creation extends Fragment {
     private void Check() {
         spinners.setVisibility(View.VISIBLE);
         Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String,Object>> isFunded = request_class.SendGroupRequest(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)),groupName,Amount,Liquidator_size,miner_stake,Double.parseDouble(odd),0));
-        isFunded.enqueue(new Callback<Map<String,Object>>() {
+        Call<Map<String, Object>> isFunded = request_class.SendGroupRequest(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), groupName, Amount, Liquidator_size, miner_stake, Double.parseDouble(odd),new utilJava().init(requireContext()).getInt("icons", 0)));
+        isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
-            public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
-                 new utilKotlin().message2(response.body().get("message").toString(),getContext());
-                   spinners.setVisibility(View.INVISIBLE);
-                    if(response.code() == 200) {
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                new utilKotlin().message2(response.body().get("message").toString(), getContext());
+                  spinners.setVisibility(View.INVISIBLE);
+                    if (response.code() == 200) {
                         groupName.setText("");
                         Amount.setText("");
                         Liquidator_size.setText("");
                         miner_stake.setText("");
+                        new utilJava().init(requireContext()).edit().putInt("icons", 0).apply();
                     }
             }
             @Override
-            public void onFailure(Call<Map<String,Object>> call, Throwable t) {
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
                 new utilKotlin().message2(t.getMessage(), getContext());
                 Log.d(TAG, "onFailure:  " + t.getMessage());
                 spinners.setVisibility(View.INVISIBLE);

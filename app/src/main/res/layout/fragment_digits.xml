@@ -23,8 +23,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/digit_mine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="0dp"
             android:layout_toStartOf="@id/right"
             android:layout_toEndOf="@id/left"
             app:tabTextColor="@color/otherbase" />

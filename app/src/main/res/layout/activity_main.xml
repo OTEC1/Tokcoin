@@ -11,35 +11,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.otec.Tokcoin.UI.Nav"
+            android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight="20">
-
-              <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView"
-                android:name="com.otec.Tokcoin.UI.Nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </RelativeLayout>
+            android:layout_weight="20" />
 
 
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight="70">
-
-        </FrameLayout>
+            android:layout_weight="70" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
-            android:name="com.otec.Tokcoin.UI.admob"
+            android:name="com.otec.Tokcoin.UI.google_ad"
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_weight="10" />
-
 
     </LinearLayout>
 
