@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
@@ -132,7 +132,7 @@ public class Group_creation extends Fragment {
 
     private void Check() {
         spinners.setVisibility(View.VISIBLE);
-        Request_class request_class = Base_config.getRetrofit().create(Request_class.class);
+        Request request_class = Base_config.getRetrofit().create(Request.class);
         Call<Map<String, Object>> isFunded = request_class.SendGroupRequest(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), groupName, Amount, Liquidator_size, miner_stake, Double.parseDouble(odd),new utilJava().init(requireContext()).getInt("icons", 0)));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override

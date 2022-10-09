@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
@@ -97,7 +97,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
 
     private void request(Context n, String ref_id) {
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<Map<String, Object>> isFunded = config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), ref_id));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override

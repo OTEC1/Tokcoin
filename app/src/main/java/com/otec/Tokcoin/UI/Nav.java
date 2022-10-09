@@ -50,20 +50,15 @@ public class Nav extends Fragment {
                 switch (item.getItemId()) {
 
                     case R.id.homes:
-                        if (FirebaseAuth.getInstance().getUid() != null)
+                        if (new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)) != null)
                             startActivity(new Intent(getContext(), Login.class));
                         else
                             new utilKotlin().message2("Pls sign out", getContext());
                         return true;
 
-
                     case R.id.sign_out:
-                        if (FirebaseAuth.getInstance().getUid() == null)
-                            startActivity(new Intent(getContext(), Login.class));
-                        else
-                            echo(FirebaseAuth.getInstance().getCurrentUser().getEmail() + " already signed out",view.getContext());
+                            echo( new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER)).get("email")+ "  signed out",view.getContext());
                         return true;
-
 
                     case R.id.report:
                             startActivity(new Intent(getActivity(), Report_issues.class));
@@ -79,7 +74,6 @@ public class Nav extends Fragment {
 
     private void echo(String url, Context c) {
         new utilKotlin().message2(url, getContext());
-        FirebaseAuth.getInstance().signOut();
         new utilJava().SET_DATA_TO_CACHE( c,null, c.getString(R.string.SIGNED_IN_USER));
         startActivity(new Intent(getActivity(), Login.class));
     }

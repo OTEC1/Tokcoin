@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
@@ -115,7 +115,7 @@ public class Auto extends Fragment {
 
 
     public void Request(int u, Map<String, Object> obj) {
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<models> isFunded = u == 0 ? config.LIST_OF_VNODES(new utilJava().MAPS()) : config.START_VN(obj);
         isFunded.enqueue(new Callback<models>() {
 

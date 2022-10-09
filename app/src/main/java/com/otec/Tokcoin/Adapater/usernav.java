@@ -105,7 +105,7 @@ public class usernav extends RecyclerView.Adapter<usernav.CustomAdapater> {
     }
 
     private boolean Val(CustomAdapater holder, String home) {
-      return holder.tabs.getText().toString().trim().equalsIgnoreCase(home) && FirebaseAuth.getInstance().getCurrentUser() != null;
+      return holder.tabs.getText().toString().trim().equalsIgnoreCase(home) &&new utilJava().GET_CACHED_MAP(holder.itemView.getContext(),holder.itemView.getContext().getString(R.string.SIGNED_IN_USER)) != null;
     }
 
 

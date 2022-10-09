@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import com.otec.Tokcoin.Adapater.UserGroupslist;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
@@ -50,12 +50,14 @@ public class JoinedGroup extends Fragment {
 
 
     private void requestgroups() {
-        Request_class request = Base_config.getRetrofit().create(Request_class.class);
+        Request request = Base_config.getRetrofit().create(Request.class);
         Call<Map<String,Object>> list = request.GT_GROUPS(new utilJava().GET_GROUP( new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
         list.enqueue(new Callback<Map<String,Object>>() {
             @Override
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
                 Map<String,Object> l1 = (Map<String, Object>) response.body().get("message");
+
+                Log.d(TAG, "onResponse: "+ l1.get("listB"));
                     if(!l1.get("listB").toString().equals("0.0"))
                            BuildView((List<?>) l1.get("listB"));
 

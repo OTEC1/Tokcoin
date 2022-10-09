@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import com.otec.Tokcoin.Adapater.Vouches;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
@@ -47,9 +47,8 @@ public class vouche_page extends Fragment {
     }
 
     private void Request_Vouchers(int e) {
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
-        Call<Map<String, Object>> isFunded =  e == 0 ? config.VOCHERS(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))))  :
-                config._VN_(new utilJava().Wrap(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))));
+        Request config = Base_config.getRetrofit().create(Request.class);
+        Call<Map<String, Object>> isFunded =  e == 0 ? config.VOCHERS(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))))  : config._VN_(new utilJava().Wrap(new utilJava().GET_CACHED_MAP(getContext(),getString(R.string.SIGNED_IN_USER))));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {

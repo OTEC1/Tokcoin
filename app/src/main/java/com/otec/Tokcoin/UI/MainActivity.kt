@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         utilKotlin().Top_status_bar(window,this,homepage)
 
 
-        if(FirebaseAuth.getInstance().currentUser == null)
+        if(utilJava().GET_CACHED_MAP(applicationContext,getString(R.string.SIGNED_IN_USER)) == null)
               startActivity(Intent(this,Login::class.java))
         else
             utilJava().openFragment(Home(),"Home",1,this)

@@ -6,13 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.UI.Group_creation;
+import com.otec.Tokcoin.UI.User;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +54,7 @@ public class Avater_adapter  extends RecyclerView.Adapter<Avater_adapter.Custom_
         Glide.with(holder.imageView.getContext()).load(avaters.get(position)).into(holder.imageView);
             holder.imageView.setOnClickListener(e->{
                 if(i == 0)
-                   Update(e.getContext(),avaters.get(position));
+                   Update(e.getContext(),avaters.get(position),holder.imageView);
                 else {
                     new utilJava().init(holder.imageView.getContext()).edit().putInt("icons", avaters.get(position)).apply();
                          new utilJava().open_Fragment(new Group_creation(),"Group_creation",e,new utilJava().BUNDLE(avaters.get(position),null,null),R.id.frameLayout);
@@ -79,15 +81,16 @@ public class Avater_adapter  extends RecyclerView.Adapter<Avater_adapter.Custom_
 
 
 
-    public void Update(Context cn, int i) {
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+    public void Update(Context cn, int i, CircleImageView v) {
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<Map<String, Object>> isFunded = config.UPDATE_USER(new utilJava().UPDATES(new utilJava().GET_CACHED_MAP(cn, cn.getString(R.string.SIGNED_IN_USER)),i));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.code() == 200)
+                if (response.code() == 200) {
                     new utilKotlin().message2(response.body().get("message").toString(), cn);
-                else
+                    new utilJava().openFragment(new User(),"User",0, (AppCompatActivity) v.getContext());
+                }else
                     Log.d(TAG, "onResponse: "+response.code());
             }
 

@@ -1,19 +1,16 @@
 package com.otec.Tokcoin.Retrofit_;
-
+import android.view.ViewGroup;
 import com.otec.Tokcoin.model.models;
-
 import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface Request_class {
+public interface Request {
 
-    @GET("https://us-central1-grelots-ad690.cloudfunctions.net/Noman/getTimeStamp") //Temp url
-    Call<Map<String,Object>> getDate();
+
 
     @GET("https://us-central1-webflystore.cloudfunctions.net/appCat/Banklist")
     Call<List<Map<String,Object>>> getListOfBank();
@@ -45,7 +42,8 @@ public interface Request_class {
 
 
 
-    @POST("Cravetech/LoadActiveGroup")    Call<models> _REQUEST(@Body Map<String,Object> data);
+    @POST("Cravetech/LoadActiveGroup")
+    Call<models> _REQUEST(@Body Map<String,Object> data);
 
 
     @POST("Cravetech/LoadInactiveGroup")
@@ -63,6 +61,7 @@ public interface Request_class {
 
     @POST("Cravetech/user_mine")
     Call<Map<String,Object>>  DIGIT_BOT_REQUEST2(@Body Map<String,Object> data);
+
 
     @POST("Cravetech/VnodeDeal")
     Call<models> LIST_OF_VNODES(@Body Map<String,Object> obj);
@@ -96,8 +95,6 @@ public interface Request_class {
     Call<Map<String,Object>> UPDATE_USER(@Body Map<String,Object> data);
 
 
-
-
-
-
+    @POST("Cravetech/SignIn")
+    Call<Map<String, Object>> SIGN_IN(@Body Map<String, Object> get_user_cred);
 }

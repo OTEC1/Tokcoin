@@ -1,7 +1,6 @@
 package com.otec.Tokcoin.Retrofit_;
 
-import com.otec.Tokcoin.utils.Constants;
-
+import com.otec.Tokcoin.utils.Constants;;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

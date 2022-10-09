@@ -1,6 +1,7 @@
 package com.otec.Tokcoin.UI
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.otec.Tokcoin.Adapater.UserGroupslist
 import com.otec.Tokcoin.R
 import com.otec.Tokcoin.Retrofit_.Base_config
-import com.otec.Tokcoin.Retrofit_.Request_class
+import com.otec.Tokcoin.Retrofit_.Request
 import com.otec.Tokcoin.utils.utilJava
 import com.otec.Tokcoin.utils.utilKotlin
 import retrofit2.Call
@@ -38,7 +35,11 @@ class User : Fragment() {
     private var avater_img: ImageView? = null;
 
 
-    override fun onCreateView(inflate: LayoutInflater, container: ViewGroup?, savedInstance: Bundle?): View? {
+    override fun onCreateView(
+        inflate: LayoutInflater,
+        container: ViewGroup?,
+        savedInstance: Bundle?
+    ): View? {
         val view: View = inflate.inflate(R.layout.activity_user, container, false)
         val userName: TextView = view.findViewById(R.id.userName)
         val userBalance: TextView = view.findViewById(R.id.userBalance)
@@ -49,7 +50,7 @@ class User : Fragment() {
         down = view.findViewById(R.id.down)
         load = view.findViewById(R.id.load)
         createdGroup.layoutManager = LinearLayoutManager(context)
-        changed(userBalance, userGas, userName)
+        Request_Vault(userBalance, userGas, userName)
         requestGroupList();
 
 
@@ -67,15 +68,42 @@ class User : Fragment() {
     }
 
 
-    //Send to backend route
-    private fun changed(bal: TextView, gas: TextView, userName: TextView) {
-        userName.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
-        if (FirebaseAuth.getInstance().uid != null) FirebaseFirestore.getInstance().collection(getString(R.string.REGISTER_USER)).document(FirebaseAuth.getInstance().currentUser?.email!!).addSnapshotListener { value: DocumentSnapshot?, _: FirebaseFirestoreException? ->
-                bal.text = currency(value!!["User_details.bal"].toString())
-                gas.text = value["User_details.gas"].toString()
-                avater_img?.setBackgroundResource((value["User.avatar"] as Long).toInt())
 
+
+    private fun Request_Vault(bal: TextView, gas: TextView, email: TextView) {
+        val config = Base_config.getRetrofit().create(
+            Request::class.java
+        )
+        val isFunded = config.isFunded(
+            utilJava().GET_GROUP(
+                utilJava().GET_CACHED_MAP(
+                    context, getString(R.string.SIGNED_IN_USER)
+                )
+            )
+        )
+        isFunded.enqueue(object : Callback<Map<String?, Any>?> {
+            override fun onResponse(call: Call<Map<String?, Any>?>, response: Response<Map<String?, Any>?>) {
+                if (response.body() != null) {
+
+                    val auths: Map<String, Any>? = response.body()!!["message"] as Map<String, Any>?
+
+                    bal.text = currency(auths!!["bal"].toString())
+                    gas.text = auths["gas"].toString()
+                    email.text = utilJava().GET_CACHED_MAP(context, getString(R.string.SIGNED_IN_USER))["email"].toString()
+
+                    if ((auths["avatar"] as Double).toInt() == 0)
+                        avater_img?.setBackgroundResource(R.drawable.user)
+                    else
+                        avater_img?.setBackgroundResource((auths["avatar"] as Double).toInt())
+
+                } else
+                    utilKotlin().message2("Error occurred while retrieving user details !", context)
             }
+
+            override fun onFailure(call: Call<Map<String?, Any>?>, t: Throwable) {
+                utilKotlin().message2(t.message, context)
+            }
+        })
     }
 
 
@@ -86,7 +114,7 @@ class User : Fragment() {
 
 
     private fun requestGroupList() {
-        val request = Base_config.getRetrofit().create(Request_class::class.java)
+        val request = Base_config.getRetrofit().create(Request::class.java)
         val isFunded = request.GT_GROUPS(
             utilJava().GET_GROUP(
                 utilJava().GET_CACHED_MAP(

@@ -27,8 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.otec.Tokcoin.Adapater.Digits_Call;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
-import com.otec.Tokcoin.UI.Avater;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.UI.MainActivity;
 import com.otec.Tokcoin.model.models;
 
@@ -212,13 +211,12 @@ public class utilJava {
         user.put("profit", 0);
         user.put("loss", 0);
         user.put("liquidity", 0);
-        user.put("guest_avatar", 0);
         return Wrap(user);
     }
 
 
     public void LoadInstance(TextView rt, Button play, ProgressBar progress1, Context e, List<Double> numbers, List<Integer> send_number, Boolean isGroup, Boolean isUser, Boolean isBot, String creator_id, String doc_id, RecyclerView digits_returned, Button button, ProgressBar progress, int i) {
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<models> isFunded = config.DIGIT_BOT_REQUEST(new utilJava()._DIGIT(new utilJava().GET_CACHED_MAP(e, e.getString(R.string.SIGNED_IN_USER)), isGroup, isUser, isBot, numbers, send_number, creator_id, doc_id));
         isFunded.enqueue(new Callback<models>() {
             @Override
@@ -246,7 +244,7 @@ public class utilJava {
 
     public void Request_Digit(Context cn, RecyclerView digits_returned, boolean loader, Button play, ProgressBar progress, TextView rt) {
 
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<Map<String, Object>> isFunded = config.DIGIT_BOT_REQUEST2(new utilJava()._DIGIT(new utilJava().GET_CACHED_MAP(cn, cn.getString(R.string.SIGNED_IN_USER)), false, false, true, new ArrayList<>(), new ArrayList<>(), null, null));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
@@ -277,7 +275,7 @@ public class utilJava {
         Map<String, Object> v = new HashMap<>();
         v.put("id", 1);
         v.put("amount", value);
-        Request_class config = Base_config.getRetrofit().create(Request_class.class);
+        Request config = Base_config.getRetrofit().create(Request.class);
         Call<Map<String, Object>> isFunded = config._CA(Wrap(v));
         isFunded.enqueue(new Callback<Map<String, Object>>() {
             @Override
@@ -366,7 +364,6 @@ public class utilJava {
     public Map<String, Object> Wrap(Map<String, Object> user) {
         Map<String, Object> pack = Maps();
         pack.put("User", user);
-        Log.d(TAG, "Wrap: " + pack);
         return pack;
     }
 
@@ -409,4 +406,5 @@ public class utilJava {
         obj.put("avatar", u);
         return  Wrap(obj);
     }
+
 }

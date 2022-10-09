@@ -11,12 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.otec.Tokcoin.Adapater.JoinGroupCall;
 import com.otec.Tokcoin.Adapater.Spotcalls;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
-import com.otec.Tokcoin.Retrofit_.Request_class;
+import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.model.models;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
@@ -74,7 +73,7 @@ public class Home extends Fragment {
 
 
     private  void Request(int n){
-            Request_class config = Base_config.getRetrofit().create(Request_class.class);
+            Request config = Base_config.getRetrofit().create(Request.class);
             Call<models> isFunded = n == 1 ? config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)))) : config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
             isFunded.enqueue(new Callback<models>() {
                 @Override
@@ -115,4 +114,11 @@ public class Home extends Fragment {
         else
                 new utilKotlin().message2("Error occurred "+message.size(),getContext());
     }
+
+
+
+
+
+
+
 }
