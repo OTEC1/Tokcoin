@@ -34,8 +34,8 @@ public class GroupRequest extends Fragment {
     private JoinGroupCall joinGroupCall;
     private ProgressBar spinners;
 
-
     private String TAG = "GroupRequest";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class GroupRequest extends Fragment {
         isFunded.enqueue(new Callback<models>() {
             @Override
             public void onResponse(Call<models> call, Response<models> response) {
+                Log.d(TAG, "onResponse: "+response.body().getMessage());
                 if (response.body().getMessage() != null)
                     setLayout(response.body().getMessage());
             }

@@ -59,6 +59,17 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 
+
+            <ProgressBar
+                android:id="@+id/spins"
+                android:layout_width="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="40dp"
+                android:visibility="invisible"
+                android:layout_marginBottom="10dp"
+                android:layout_height="25dp"/>
+
         </RelativeLayout>
     </LinearLayout>
 

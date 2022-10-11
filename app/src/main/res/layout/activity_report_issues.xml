@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0sp"
-            android:layout_weight="20">
+            android:layout_weight="80">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
@@ -37,7 +37,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"
-            android:name="com.otec.Tokcoin.UI.admob"
+            android:name="com.otec.Tokcoin.UI.google_ad"
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_weight="10" />

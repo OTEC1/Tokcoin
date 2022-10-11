@@ -64,7 +64,7 @@ public class Usermine extends Fragment {
 
             if (send_number.size() >= 3) {
                 rt.setText("");
-                hideKeyboardFrom(v);
+                 new utilJava().hideKeyboardFrom(v, getContext());
                 play.setVisibility(View.INVISIBLE);
                 progressCount.setVisibility(View.VISIBLE);
                 new utilJava().LoadInstance(rt,play,progressCount, e.getContext(), new ArrayList<>(), send_number, false, true, false, null, null, null, null, null, 2);
@@ -79,8 +79,5 @@ public class Usermine extends Fragment {
     }
 
 
-    public void hideKeyboardFrom(View view) {
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+
 }

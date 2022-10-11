@@ -1,5 +1,6 @@
 package com.otec.Tokcoin.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,9 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,20 +32,15 @@ import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.UI.MainActivity;
 import com.otec.Tokcoin.model.models;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -180,6 +176,7 @@ public class utilJava {
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
+        Log.d(TAG, "GET_GROUP: "+user);
         return Wrap(user);
     }
 
@@ -190,9 +187,13 @@ public class utilJava {
         pack.put("email", obj.get("email").toString());
         pack.put("IMEI", obj.get("IMEI").toString());
         pack.put("doc_id", doc_id);
-        pack.put("creator_email", creator.toString().replace("[", "").replace("]", ""));
-        Log.d(TAG, "RequestSend: " + pack);
+        pack.put("creator_email",RemoveSquare_Bracket(creator));
         return Wrap(pack);
+    }
+
+
+    public String RemoveSquare_Bracket(Object s) {
+        return  s.toString().replace("[", "").replace("]", "");
     }
 
 
@@ -306,15 +307,19 @@ public class utilJava {
     }
 
 
-    public void routine(String email, String issue, Context c) {
+    public void routine(String email, String issue, Context c, Button send, ProgressBar spins, EditText editText) {
         FirebaseFirestore.getInstance().collection(c.getString(R.string.ISSUE_REPORT)).document(email)
                 .collection("ISSUES").document()
                 .set(MAP(issue, email))
                 .addOnCompleteListener(res -> {
-                    if (res.isSuccessful())
+                    if (res.isSuccessful()) {
+                        new utilJava().Change_widget(send, spins,View.VISIBLE, View.INVISIBLE);
                         new utilKotlin().message2("We have received your complain", c);
-                    else
+                        editText.setText("");
+                    }else {
                         new utilKotlin().message2(res.getException().getLocalizedMessage(), c);
+                        new utilJava().Change_widget(send, spins,View.VISIBLE, View.INVISIBLE);
+                    }
                 });
     }
 
@@ -323,6 +328,13 @@ public class utilJava {
         m.put("email", email);
         m.put("issue", issues);
         return m;
+    }
+
+    public void Change_widget(Button send, ProgressBar spin, int click, int progress){
+
+        send.setVisibility(click);
+        spin.setVisibility(progress);
+
     }
 
     public Map<String, Object> LEFT_GROUP(Map<String, Object> map, String ref_id) {
@@ -384,7 +396,7 @@ public class utilJava {
     }
 
 
-    public int Change(int p, TextView v) {
+    public int Change(int p, Button v) {
         if (p == 1)
             v.setBackgroundResource(R.mipmap.blue_btn);
         else if (p == 2)
@@ -405,6 +417,12 @@ public class utilJava {
         obj.put("IMEI", user.get("IMEI"));
         obj.put("avatar", u);
         return  Wrap(obj);
+    }
+
+
+    public void hideKeyboardFrom(View view ,Context c) {
+        InputMethodManager imm = (InputMethodManager) c.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

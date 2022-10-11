@@ -56,7 +56,6 @@ public class JoinedGroup extends Fragment {
             @Override
             public void onResponse(Call<Map<String,Object>> call, Response<Map<String,Object>> response) {
                 Map<String,Object> l1 = (Map<String, Object>) response.body().get("message");
-
                 Log.d(TAG, "onResponse: "+ l1.get("listB"));
                     if(!l1.get("listB").toString().equals("0.0"))
                            BuildView((List<?>) l1.get("listB"));

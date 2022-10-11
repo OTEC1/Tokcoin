@@ -67,6 +67,7 @@ public class Login extends AppCompatActivity {
         login_btn.setOnClickListener(v -> {
             if (new utilKotlin().verfiy(emailF, passwordf)) {
                 spin.setVisibility(View.VISIBLE);
+                new utilJava().hideKeyboardFrom(v, getApplicationContext());
                 request();
             } else
                 new utilKotlin().message2("Pls fill out all fields ! ", getApplicationContext());

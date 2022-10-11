@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request;
+import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class Register extends AppCompatActivity {
                       if (bank_selected.equals("Select Bank") || bank_selected.trim().length()<=0)
                             new utilKotlin().message2("Pls select your bank", getApplicationContext());
                      else
-                          AuthNewUser();
+                          AuthNewUser(e);
 
 
 
@@ -125,8 +126,9 @@ public class Register extends AppCompatActivity {
 
 
 
-    private void AuthNewUser() {
+    private void AuthNewUser(View e) {
         spin.setVisibility(View.VISIBLE);
+        new utilJava().hideKeyboardFrom(e, getApplicationContext());
         if (confirmPass.getText().toString().equals(password.getText().toString()))
             AddToDB();
         else {

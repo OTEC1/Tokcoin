@@ -52,7 +52,6 @@
                 android:layout_below="@id/userAvatar"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:text="Name"
                 android:textColor="@color/dark_text" />
 
 
