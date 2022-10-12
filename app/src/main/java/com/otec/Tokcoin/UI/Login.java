@@ -84,9 +84,10 @@ public class Login extends AppCompatActivity {
         list.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.body().get("message").toString().contains("error"))
-                    message(response.body().get("error").toString());
-                else {
+                if (response.body().get("message").toString().contains("Email or") || response.body().get("message").toString().contains("No user")) {
+                    spin.setVisibility(View.INVISIBLE);
+                    message(response.body().get("message").toString());
+                } else {
                     Map<String, Object> obj = (Map<String, Object>) response.body().get("message");
                     Map<String, Object> u = (Map<String, Object>) obj.get("User");
                     if (response.body().get("message").toString().contains("No user associated"))
