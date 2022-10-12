@@ -76,6 +76,12 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.loss.setText("loss -" + FORMAT("loss", obj, position));
             holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+
+            holder.button.setOnClickListener(e -> {
+                request_leave(e.getContext(), FORMAT("ref_id", obj, position));
+            });
+
+
         } else {
             holder.groupName.setText(FORMAT("groupName", obj, position));
             holder.liquidity.setText("Funds " + FORMAT("liquidity", obj, position));
@@ -83,11 +89,13 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.loss.setText("loss -" + FORMAT("loss", obj, position));
 
             holder.button.setOnClickListener(e -> {
-                request(e.getContext(), FORMAT("ref_id", obj, position));
+                request_withdraw(e.getContext(), FORMAT("ref_id", obj, position));
             });
         }
 
     }
+
+
 
 
     @Override
@@ -96,23 +104,33 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     }
 
 
-    private void request(Context n, String ref_id) {
-        Request config = Base_config.getRetrofit().create(Request.class);
-        Call<Map<String, Object>> isFunded = config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), ref_id));
-        isFunded.enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.body() != null)
-                    new utilKotlin().message2(response.body().get("message").toString(), n);
-                else
-                    new utilKotlin().message2("Error occurred ", n);
-            }
+    private void request_withdraw(Context context, String ref_id) {
+        new utilKotlin().message2("Group dispatch", context);
+    }
 
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                new utilKotlin().message2(t.getMessage(), n);
-            }
-        });
+
+
+
+
+
+    private void request_leave(Context n, String ref_id) {
+        new utilKotlin().message2("cancel dispatch", context);
+//        Request config = Base_config.getRetrofit().create(Request.class);
+//        Call<Map<String, Object>> isFunded = config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), ref_id));
+//        isFunded.enqueue(new Callback<Map<String, Object>>() {
+//            @Override
+//            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+//                if (response.body() != null)
+//                    new utilKotlin().message2(response.body().get("message").toString(), n);
+//                else
+//                    new utilKotlin().message2("Error occurred ", n);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+//                new utilKotlin().message2(t.getMessage(), n);
+//            }
+//        });
     }
 
 

@@ -84,14 +84,18 @@ public class Login extends AppCompatActivity {
         list.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                Map<String,Object> obj = (Map<String, Object>) response.body().get("message");
-                Map<String,Object> u = (Map<String, Object>) obj.get("User");
-                if (response.body().get("message").toString().contains("No user associated with this account !"))
-                    new utilKotlin().Message((Activity) getApplicationContext(), "No user associated with this account !");
-                else if (response.body().get("message").toString().contains("Email or Password Doesn't match !"))
-                    new utilKotlin().Message((Activity) getApplicationContext(), "No user associated with this account !");
-                else
-                    new utilJava().SET_CACHED_USER(u, getString(R.string.SIGNED_IN_USER), getApplicationContext());
+                if (response.body().get("message").toString().contains("error"))
+                    message(response.body().get("error").toString());
+                else {
+                    Map<String, Object> obj = (Map<String, Object>) response.body().get("message");
+                    Map<String, Object> u = (Map<String, Object>) obj.get("User");
+                    if (response.body().get("message").toString().contains("No user associated"))
+                        message(response.body().get("message").toString());
+                    else if (response.body().get("message").toString().contains("Email or Password"))
+                        message(response.body().get("message").toString());
+                    else
+                        new utilJava().SET_CACHED_USER(u, getString(R.string.SIGNED_IN_USER), getApplicationContext());
+                }
             }
 
             @Override
@@ -100,6 +104,10 @@ public class Login extends AppCompatActivity {
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    private void message(String error) {
+        new utilKotlin().Message(this, error);
     }
 
 
