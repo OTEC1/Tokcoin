@@ -6,59 +6,57 @@
     tools:context=".UI.Botmine">
 
 
-    <RelativeLayout
-        android:gravity="center"
-        android:background="@mipmap/curve"
+    <ImageView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:src="@mipmap/curve" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        android:padding="10dp">
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
 
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/rt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/rt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textAlignment="center"
-                android:textColor="@color/green"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:textStyle="bold" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/digits_returned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rt" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/digits_returned"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rt" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/digits_returned"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:background="@drawable/inputlines1"
-                android:textAllCaps="false"
-                android:textColor="@color/otherbase" />
-
-        </RelativeLayout>
-
-
-        <ProgressBar
-            android:id="@+id/progress"
-            android:visibility="invisible"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerInParent="true" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/digits_returned"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/inputlines1"
+            android:textAllCaps="false"
+            android:textColor="@color/otherbase" />
 
     </RelativeLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>

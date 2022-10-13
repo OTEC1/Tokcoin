@@ -1,154 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.Usermine">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:src="@mipmap/curve" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="@mipmap/curve"
-        android:gravity="center"
-        android:padding="10dp">
+        android:layout_centerInParent="true">
 
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/rt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/rt"
-                android:layout_width="wrap_content"
+
+        <GridLayout
+            android:id="@+id/digits_returned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rt"
+            android:layout_centerInParent="true"
+            android:columnCount="3"
+            android:rowCount="2">
+
+
+            <EditText
+                android:id="@+id/n1"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textAlignment="center"
-                android:textColor="@color/green"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:textStyle="bold" />
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:maxLength="3"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
 
 
-            <GridLayout
-                android:id="@+id/digits_returned"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/n2"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rt"
-                android:layout_centerInParent="true"
-                android:columnCount="3"
-                android:rowCount="2">
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
 
 
-                <EditText
-                    android:id="@+id/n1"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/n2"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/n3"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/n4"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/n5"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-                <EditText
-                    android:id="@+id/n6"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/inputlines"
-                    android:inputType="number"
-                    android:padding="15dp"
-                    android:textColor="@color/dark_text"
-                    android:textSize="20sp" />
-
-
-            </GridLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/play"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/n3"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/digits_returned"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:background="@drawable/inputlines1"
-                android:text="Play"
-                android:textAllCaps="false"
-                android:textColor="@color/otherbase" />
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
 
 
-            <ProgressBar
-                android:id="@+id/progressCount"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_below="@id/digits_returned"
-                android:layout_centerHorizontal="true"
-                android:visibility="invisible" />
+            <EditText
+                android:id="@+id/n4"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
 
-        </RelativeLayout>
+
+            <EditText
+                android:id="@+id/n5"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/n6"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/inputlines"
+                android:inputType="number"
+                android:padding="15dp"
+                android:textColor="@color/dark_text"
+                android:textSize="20sp" />
+
+
+        </GridLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/digits_returned"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/inputlines1"
+            android:text="Play"
+            android:textAllCaps="false"
+            android:textColor="@color/otherbase" />
 
 
         <ProgressBar
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:id="@+id/progressCount"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/digits_returned"
+            android:layout_centerHorizontal="true"
             android:visibility="invisible" />
 
     </RelativeLayout>
 
-</FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
