@@ -36,6 +36,7 @@ public class Usermine extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_usermine, container, false);
 
+
         n1 = v.findViewById(R.id.n1);
         n2 = v.findViewById(R.id.n2);
         n3 = v.findViewById(R.id.n3);

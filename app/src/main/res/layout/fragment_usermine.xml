@@ -5,11 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".UI.Usermine">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:src="@mipmap/curve" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:gravity="clip_horizontal"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="clip_horizontal"
+            android:layout_marginStart="10dp"
+            android:src="@mipmap/curve" />
+
+    </LinearLayout>
 
 
     <RelativeLayout
@@ -23,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_margin="50dp"
             android:padding="10dp"
             android:textAlignment="center"
             android:textColor="@color/green"
