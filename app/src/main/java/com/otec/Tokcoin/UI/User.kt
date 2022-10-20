@@ -1,7 +1,6 @@
 package com.otec.Tokcoin.UI
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +62,15 @@ class User : Fragment() {
             load.visibility = View.VISIBLE
             utilJava().openFragment(Avater(), "Avatar", 0, context as AppCompatActivity?)
         }
+
+
+        userBalance.setOnClickListener{
+            val bund = Bundle()
+            bund.putInt("node_", 1)
+            utilJava().openFrag(Converter_io(), "Converter_io", bund, activity)
+        }
+
+
 
         return view;
     }

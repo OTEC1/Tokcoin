@@ -161,7 +161,6 @@ public class Register extends AppCompatActivity {
             request.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                Log.d(TAG, "onResponse: "+response.body().get("message"));
                 if (response.body().get("message").toString().equals("Account created")) {
                     startActivity(new Intent(getApplicationContext(), Login.class));
                     spin.setVisibility(View.INVISIBLE);

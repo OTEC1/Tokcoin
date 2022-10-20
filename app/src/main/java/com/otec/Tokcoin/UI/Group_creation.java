@@ -66,7 +66,7 @@ public class Group_creation extends Fragment {
         groups_icons = view.findViewById(R.id.groups_icons);
         AddToSpinner(populateOdds());
 
-        Log.d(TAG, "onCreateView: "+new utilJava().init(requireContext()).getInt("icons", 0));
+
 
         if(getArguments().getInt("node") != 0)
             groups_icons.setImageResource(getArguments().getInt("node"));

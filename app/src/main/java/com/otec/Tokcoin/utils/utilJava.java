@@ -98,7 +98,8 @@ public class utilJava {
 
     public List<Map<String, Object>> GET_CACHED_LIST(Context view, String tag) {
         String arrayListString = init(view).getString(tag, null);
-        Type type = new TypeToken<List<Map<String, Object>>>() {}.getType();
+        Type type = new TypeToken<List<Map<String, Object>>>() {
+        }.getType();
         return new Gson().fromJson(arrayListString, type);
     }
 
@@ -120,9 +121,9 @@ public class utilJava {
 
 
     //Fragment open from fragment
-    public void openFrag(Fragment fragment, String my_fragment, Map<String, Object> i, FragmentActivity activity) {
+    public void openFrag(Fragment fragment, String my_fragment, Bundle b, FragmentActivity activity) {
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-        reuse_fragment(fragmentTransaction, fragment, my_fragment, BUNDLE(0, null, null), R.id.frameLayout);
+        reuse_fragment(fragmentTransaction, fragment, my_fragment, b, R.id.frameLayout);
     }
 
 
@@ -176,7 +177,6 @@ public class utilJava {
         user.put("user_id", obj.get("user_id"));
         user.put("IMEI", obj.get("IMEI"));
         user.put("email", obj.get("email"));
-        Log.d(TAG, "GET_GROUP: "+user);
         return Wrap(user);
     }
 
@@ -187,13 +187,13 @@ public class utilJava {
         pack.put("email", obj.get("email").toString());
         pack.put("IMEI", obj.get("IMEI").toString());
         pack.put("doc_id", doc_id);
-        pack.put("creator_email",RemoveSquare_Bracket(creator));
+        pack.put("creator_email", RemoveSquare_Bracket(creator));
         return Wrap(pack);
     }
 
 
     public String RemoveSquare_Bracket(Object s) {
-        return  s.toString().replace("[", "").replace("]", "");
+        return s.toString().replace("[", "").replace("]", "");
     }
 
 
@@ -313,12 +313,12 @@ public class utilJava {
                 .set(MAP(issue, email))
                 .addOnCompleteListener(res -> {
                     if (res.isSuccessful()) {
-                        new utilJava().Change_widget(send, spins,View.VISIBLE, View.INVISIBLE);
+                        new utilJava().Change_widget(send, spins, View.VISIBLE, View.INVISIBLE);
                         new utilKotlin().message2("We have received your complain", c);
                         editText.setText("");
-                    }else {
+                    } else {
                         new utilKotlin().message2(res.getException().getLocalizedMessage(), c);
-                        new utilJava().Change_widget(send, spins,View.VISIBLE, View.INVISIBLE);
+                        new utilJava().Change_widget(send, spins, View.VISIBLE, View.INVISIBLE);
                     }
                 });
     }
@@ -330,12 +330,15 @@ public class utilJava {
         return m;
     }
 
-    public void Change_widget(Button send, ProgressBar spin, int click, int progress){
 
+
+    public void Change_widget(Button send, ProgressBar spin, int click, int progress) {
         send.setVisibility(click);
         spin.setVisibility(progress);
 
     }
+
+
 
     public Map<String, Object> LEFT_GROUP(Map<String, Object> map, String ref_id) {
         Map<String, Object> maps = Maps();
@@ -407,22 +410,32 @@ public class utilJava {
     }
 
 
-
-
-
-    public Map<String, Object> UPDATES(Map<String, Object> user,int u) {
-        Map<String,Object> obj = Maps();
+    public Map<String, Object> UPDATES(Map<String, Object> user, int u) {
+        Map<String, Object> obj = Maps();
         obj.put("email", user.get("email"));
         obj.put("user_id", user.get("user_id"));
         obj.put("IMEI", user.get("IMEI"));
         obj.put("avatar", u);
-        return  Wrap(obj);
+        return Wrap(obj);
     }
 
 
-    public void hideKeyboardFrom(View view ,Context c) {
+    public void hideKeyboardFrom(View view, Context c) {
         InputMethodManager imm = (InputMethodManager) c.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    public Map<String, Object> Maps(int id, int payload, Context context) {
+        Map<String, Object> v = new HashMap<>();
+        v.put("amount", payload);
+        if (id == 2)
+            v.put("id", id);
+        if (id != 2) {
+            v.put("user_id", GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)).get("user_id"));
+            v.put("IMEI", GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)).get("IMEI"));
+            v.put("email", GET_CACHED_MAP(context, context.getString(R.string.SIGNED_IN_USER)).get("email"));
+            v.put("serial", id);
+        }
+        return Wrap(v);
+    }
 }

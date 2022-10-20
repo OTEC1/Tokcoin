@@ -49,18 +49,16 @@ public class Home extends Fragment {
         stake = v.findViewById(R.id.Stakes);
         spot = v.findViewById(R.id.spot);
         spinners = v.findViewById(R.id.spinners);
-        AddToList();
+        Request(1);
+        Request(2);
         return v;
     }
 
 
-    private void AddToList() {
-        Request();
-        Request();
-    }
 
 
-    private void Request() {
+
+    private void Request(int q) {
         Request config = Base_config.getRetrofit().create(Request.class);
         Call<models> isFunded = config._REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
         isFunded.enqueue(new Callback<models>() {

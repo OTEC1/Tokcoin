@@ -97,4 +97,7 @@ public interface Request {
 
     @POST("Cravetech/SignIn")
     Call<Map<String, Object>> SIGN_IN(@Body Map<String, Object> get_user_cred);
+
+    @POST("Cravetech/auth_purchase")
+    Call<Map<String, Object>> TRANS(@Body Map<String, Object> i);
 }

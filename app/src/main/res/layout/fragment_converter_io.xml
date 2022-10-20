@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/dimetradebackground"
+    tools:context=".UI.Converter_io">
+
+
+    <ProgressBar
+        android:id="@+id/spinners"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:scaleType="matrix"
+            android:background="@mipmap/curve" />
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:rowCount="3">
+
+            <EditText
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:inputType="number"
+                android:textStyle="bold"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/inputlines4" />
+
+            <TextView
+                android:id="@+id/converted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_700"
+                android:layout_gravity="center"
+                android:textSize="35sp"
+                android:padding="20dp"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/proceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/inputlines1"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:text="Proceed"
+                android:layout_marginTop="50dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </GridLayout>
+
+
+
+    </RelativeLayout>
+</FrameLayout>

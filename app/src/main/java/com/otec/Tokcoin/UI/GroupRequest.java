@@ -42,11 +42,11 @@ public class GroupRequest extends Fragment {
         View view = inflater.inflate(R.layout.fragment_group_request, container, false);
         recyclerView = view.findViewById(R.id.loadGroups);
         spinners = view.findViewById(R.id.spinners);
-        Request();
+        request();
         return view;
     }
 
-    private void Request() {
+    private void request() {
         Request config = Base_config.getRetrofit().create(Request.class);
         Call<models> isFunded = config.I_REQUEST(new utilJava().GET_GROUP(new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER))));
         isFunded.enqueue(new Callback<models>() {

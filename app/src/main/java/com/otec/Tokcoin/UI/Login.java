@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity {
         list.enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.body().get("message").toString().contains("Email or") || response.body().get("message").toString().contains("No user")) {
+                if (!response.body().get("message").toString().contains("User")) {
                     spin.setVisibility(View.INVISIBLE);
                     message(response.body().get("message").toString());
                 } else {

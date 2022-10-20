@@ -1,6 +1,7 @@
 package com.otec.Tokcoin.Adapater;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.otec.Tokcoin.R;
+import com.otec.Tokcoin.UI.Converter_io;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
 
@@ -49,7 +51,10 @@ public class Vouches  extends RecyclerView.Adapter<Vouches.Custom_Adapter> {
             holder.amount.setText(new utilKotlin().Currency(obj.get(position).get("amount").toString()));
             holder.type.setText(obj.get(position).get("mode").toString());
             holder.buy.setOnClickListener(e->{
-
+                Bundle  b = new Bundle();
+                b.putInt("payload", new utilKotlin().cast(obj.get(position).get("amount").toString()));
+                b.putInt("serial", new utilKotlin().cast(obj.get(position).get("serial").toString()));
+                new utilJava().open_Fragment(new Converter_io(),"Converter_io",e,b,R.id.frame);
             });
         }else{
             holder.profit_.setText("+"+new utilKotlin().cast(new utilJava().FORMAT("profit",obj,position)));
