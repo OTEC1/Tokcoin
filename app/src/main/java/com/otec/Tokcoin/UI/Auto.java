@@ -61,11 +61,11 @@ public class Auto extends Fragment {
         Selects(bots);
         button.setOnClickListener(e -> {
             if (load && selected && u.size() > 1)
-                if (!u.get(0).equals("Please select") && !u.get(1).equals("Please select")) {
+                if (!u.toString().contains("Please select")) {
                     progress.setVisibility(View.VISIBLE);
-                      button.setVisibility(View.INVISIBLE);
-                        Request(1, new utilJava().MapsValues(u, new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), getArguments()));
-                }else
+                    button.setVisibility(View.INVISIBLE);
+                    Request(1, new utilJava().MapsValues(u, new utilJava().GET_CACHED_MAP(getContext(), getString(R.string.SIGNED_IN_USER)), getArguments()));
+                } else
                     new utilKotlin().message2("Invalid request", getContext());
             else
                 new utilKotlin().message2("Pls select timeframe and virtual bot", getContext());
@@ -87,27 +87,28 @@ public class Auto extends Fragment {
     }
 
 
-
-
     private void Selects(Spinner spin) {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position != 0) {
+                    if (u.size() >= 2)
+                        u.clear();
                     u.add(0, parent.getItemAtPosition(position).toString());
                     selected = true;
-                    if (spin.getId() == R.id.bots){
+                    if (spin.getId() == R.id.bots) {
                         progress.setVisibility(View.VISIBLE);
                         button.setVisibility(View.INVISIBLE);
-                        new utilJava().debit_stake(getContext(), output, Integer.parseInt(u.get(0).substring(u.get(0).length() - 1).trim()),button,progress);
+                        new utilJava().debit_stake(getContext(), output, Integer.parseInt(u.get(0).substring(u.get(0).length() - 1).trim()), button, progress);
                     }
 
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
 
@@ -115,8 +116,9 @@ public class Auto extends Fragment {
 
 
     public void Request(int u, Map<String, Object> obj) {
+        Log.d(TAG, "Request: "+obj);
         Request config = Base_config.getRetrofit().create(Request.class);
-        Call<models> isFunded = u == 0 ? config.LIST_OF_VNODES(new utilJava().MAPS()) : config.START_VN(obj);
+        Call<models> isFunded = u == 0 ? config.SENT_VNODES(new utilJava().MAPS()) : config.START_VN(obj);
         isFunded.enqueue(new Callback<models>() {
 
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -146,7 +148,6 @@ public class Auto extends Fragment {
                 button.setVisibility(View.VISIBLE);
             }
         });
-
     }
 
 

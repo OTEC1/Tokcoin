@@ -63,28 +63,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        if (FirebaseAuth.getInstance().uid == null)
-            utilKotlin().message2("Pls sign in", this)
-        else {
-            if (decide) {
-                utilKotlin().message2("Press twice to exit", applicationContext)
-                if (backPressed + TimeLapsed > System.currentTimeMillis()) {
-                    val intent = Intent(Intent.ACTION_MAIN)
-                    intent.addCategory(Intent.CATEGORY_HOME)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    startActivity(intent)
-                    freeMemory()
-                }
-                backPressed = System.currentTimeMillis()
-            } else {
+//            if (decide) {
+//                utilKotlin().message2("Press twice to exit", applicationContext)
+//                if (backPressed + TimeLapsed > System.currentTimeMillis()) {
+//                    val intent = Intent(Intent.ACTION_MAIN)
+//                    intent.addCategory(Intent.CATEGORY_HOME)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                    startActivity(intent)
+//                    freeMemory()
+//                }
+//                backPressed = System.currentTimeMillis()
+//            } else {
                 super.onBackPressed()
-                assert(fr?.tag != null)
                 if (fr?.tag.equals("HOME")) {
                     decide = true
                     utilKotlin().message2(fr?.tag, applicationContext)
                 }
-            }
-        }
+        Log.d(TAG, "onBackPressed: "+fr?.tag)
+            //}
     }
 
     private fun freeMemory() {

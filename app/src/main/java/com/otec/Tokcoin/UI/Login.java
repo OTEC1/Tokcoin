@@ -94,8 +94,10 @@ public class Login extends AppCompatActivity {
                         message(response.body().get("message").toString());
                     else if (response.body().get("message").toString().contains("Email or Password"))
                         message(response.body().get("message").toString());
-                    else
+                    else {
                         new utilJava().SET_CACHED_USER(u, getString(R.string.SIGNED_IN_USER), getApplicationContext());
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
                 }
             }
 

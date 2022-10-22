@@ -64,7 +64,7 @@ public interface Request {
 
 
     @POST("Cravetech/VnodeDeal")
-    Call<models> LIST_OF_VNODES(@Body Map<String,Object> obj);
+    Call<models> SENT_VNODES(@Body Map<String,Object> obj);
 
 
 

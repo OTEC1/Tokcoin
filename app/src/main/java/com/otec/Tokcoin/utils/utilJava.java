@@ -76,7 +76,6 @@ public class utilJava {
         user.put("user_id", obj.get("user_id"));
         user.put("avatar", obj.get("avatar"));
         SET_DATA_TO_CACHE(view, user, tag);
-        view.startActivity(new Intent(view, MainActivity.class));
         return user;
     }
 
@@ -370,8 +369,9 @@ public class utilJava {
         payload.put("IMEI", obj.get("IMEI"));
         payload.put("group_id", arguments.getString("doc"));
         payload.put("group_mail", arguments.getString("email"));
-        payload.put("bot_size", Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()));
-        payload.put("hour", Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()));
+        payload.put("Self", false);
+        payload.put("bot_size", u.get(1).contains("bots size") ? Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()) : Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()) );
+        payload.put("hour", u.get(0).contains("hour duration") ? Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()) : Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()) );
         return Wrap(payload);
     }
 

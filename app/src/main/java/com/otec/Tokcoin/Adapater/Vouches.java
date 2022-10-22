@@ -60,6 +60,7 @@ public class Vouches  extends RecyclerView.Adapter<Vouches.Custom_Adapter> {
             holder.profit_.setText("+"+new utilKotlin().cast(new utilJava().FORMAT("profit",obj,position)));
             holder.loss_.setText("-"+new utilKotlin().cast(new utilJava().FORMAT("loss",obj,position)));
             holder.nodes_.setText(""+new utilKotlin().cast(new utilJava().FORMAT("bot_size",obj,position)));
+            
             holder.cancel_.setOnClickListener(e-> {
 
             });

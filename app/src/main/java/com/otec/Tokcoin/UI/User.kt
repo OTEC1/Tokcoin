@@ -42,6 +42,7 @@ class User : Fragment() {
         val view: View = inflate.inflate(R.layout.activity_user, container, false)
         val userName: TextView = view.findViewById(R.id.userName)
         val userBalance: TextView = view.findViewById(R.id.userBalance)
+        val walletIcon: ImageView = view.findViewById(R.id.walletIcon)
         val userGas: TextView = view.findViewById(R.id.userGas)
         createGroup_btn = view.findViewById(R.id.create)
         avater_img = view.findViewById(R.id.userAvatar)
@@ -54,7 +55,7 @@ class User : Fragment() {
 
 
         createGroup_btn?.setOnClickListener {
-            utilJava().openFrag(Group_creation(), "Group_creation", null, activity)
+            utilJava().openFragment(Group_creation(), "Group_creation", 0, context as AppCompatActivity?)
         }
 
 
@@ -64,7 +65,7 @@ class User : Fragment() {
         }
 
 
-        userBalance.setOnClickListener{
+        walletIcon.setOnClickListener{
             val bund = Bundle()
             bund.putInt("node_", 1)
             utilJava().openFrag(Converter_io(), "Converter_io", bund, activity)
