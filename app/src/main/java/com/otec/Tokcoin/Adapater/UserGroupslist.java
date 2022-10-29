@@ -35,9 +35,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
     private List<Map<String, Object>> obj;
     private Context context;
-    private AlertDialog alertDialog = null;
-    private TextView groupName, profit, loss, liquidity, members;
-    private ProgressBar progressBar;
+
 
     private int n, p = 0;
     private String TAG = "UserGroupslist";
@@ -64,6 +62,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         if (new utilJava().Change(p, holder.status) == 3)
             p = 0;
         holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
+
         if(Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() == (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)))
             holder.status.setText("Live");
         else
@@ -78,7 +77,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
 
             holder.button.setOnClickListener(e -> {
-                request_leave(e.getContext(), FORMAT("ref_id", obj, position));
+                request_leave(e.getContext(), FORMAT("doc_id", obj, position));
             });
 
 
@@ -104,8 +103,11 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
     }
 
 
+
+
+
     private void request_withdraw(Context context, String ref_id) {
-        new utilKotlin().message2("Group dispatch", context);
+        new utilKotlin().message2("Group dispatch"+ref_id, context);
     }
 
 
@@ -114,7 +116,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
 
     private void request_leave(Context n, String ref_id) {
-        new utilKotlin().message2("cancel dispatch", context);
+        new utilKotlin().message2("cancel dispatch"+ref_id, context);
 //        Request config = Base_config.getRetrofit().create(Request.class);
 //        Call<Map<String, Object>> isFunded = config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), ref_id));
 //        isFunded.enqueue(new Callback<Map<String, Object>>() {
