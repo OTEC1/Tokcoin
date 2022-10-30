@@ -1,14 +1,18 @@
 package com.otec.Tokcoin.Adapater;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
@@ -16,14 +20,18 @@ import com.otec.Tokcoin.Retrofit_.Request;
 import com.otec.Tokcoin.UI.Auto;
 import com.otec.Tokcoin.utils.utilJava;
 import com.otec.Tokcoin.utils.utilKotlin;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import static com.otec.Tokcoin.utils.utilJava.FORMAT;
 
 public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_adapter> {
@@ -57,27 +65,38 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
         p++;
         if (new utilJava().Change(p, holder.status) == 2)
-              p = 0;
+            p = 0;
 
 
         holder.groupName.setText(" " + Upper(FORMAT("groupName", objList, position)));
-        holder.members.setText("Users "+Arrays.asList(FORMAT("members_emails", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
+        holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", objList, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", objList, position)));
 
 
         if (call != 2) {
+            new utilJava().Wigdet_Check(holder.groupIcon,holder.userIcon,objList,position);
             holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
             holder.status.setText("Live");
             Glide.with(holder.user_avatar.getContext()).load(new utilKotlin().cast(FORMAT("avatar", objList, position)) == 0 ? R.drawable.user : new utilKotlin().cast(FORMAT("avatar", objList, position))).into(holder.user_avatar);
             Glide.with(holder.guest_avatar.getContext()).load((new utilKotlin().cast(FORMAT("guest_avatar", objList, position)) == 0 ? R.drawable.user : new utilKotlin().cast(FORMAT("guest_avatar", objList, position)))).into(holder.guest_avatar);
-             holder.auto_ai.setOnClickListener(e -> {
+
+
+            holder.self.setOnClickListener(e->{
+                new utilKotlin().Message((Activity) e.getContext(), FORMAT("doc_id", objList, position));
+            });
+
+            holder.auto_ai.setOnClickListener(e -> {
                 new utilJava().open_Fragment(new Auto(), "Auto", e, new utilJava().BUNDLE(1, FORMAT("doc_id", objList, position), FORMAT("email", objList, position)), R.id.frameLayout);
             });
+
         } else {
+
+            new utilJava().Wigdet_Check(holder.groupIcons,holder.userIcons,objList,position);
             holder.loss.setText("loss -" + FORMAT("loss", objList, position));
             holder.profit.setText("Roi +" + FORMAT("profit", objList, position));
             holder.liquidity.setText(" Funds " + FORMAT("liquidity", objList, position));
             holder.status.setText("Pending");
+
 
 
             holder.btn.setOnClickListener(e -> {
@@ -106,6 +125,8 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
     }
 
+
+
     private String Upper(String groupName) {
         return groupName.substring(0, 1).toUpperCase().concat(groupName.substring(1));
     }
@@ -119,10 +140,10 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
     class Custom_adapter extends RecyclerView.ViewHolder {
 
-        private TextView groupName, profit, liquidity, miner_stake, members, loss;
+        private TextView groupName, profit, liquidity, miner_stake, members, loss, groupIcon,userIcon,self,userIcons,groupIcons;
         private Button btn, btn2, status;
         private RelativeLayout auto_ai;
-        private CircleImageView user_avatar,guest_avatar;
+        private CircleImageView user_avatar, guest_avatar;
 
         public Custom_adapter(@NonNull @NotNull View v) {
             super(v);
@@ -136,6 +157,11 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             status = v.findViewById(R.id.status);
             user_avatar = v.findViewById(R.id.userAvatar);
             guest_avatar = v.findViewById(R.id.guest_avatar);
+            groupIcon = v.findViewById(R.id.group_icon);
+            userIcon = v.findViewById(R.id.user_icon);
+            userIcons = v.findViewById(R.id.user_icons);
+            groupIcons = v.findViewById(R.id.group_icons);
+            self = v.findViewById(R.id.self);
 
             if (call == 2) {
                 btn2.setVisibility(View.VISIBLE);

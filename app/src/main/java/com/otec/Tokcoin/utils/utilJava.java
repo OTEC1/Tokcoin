@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.otec.Tokcoin.Adapater.Digits_Call;
+import com.otec.Tokcoin.Adapater.JoinGroupCall;
 import com.otec.Tokcoin.R;
 import com.otec.Tokcoin.Retrofit_.Base_config;
 import com.otec.Tokcoin.Retrofit_.Request;
@@ -330,13 +331,11 @@ public class utilJava {
     }
 
 
-
     public void Change_widget(Button send, ProgressBar spin, int click, int progress) {
         send.setVisibility(click);
         spin.setVisibility(progress);
 
     }
-
 
 
     public Map<String, Object> LEFT_GROUP(Map<String, Object> map, String ref_id) {
@@ -370,8 +369,8 @@ public class utilJava {
         payload.put("group_id", arguments.getString("doc"));
         payload.put("group_mail", arguments.getString("email"));
         payload.put("Self", false);
-        payload.put("bot_size", u.get(1).contains("bots size") ? Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()) : Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()) );
-        payload.put("hour", u.get(0).contains("hour duration") ? Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()) : Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()) );
+        payload.put("bot_size", u.get(1).contains("bots size") ? Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()) : Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()));
+        payload.put("hour", u.get(0).contains("hour duration") ? Integer.parseInt(u.get(0).substring(u.get(0).length() - 2).trim()) : Integer.parseInt(u.get(1).substring(u.get(1).length() - 2).trim()));
         return Wrap(payload);
     }
 
@@ -438,4 +437,21 @@ public class utilJava {
         }
         return Wrap(v);
     }
+
+    public void Wigdet_Check(TextView groupIcon, TextView userIcon, List<Map<String, Object>> objList, int position) {
+
+            groupIcon.setCompoundDrawablesWithIntrinsicBounds( IS(objList,position) ? R.drawable.arrow_downward : R.drawable.arrow_upward, 0, 0, 0);
+            groupIcon.setText(""+new utilKotlin().cast(FORMAT("profit", objList, position)));
+
+            userIcon.setCompoundDrawablesWithIntrinsicBounds( !IS(objList,position) ? R.drawable.arrow_downward : R.drawable.arrow_upward, 0, 0, 0);
+            userIcon.setText(""+new utilKotlin().cast(FORMAT("loss", objList, position)));
+;
+
+    }
+
+    private boolean IS(List<Map<String, Object>> objList, int position) {
+        return  new utilKotlin().cast(FORMAT("loss", objList, position)) > new utilKotlin().cast(FORMAT("profit", objList, position));
+    }
+
+
 }

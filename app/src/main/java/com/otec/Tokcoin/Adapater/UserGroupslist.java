@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +69,8 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         else
             holder.status.setText("Pending");
 
+        new utilJava().Wigdet_Check(holder.groupStake,holder.userStake,obj,position);
+
         if (n == 1) {
             holder.button.setVisibility(View.VISIBLE);
             holder.groupName.setText(FORMAT("groupName", obj, position));
@@ -86,7 +89,6 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.liquidity.setText("Funds " + FORMAT("liquidity", obj, position));
             holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
             holder.loss.setText("loss -" + FORMAT("loss", obj, position));
-
             holder.button.setOnClickListener(e -> {
                 request_withdraw(e.getContext(), FORMAT("ref_id", obj, position));
             });
@@ -143,8 +145,9 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
 
     class CustomerAdapter extends RecyclerView.ViewHolder {
-        private TextView groupName, profit, loss, liquidity, members;
+        private TextView groupName, profit, loss, liquidity, members,groupStake,userStake;
         private Button button, status;
+        private CircleImageView groupIcon,userIcon;
 
         public CustomerAdapter(@NonNull @NotNull View view) {
             super(view);
@@ -155,6 +158,10 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             members = view.findViewById(R.id.members);
             button = view.findViewById(R.id.requestBtn);
             status = view.findViewById(R.id.status);
+            userIcon = view.findViewById(R.id.user_avater);
+            groupIcon = view.findViewById(R.id.group_avater);
+            groupStake = view.findViewById(R.id.group_icons);
+            userStake = view.findViewById(R.id.user_icons);
         }
     }
 }
