@@ -78,6 +78,13 @@ public interface Request {
 
 
 
+
+    @POST("Cravetech/creatorcancel")
+    Call<Map<String,Object>> CANCEL(@Body Map<String,Object> data);
+
+
+
+
     @POST("Cravetech/AddHandler")
     Call<models> START_VN(@Body Map<String,Object> data);
 

@@ -1,6 +1,7 @@
 package com.otec.Tokcoin.UI
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +46,7 @@ class User : Fragment() {
         val walletIcon: ImageView = view.findViewById(R.id.walletIcon)
         val userGas: TextView = view.findViewById(R.id.userGas)
         createGroup_btn = view.findViewById(R.id.create)
-        avater_img = view.findViewById(R.id.userAvatar)
+        avater_img = view.findViewById(R.id.user_screen_avatar)
         createdGroup = view.findViewById(R.id.createdGroup)
         down = view.findViewById(R.id.down)
         load = view.findViewById(R.id.load)

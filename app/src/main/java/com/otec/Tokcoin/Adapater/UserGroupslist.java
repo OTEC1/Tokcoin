@@ -32,6 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.otec.Tokcoin.utils.utilJava.FORMAT;
+
 public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.CustomerAdapter> {
 
     private List<Map<String, Object>> obj;
@@ -72,6 +74,7 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
         new utilJava().Wigdet_Check(holder.groupStake,holder.userStake,obj,position);
 
         if (n == 1) {
+
             holder.button.setVisibility(View.VISIBLE);
             holder.groupName.setText(FORMAT("groupName", obj, position));
             holder.liquidity.setText("Funds " + FORMAT("liquidity", obj, position));
@@ -79,19 +82,25 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
             holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
             holder.members.setText("Users " + Arrays.asList(FORMAT("members_emails", obj, position).split(",")).size() + "/" + (int) Double.parseDouble(FORMAT("liquidator_size", obj, position)));
 
+
             holder.button.setOnClickListener(e -> {
-                request_leave(e.getContext(), FORMAT("doc_id", obj, position));
+                request_withdraw(e.getContext(), FORMAT("doc_id", obj, position),1);
             });
 
 
         } else {
+
             holder.groupName.setText(FORMAT("groupName", obj, position));
             holder.liquidity.setText("Funds " + FORMAT("liquidity", obj, position));
             holder.profit.setText("Roi +" + FORMAT("profit", obj, position));
             holder.loss.setText("loss -" + FORMAT("loss", obj, position));
+
+
             holder.button.setOnClickListener(e -> {
-                request_withdraw(e.getContext(), FORMAT("ref_id", obj, position));
+                request_withdraw(e.getContext(), FORMAT("ref_id", obj, position),0);
             });
+
+
         }
 
     }
@@ -108,40 +117,37 @@ public class UserGroupslist extends RecyclerView.Adapter<UserGroupslist.Customer
 
 
 
-    private void request_withdraw(Context context, String ref_id) {
-        new utilKotlin().message2("Group dispatch"+ref_id, context);
+
+
+
+
+
+
+
+    private void request_withdraw(Context n, String id,int y) {
+        Log.d(TAG, "request_withdraw: "+id+" "+y);
+
+        Request config = Base_config.getRetrofit().create(Request.class);
+        Call<Map<String, Object>> isFunded = y == 0 ? config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), id))  : config.CANCEL(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), id));
+
+        isFunded.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.body() != null)
+                    new utilKotlin().message2(response.body().get("message").toString(), n);
+                else
+                    new utilKotlin().message2("Error occurred ", n);
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                new utilKotlin().message2(t.getMessage(), n);
+            }
+        });
+
     }
 
 
-
-
-
-
-    private void request_leave(Context n, String ref_id) {
-        new utilKotlin().message2("cancel dispatch"+ref_id, context);
-//        Request config = Base_config.getRetrofit().create(Request.class);
-//        Call<Map<String, Object>> isFunded = config.LEAVE(new utilJava().LEFT_GROUP(new utilJava().GET_CACHED_MAP(n, n.getString(R.string.SIGNED_IN_USER)), ref_id));
-//        isFunded.enqueue(new Callback<Map<String, Object>>() {
-//            @Override
-//            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-//                if (response.body() != null)
-//                    new utilKotlin().message2(response.body().get("message").toString(), n);
-//                else
-//                    new utilKotlin().message2("Error occurred ", n);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-//                new utilKotlin().message2(t.getMessage(), n);
-//            }
-//        });
-    }
-
-
-    private String FORMAT(String node, List<Map<String, Object>> obj, int p) {
-        Map<String, Object> i = (Map<String, Object>) obj.get(p).get("User");
-        return i.get(node).toString();
-    }
 
 
     class CustomerAdapter extends RecyclerView.ViewHolder {

@@ -3,6 +3,7 @@ package com.otec.Tokcoin.Adapater;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
             holder.miner_stake.setText(" Gas " + new utilKotlin().cast(FORMAT("miner_stake", objList, position)));
             holder.profit.setText(" Odd " + FORMAT("odd", objList, position));
             holder.status.setText("Live");
+
             Glide.with(holder.user_avatar.getContext()).load(new utilKotlin().cast(FORMAT("avatar", objList, position)) == 0 ? R.drawable.user : new utilKotlin().cast(FORMAT("avatar", objList, position))).into(holder.user_avatar);
             Glide.with(holder.guest_avatar.getContext()).load((new utilKotlin().cast(FORMAT("guest_avatar", objList, position)) == 0 ? R.drawable.user : new utilKotlin().cast(FORMAT("guest_avatar", objList, position)))).into(holder.guest_avatar);
 
@@ -100,7 +102,7 @@ public class JoinGroupCall extends RecyclerView.Adapter<JoinGroupCall.Custom_ada
 
 
             holder.btn.setOnClickListener(e -> {
-
+                Log.d(TAG, "onBindViewHolder: ");
             });
 
 

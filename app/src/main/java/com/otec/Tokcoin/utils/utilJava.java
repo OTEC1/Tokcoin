@@ -378,6 +378,7 @@ public class utilJava {
     public Map<String, Object> Wrap(Map<String, Object> user) {
         Map<String, Object> pack = Maps();
         pack.put("User", user);
+        Log.d(TAG, "Wrap: "+pack);
         return pack;
     }
 
@@ -445,7 +446,6 @@ public class utilJava {
 
             userIcon.setCompoundDrawablesWithIntrinsicBounds( !IS(objList,position) ? R.drawable.arrow_downward : R.drawable.arrow_upward, 0, 0, 0);
             userIcon.setText(""+new utilKotlin().cast(FORMAT("loss", objList, position)));
-;
 
     }
 
