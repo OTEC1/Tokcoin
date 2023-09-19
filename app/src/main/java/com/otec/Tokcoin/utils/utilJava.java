@@ -52,7 +52,6 @@ public class utilJava {
     private SharedPreferences sp;
     private List<Map<String, Object>> o;
 
-
     private String TAG = "utilJava";
 
     public SharedPreferences init(Context view) {

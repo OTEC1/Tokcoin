@@ -113,7 +113,6 @@ public class Group_creation extends Fragment {
     }
 
     private List<Object> populateOdds() {
-
         odds = new ArrayList<>();
         odds.add("Select Odd");
         odds.add(2.5);
@@ -122,7 +121,6 @@ public class Group_creation extends Fragment {
         odds.add(7.5);
         odds.add(9.5);
         odds.add(12.5);
-
         return odds;
     }
 

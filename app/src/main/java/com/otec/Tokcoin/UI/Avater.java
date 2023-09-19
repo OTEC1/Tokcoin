@@ -70,8 +70,8 @@ public class Avater extends Fragment {
         return view;
     }
 
-    private void setLayout(List<Integer> avaters) {
-        avater_adapter = new Avater_adapter(avaters, getContext(), getArguments().getInt("node"));
+    private void setLayout(List<Integer> avatar) {
+        avater_adapter = new Avater_adapter(avatar, getContext(), getArguments().getInt("node"));
         GridLayoutManager manager = new GridLayoutManager(getContext(), 4, GridLayoutManager.VERTICAL, false);
         avater_view.setLayoutManager(manager);
         avater_view.setAdapter(avater_adapter);

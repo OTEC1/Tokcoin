@@ -12,7 +12,7 @@ public interface Request {
 
 
 
-    @GET("https://us-central1-webflystore.cloudfunctions.net/appCat/Banklist")
+    @GET("https://us-central1-chau02-b4019.cloudfunctions.net/appCat/Banklist")
     Call<List<Map<String,Object>>> getListOfBank();
 
 

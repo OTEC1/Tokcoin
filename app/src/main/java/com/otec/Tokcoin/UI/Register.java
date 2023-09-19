@@ -44,6 +44,7 @@ public class Register extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,8 +151,6 @@ public class Register extends AppCompatActivity {
     details.put("bankaccountno", bankAccount_No.getText().toString());
     details.put("Nameonaccount", NameOnAccount.getText().toString());
     details.put("bankselected", bank_selected);
-    details.put("bal", 0);
-    details.put("gas", 0);
     pack.put("User", user);
     pack.put("User_details", details);
     pack.put("User_locations", null);

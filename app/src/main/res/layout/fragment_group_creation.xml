@@ -39,7 +39,7 @@
                     android:layout_toEndOf="@id/groups_icons_cover"
                     android:background="@drawable/inputlines2"
                     android:padding="5dp"
-                    android:src="@drawable/ic_baseline_scatter_plot_2" />
+                    android:src="@drawable/ic_baseline_timer_24" />
 
 
                 <RelativeLayout

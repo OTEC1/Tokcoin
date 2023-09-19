@@ -24,6 +24,7 @@
         android:layout_marginTop="25dp"
         android:src="@drawable/ic_baseline_all_inclusive_24" />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/app_drawer"
         android:layout_width="50dp"
